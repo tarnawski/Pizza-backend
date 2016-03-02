@@ -17,19 +17,19 @@
 - name: Create database dev
   sudo: yes
   sudo_user: postgres
-  postgresql_db: name="JSONMock-dev" state=present
+  postgresql_db: name="pizza-dev" state=present
 
 - name: Create database test
   sudo: yes
   sudo_user: postgres
-  postgresql_db: name="JSONMock-tst" state=present
+  postgresql_db: name="pizza-tst" state=present
 
 - name: Create users
   sudo: yes
   sudo_user: postgres
-  postgresql_user: name=root password=root db=JSONMock-dev priv=ALL
+  postgresql_user: name=root password=root db=pizza-dev priv=ALL
 
 - name: Create users
   sudo: yes
   sudo_user: postgres
-  postgresql_user: name=root password=root db=JSONMock-tst priv=ALL
+  postgresql_user: name=root password=root db=pizza-tst priv=ALL
