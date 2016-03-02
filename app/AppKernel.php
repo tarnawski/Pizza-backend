@@ -21,8 +21,8 @@ class AppKernel extends Kernel
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
 
-            new AppBundle\AppBundle(),
-
+           // new OAuthBundle\OAuthBundle(),
+            new PizzaBundle\PizzaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

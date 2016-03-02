@@ -1,0 +1,11 @@
+OAuthBundle\Entity\User:
+  exclusion_policy: ALL
+  properties:
+    facebook_id:
+      expose: true
+      groups: [User, Details]
+    regions:
+      expose: true
+      groups: [User, Details, Profile]
+      type: ArrayCollection<PGS\DziuraBundle\Entity\Region>
+      max_depth: 2

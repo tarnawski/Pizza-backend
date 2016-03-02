@@ -1,0 +1,52 @@
+PizzaBundle\Entity\PromoCode:
+    type: entity
+    table: promo_code
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            column: name
+            type: string
+            nullable: false
+            length: 50
+            options:
+              fixed: false
+        percent:
+            column: percent
+            type: boolean
+            options:
+                default: 0
+        overall:
+            column: overall
+            type: boolean
+            options:
+                default: 0
+        value:
+            column: value
+            type: integer
+        code:
+            column: code
+            type: string
+            nullable: false
+            length: 20
+            options:
+              fixed: false
+        available:
+            column: available
+            type: boolean
+            options:
+                default: 0
+    manyToOne:
+        application:
+            targetEntity: Application
+            inversedBy: promo_code
+            joinColumn:
+                    name: application_id
+                    referencedColumnName: id

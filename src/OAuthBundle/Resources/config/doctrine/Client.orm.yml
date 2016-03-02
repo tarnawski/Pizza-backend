@@ -1,0 +1,10 @@
+OAuthBundle\Entity\Client:
+  type: entity
+  table: client
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+
+  lifecycleCallbacks: {  }

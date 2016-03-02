@@ -1,0 +1,32 @@
+PizzaBundle\Entity\Price:
+    type: entity
+    table: price
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        type:
+            column: type
+            type: string
+            nullable: false
+            length: 20
+            options:
+              fixed: false
+        value:
+            column: value
+            type: decimal
+            precision: 10
+            scale: 2
+    manyToOne:
+        product:
+            targetEntity: Product
+            inversedBy: price
+            joinColumn:
+                    name: product_id
+                    referencedColumnName: id
