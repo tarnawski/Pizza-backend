@@ -1,0 +1,17 @@
+--- 
+- name: Prepare basic env for php apps on all nodes
+  hosts: 127.0.0.1
+  connection: local
+  remote_user: vagrant
+  sudo: yes
+  vars_files:
+    - ../.project_name.yml
+    - variables.yml
+  roles:
+    - tools
+    - apache
+    - php5
+    - postgres
+    - composer
+    - symfony2
+    - xdebug

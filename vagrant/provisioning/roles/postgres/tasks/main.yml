@@ -1,0 +1,35 @@
+---
+- name: Add repository with postgres 9.4.
+  apt_repository: repo="deb http://apt.postgresql.org/pub/repos/apt/ wheezy-pgdg main"
+
+- name: Add repository key
+  apt_key: url="https://www.postgresql.org/media/keys/ACCC4CF8.asc" state=present
+
+- name: Update repo.
+  apt: update_cache=yes
+
+- name: Install postgres
+  apt: name="postgresql-9.4" state=latest
+
+- name: Install psycopg2 module
+  apt: name="python-psycopg2" state=latest
+
+- name: Create database dev
+  sudo: yes
+  sudo_user: postgres
+  postgresql_db: name="JSONMock-dev" state=present
+
+- name: Create database test
+  sudo: yes
+  sudo_user: postgres
+  postgresql_db: name="JSONMock-tst" state=present
+
+- name: Create users
+  sudo: yes
+  sudo_user: postgres
+  postgresql_user: name=root password=root db=JSONMock-dev priv=ALL
+
+- name: Create users
+  sudo: yes
+  sudo_user: postgres
+  postgresql_user: name=root password=root db=JSONMock-tst priv=ALL

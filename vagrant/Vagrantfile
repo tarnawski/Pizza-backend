@@ -1,0 +1,33 @@
+require "yaml"
+app_config = YAML::load_file("./.project_name.yml")['parameters'];
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.network :private_network, ip: "10.0.0.200"
+  config.ssh.forward_agent = true
+
+  config.vm.provider :virtualbox do |v|
+    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    v.customize ["modifyvm", :id, "--memory", 2048]
+    v.customize ["modifyvm", :id, "--name", app_config["project_name"]]
+    v.customize ["modifyvm", :id, "--cpuexecutioncap", "80"]
+    v.cpus = 2
+  end
+
+  config.vm.synced_folder "./../", "/var/www/" + app_config["project_name"],
+    id: "vagrant-root", type: "nfs", nfs_export: true
+  config.vm.provision "shell",
+      inline: "
+        sudo apt-get --yes install software-properties-common;
+        sudo apt-get --yes install python-pip;
+        sudo apt-add-repository --yes ppa:ansible/ansible;
+        sudo apt-get --yes update ;
+        sudo apt-get --yes install ansible"
+
+  config.vm.provision "shell",
+    inline: "cp -R /var/www/" + app_config["project_name"] + "/vagrant ~/;
+             chmod -x ~/vagrant/provisioning/hosts;
+             cd ~/vagrant/provisioning;
+             ansible-playbook -i hosts site.yml;"
+
+end

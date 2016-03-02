@@ -1,0 +1,7 @@
+---
+xdebug:
+  remote_enable: "on"
+  remote_log: "/var/log/xdebug.log"
+  remote_host: "10.0.0.1"
+  remote_handler: dbgp
+  remote_port: 9000

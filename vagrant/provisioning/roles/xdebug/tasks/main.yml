@@ -1,0 +1,19 @@
+---
+- name: Xdebug | Install PECL manager
+  apt: name={{item}} update_cache=yes
+  with_items:
+    - php-pear
+    - php5-dev
+
+- name: xDebug | install xdebug from pecl
+  shell: pecl install xdebug
+
+- name: xDebug | Adding extension into php.ini files
+  lineinfile:
+    dest=/etc/php5/apache2/php.ini
+    line="zend_extension="/usr/lib/php5/20121212/xdebug.so""
+  notify: restart apache
+
+
+- name: xDebug | configure
+  template: src=xdebug.ini.j2 dest=/etc/php5/apache2/conf.d/xdebug.ini
