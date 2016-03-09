@@ -2,13 +2,13 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@PizzaBundle/Resources/config/services.yml" }
 
 parameters:
     locale: en
 
 framework:
-    #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallback: "%locale%" }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -88,3 +88,23 @@ nelmio_cors:
             allow_headers: ['*']
             allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS']
             max_age: 3600
+
+fos_user:
+    db_driver: orm
+    firewall_name: admin
+    user_class: OAuthBundle\Entity\User
+
+fos_oauth_server:
+    db_driver: orm
+    client_class:        OAuthBundle\Entity\Client
+    access_token_class:  OAuthBundle\Entity\AccessToken
+    refresh_token_class: OAuthBundle\Entity\RefreshToken
+    auth_code_class:     OAuthBundle\Entity\AuthCode
+    service:
+        user_provider: fos_user.user_manager
+        options:
+            access_token_lifetime: 3600
+
+fsi_admin:
+    templates:
+        base: "::admin.html.twig"

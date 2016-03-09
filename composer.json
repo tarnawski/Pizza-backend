@@ -29,7 +29,17 @@
     "friendsofsymfony/rest-bundle": "1.7.*",
     "jms/serializer-bundle": "~0.13",
     "nelmio/api-doc-bundle": "~2.7",
-    "nelmio/cors-bundle": "~1.4.0"
+    "nelmio/cors-bundle": "~1.4.0",
+
+    "friendsofsymfony/oauth-server-bundle": "1.4.*",
+    "friendsofsymfony/user-bundle": "~1.3",
+    "hautelook/alice-bundle": "^1.1",
+    "fsi/admin-bundle": "dev-master",
+    "fsi/admin-security-bundle": "dev-master#b42e6e8ba23e85e17050dbb2b10cd634ca2a3e5a",
+    "fsi/form-extensions-bundle": "dev-master",
+    "stof/doctrine-extensions-bundle": "~1.1",
+    "white-october/pagerfanta-bundle": "^1.0",
+    "hwi/oauth-bundle": "0.4.*"
   },
 
   "require-dev": {

@@ -1,0 +1,3 @@
+pizza_homepage:
+    path:     /
+    defaults: { _controller: PizzaBundle:Default:index }

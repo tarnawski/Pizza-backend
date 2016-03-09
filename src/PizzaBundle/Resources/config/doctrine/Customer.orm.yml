@@ -1,0 +1,62 @@
+PizzaBundle\Entity\Customer:
+    type: entity
+    table: customer
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        firstName:
+            column: firstName
+            type: string
+            nullable: false
+            length: 50
+            options:
+              fixed: false
+        lastName:
+            column: lastName
+            type: string
+            nullable: false
+            length: 50
+            options:
+              fixed: false
+        email:
+            column: email
+            type: string
+            nullable: false
+            length: 50
+            options:
+              fixed: false
+        phone:
+            column: phone
+            type: string
+            nullable: false
+            length: 50
+            options:
+              fixed: false
+        address:
+            column: address
+            type: string
+            nullable: false
+            length: 400
+            options:
+              fixed: false
+    manyToOne:
+        application:
+            targetEntity: Application
+            inversedBy: customer
+            joinColumn:
+                    name: application_id
+                    referencedColumnName: id
+    oneToMany:
+        orders:
+            targetEntity: Order
+            mappedBy: customer
+            cascade: ["all"]
+
+    lifecycleCallbacks: {  }

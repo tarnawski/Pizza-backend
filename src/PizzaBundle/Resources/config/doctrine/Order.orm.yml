@@ -1,0 +1,41 @@
+PizzaBundle\Entity\Order:
+    type: entity
+    table: _order
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        createDate:
+            column: create_date
+            type: datetime
+            nullable: false
+        realized:
+            column: realized
+            type: boolean
+            options:
+                default: 0
+        description:
+            column: description
+            type: string
+            nullable: false
+            length: 800
+            options:
+              fixed: false
+    oneToMany:
+        items:
+            targetEntity: Item
+            mappedBy: order
+            cascade: ["all"]
+    manyToOne:
+        customer:
+            targetEntity: Customer
+            inversedBy: order
+            joinColumn:
+                name: customer_id
+                referencedColumnName: id

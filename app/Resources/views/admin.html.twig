@@ -1,0 +1,17 @@
+
+{% extends "FSiAdminBundle::base.html.twig" %}
+{% block head_meta %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+
+{% endblock %}
+{% block javascripts %}
+    <script>
+        requirejs.config({
+            "paths": {
+                "jquery-ui": "//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui" },
+            deps: ["jquery"]
+                    });
+        require(['jquery-ui', 'bootstrap']);
+    </script>
+{% endblock %}
