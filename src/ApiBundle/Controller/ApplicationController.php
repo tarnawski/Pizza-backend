@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use ApiBundle\Controller\BaseApiController;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use OAuthBundle\Entity\User;
+use PizzaBundle\Entity\Application;
 
 /**
  * Class ApplicationController
@@ -28,9 +30,13 @@ class ApplicationController extends BaseApiController
      */
     public function showAction()
     {
+        /** @var User $current_user */
         $current_user = $this->getUser();
+        /** @var Application $application */
         $application = $current_user->getApplication();
-        var_dump($application);
+
+        return $this->success($application, 'application', Response::HTTP_OK, array('Default', 'Application', 'Customer'));
+
     }
 
 }

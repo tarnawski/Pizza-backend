@@ -1,0 +1,12 @@
+PizzaBundle\Entity\Application:
+  exclusion_policy: ALL
+  properties:
+    name:
+      expose: true
+      groups: [Application, Details]
+    description:
+      expose: true
+      groups: [Application, Details]
+    homepage:
+      expose: true
+      groups: [Application, Details]

@@ -23,9 +23,11 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, OrderedF
         $userAdmin = $this->createAdmin();
         $manager->persist($userAdmin);
 
-        for ($i = 0; $i < self::USERS_NUMBER; $i++) {
+        for ($i = 0; $i < LoadApplicationData::APPLICATIONS_NUMBER; $i++) {
             $user = $this->createUser($faker->unique()->firstName, $faker->unique()->email);
             $this->addReference(sprintf('user-%s', $i), $user);
+            $application = $this->getReference(sprintf('application-%s', $i));
+            $user->setApplication($application);
             $manager->persist($user);
         }
 
@@ -42,7 +44,9 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, OrderedF
         $userAdmin->setEmail('contact@clearcode.eu');
         $userAdmin->setSuperAdmin(true);
         $userAdmin->setEnabled(true);
-
+        $random = rand(0, LoadApplicationData::APPLICATIONS_NUMBER - 1);
+        $application = $this->getReference(sprintf('application-%s', $random));
+        $userAdmin->setApplication($application);
         return $userAdmin;
     }
 
@@ -65,6 +69,6 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, OrderedF
      */
     public function getOrder()
     {
-        return 1;
+        return 3;
     }
 }

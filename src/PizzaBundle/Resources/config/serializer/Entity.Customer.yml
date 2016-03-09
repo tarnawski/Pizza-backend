@@ -1,0 +1,18 @@
+PizzaBundle\Entity\Customer:
+  exclusion_policy: ALL
+  properties:
+    firstName:
+      expose: true
+      groups: [Customer, Details]
+    lastName:
+      expose: true
+      groups: [Customer, Details]
+    email:
+      expose: true
+      groups: [Customer, Details]
+    phone:
+      expose: true
+      groups: [Customer, Details]
+    address:
+      expose: true
+      groups: [Customer, Details]
