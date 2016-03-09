@@ -1,3 +1,6 @@
 api_users:
   prefix: /user/
   resource: "@ApiBundle/Resources/config/api/user.yml"
+
+api_application:
+  resource: "@ApiBundle/Resources/config/api/application.yml"
