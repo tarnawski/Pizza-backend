@@ -1,0 +1,55 @@
+PizzaBundle\Entity\Product:
+    type: entity
+    table: product
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            column: name
+            type: string
+            nullable: false
+            length: 50
+            options:
+              fixed: false
+        description:
+            column: description
+            type: string
+            nullable: false
+            length: 200
+            options:
+              fixed: false
+        available:
+            column: available
+            type: boolean
+            options:
+                default: 0
+
+    manyToOne:
+        application:
+            targetEntity: Application
+            inversedBy: product
+            joinColumn:
+                    name: application_id
+                    referencedColumnName: id
+        type:
+            targetEntity: Type
+            inversedBy: product
+            joinColumn:
+                    name: type_id
+                    referencedColumnName: id
+    oneToMany:
+        prices:
+            targetEntity: Price
+            mappedBy: product
+            cascade: ["all"]
+        items:
+            targetEntity: Item
+            mappedBy: product
+            cascade: ["all"]

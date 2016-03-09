@@ -1,0 +1,17 @@
+OAuthBundle\Entity\AccessToken:
+  type: entity
+  table: accesstoken
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  manyToOne:
+    client:
+      targetEntity: OAuthBundle\Entity\Client
+      joinColumn:
+        nullable: false
+    user:
+      targetEntity: OAuthBundle\Entity\User
+
+  lifecycleCallbacks: {  }

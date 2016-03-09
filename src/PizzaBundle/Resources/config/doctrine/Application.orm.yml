@@ -1,0 +1,52 @@
+PizzaBundle\Entity\Application:
+    type: entity
+    table: application
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            column: name
+            type: string
+            nullable: false
+            length: 50
+            options:
+              fixed: false
+        description:
+            column: description
+            type: string
+            nullable: true
+            length: 150
+            options:
+              fixed: false
+        homepage:
+             column: homepage
+             type: string
+             nullable: true
+             length: 50
+             options:
+               fixed: false
+    oneToMany:
+        users:
+            targetEntity: OAuthBundle\Entity\User
+            mappedBy: application
+            cascade: ["all"]
+        promoCodes:
+            targetEntity: PromoCode
+            mappedBy: application
+            cascade: ["all"]
+        customers:
+            targetEntity: Customer
+            mappedBy: application
+            cascade: ["all"]
+        products:
+            targetEntity: Product
+            mappedBy: application
+            cascade: ["all"]
+    lifecycleCallbacks: {  }

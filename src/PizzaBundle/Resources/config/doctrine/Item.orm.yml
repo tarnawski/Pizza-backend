@@ -1,0 +1,29 @@
+PizzaBundle\Entity\Item:
+    type: entity
+    table: item
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        count:
+            column: count
+            type: integer
+    manyToOne:
+        product:
+            targetEntity: Product
+            inversedBy: item
+            joinColumn:
+                    name: product_id
+                    referencedColumnName: id
+        order:
+            targetEntity: Order
+            inversedBy: item
+            joinColumn:
+                    name: order_id
+                    referencedColumnName: id

@@ -1,0 +1,8 @@
+services:
+  pizza_user_factory:
+    class: OAuthBundle\Model\UserFactory
+
+  pizza_token_builder:
+    class: OAuthBundle\Model\AccessTokenFactory
+    arguments: ["@doctrine.orm.entity_manager", "@fos_oauth_server.server"]
+

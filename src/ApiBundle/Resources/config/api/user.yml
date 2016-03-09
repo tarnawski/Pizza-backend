@@ -1,0 +1,14 @@
+api_user_view:
+  path: /me.{_format}
+  defaults:  { _controller: ApiBundle:User:profile, _format: json }
+  methods: [GET]
+
+api_user_login:
+  path: /login.{_format}
+  defaults:  { _controller: ApiBundle:User:login, _format: json }
+  methods: [POST]
+
+api_user_register:
+  path: /register.{_format}
+  defaults:  { _controller: ApiBundle:User:register, _format: json }
+  methods: [POST]
