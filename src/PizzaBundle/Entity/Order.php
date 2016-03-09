@@ -29,6 +29,11 @@ class Order
      */
     private $items;
 
+    /**
+     * @var Customer
+     */
+    private $customer;
+
     public function __construct()
     {
         $this->items = new \Doctrine\Common\Collections\ArrayCollection();
@@ -118,4 +123,24 @@ class Order
     {
         $this->items->remove($item);
     }
+
+    /**
+     * @return Customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * @param Customer $customer
+     * @return $this
+     */
+    public function setCustomer(Customer $customer)
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
 }

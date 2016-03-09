@@ -126,7 +126,7 @@ class Application
     {
         if (!$this->users->contains($user)) {
             $user->setApplication($this);
-            $this->promoCodes[] = $user;
+            $this->users[] = $user;
         }
         return $this;
     }

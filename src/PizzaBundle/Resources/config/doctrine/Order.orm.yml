@@ -1,6 +1,6 @@
 PizzaBundle\Entity\Order:
     type: entity
-    table: '"order"'
+    table: _order
     id:
         id:
             type: integer
@@ -24,7 +24,7 @@ PizzaBundle\Entity\Order:
             column: description
             type: string
             nullable: false
-            length: 150
+            length: 800
             options:
               fixed: false
     oneToMany:
@@ -32,3 +32,10 @@ PizzaBundle\Entity\Order:
             targetEntity: Item
             mappedBy: order
             cascade: ["all"]
+    manyToOne:
+        customer:
+            targetEntity: Customer
+            inversedBy: order
+            joinColumn:
+                name: customer_id
+                referencedColumnName: id

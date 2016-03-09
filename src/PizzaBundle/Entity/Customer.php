@@ -40,6 +40,16 @@ class Customer
     private $application;
 
     /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    private $orders;
+
+    public function __construct()
+    {
+        $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * @return int
      */
     public function getId()
@@ -144,5 +154,34 @@ class Customer
         $this->application = $application;
 
         return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getOrders()
+    {
+        return $this->orders;
+    }
+
+    /**
+     * @param Order $order
+     * @return $this
+     */
+    public function addOrder(Order $order)
+    {
+        if (!$this->orders->contains($order)) {
+            $order->setCustomer($this);
+            $this->orders[] = $order;
+        }
+        return $this;
+    }
+
+    /**
+     * @param Order $order
+     */
+    public function removeOrder(Order $order)
+    {
+        $this->orders->remove($order);
     }
 }

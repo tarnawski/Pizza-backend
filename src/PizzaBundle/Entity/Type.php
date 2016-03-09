@@ -63,7 +63,7 @@ class Type
     public function addProduct(Product $product)
     {
         if (!$this->products->contains($product)) {
-            $product->setApplication($this);
+            $product->setType($this);
             $this->products[] = $product;
         }
         return $this;

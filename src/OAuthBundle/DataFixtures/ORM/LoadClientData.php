@@ -57,4 +57,14 @@ class LoadClientData implements FixtureInterface, ContainerAwareInterface
     {
         return $this->container;
     }
+
+    /**
+     * Get the order of this fixture
+     *
+     * @return integer
+     */
+    public function getOrder()
+    {
+        return 2;
+    }
 }
