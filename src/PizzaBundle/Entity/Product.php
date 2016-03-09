@@ -39,6 +39,11 @@ class Product
      */
     private $items;
 
+    /**
+     * @var Type
+     */
+    private $type;
+
     public function __construct()
     {
         $this->prices = new \Doctrine\Common\Collections\ArrayCollection();
@@ -144,7 +149,7 @@ class Product
     /**
      * @param Price $price
      */
-    public function removeProduct(Price $price)
+    public function removePrice(Price $price)
     {
         $this->prices->remove($price);
     }
@@ -176,5 +181,24 @@ class Product
     public function removeItem(Item $item)
     {
         $this->items->remove($item);
+    }
+
+    /**
+     * @return Type
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param Type $type
+     * @return $this
+     */
+    public function setType(Type $type)
+    {
+        $this->type = $type;
+
+        return $this;
     }
 }

@@ -6,5 +6,11 @@ OAuthBundle\Entity\User:
       type: integer
       generator:
         strategy: AUTO
-
+  manyToOne:
+    application:
+        targetEntity: PizzaBundle\Entity\Application
+        inversedBy: fos_user
+        joinColumn:
+            name: application_id
+            referencedColumnName: id
   lifecycleCallbacks: {  }

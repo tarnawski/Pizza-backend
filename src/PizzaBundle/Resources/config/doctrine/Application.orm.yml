@@ -33,10 +33,10 @@ PizzaBundle\Entity\Application:
              options:
                fixed: false
     oneToMany:
-#        users:
-#            targetEntity: Users
-#            mappedBy: application
-#            cascade: ["all"]
+        users:
+            targetEntity: OAuthBundle\Entity\User
+            mappedBy: application
+            cascade: ["all"]
         promoCodes:
             targetEntity: PromoCode
             mappedBy: application

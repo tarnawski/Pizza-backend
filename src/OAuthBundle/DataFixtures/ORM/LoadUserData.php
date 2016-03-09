@@ -3,7 +3,7 @@
 namespace OAuthBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use PGS\OAuthBundle\Entity\User;
+use OAuthBundle\Entity\User;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;

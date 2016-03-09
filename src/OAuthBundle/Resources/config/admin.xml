@@ -1,8 +1,18 @@
 <?xml version="1.0" ?>
 
 <container xmlns="http://symfony.com/schema/dic/services"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <services>
+        <service id="clear_code_o_auth.admin.user" class="OAuthBundle\Admin\UserElement">
+            <argument type="collection"></argument>
+            <tag name="admin.element" alias="admin.oauth"/>
+        </service>
+        <service id="clear_code_o_auth.admin.client" class="OAuthBundle\Admin\ClientElement">
+            <argument type="collection"></argument>
+            <tag name="admin.element" alias="admin.oauth"/>
+        </service>
 
+    </services>
 </container>

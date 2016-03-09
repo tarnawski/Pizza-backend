@@ -1,0 +1,3 @@
+api_users:
+  prefix: /user/
+  resource: "@ApiBundle/Resources/config/api/user.yml"

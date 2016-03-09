@@ -9,10 +9,10 @@ OAuthBundle\Entity\AuthCode:
 
   manyToOne:
     client:
-      targetEntity: PGS\OAuthBundle\Entity\Client
+      targetEntity: OAuthBundle\Entity\Client
       joinColumn:
         nullable: false
     user:
-        targetEntity: PGS\OAuthBundle\Entity\User
+        targetEntity: OAuthBundle\Entity\User
 
   lifecycleCallbacks: {  }

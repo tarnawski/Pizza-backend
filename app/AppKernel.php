@@ -20,9 +20,21 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
+            new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
 
-           // new OAuthBundle\OAuthBundle(),
+            // Bundles required by FSiAdminBundle
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new FSi\Bundle\DataSourceBundle\DataSourceBundle(),
+            new FSi\Bundle\DataGridBundle\DataGridBundle(),
+            new FSi\Bundle\AdminBundle\FSiAdminBundle(),
+
+            // FSiAdminSecureBundle
+            new FSi\Bundle\AdminSecurityBundle\FSiAdminSecurityBundle(),
+            new OAuthBundle\OAuthBundle(),
             new PizzaBundle\PizzaBundle(),
+            new ApiBundle\ApiBundle(),
+
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

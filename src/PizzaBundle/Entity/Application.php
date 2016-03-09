@@ -2,6 +2,8 @@
 
 namespace PizzaBundle\Entity;
 
+use OAuthBundle\Entity\User;
+
 class Application
 {
     /**
@@ -24,10 +26,10 @@ class Application
      */
     private $homepage;
 
-//    /**
-//     * @var \Doctrine\Common\Collections\ArrayCollection
-//     */
-//    private $users;
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    private $users;
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
@@ -108,21 +110,34 @@ class Application
         $this->homepage = $homepage;
     }
 
-//    /**
-//     * @return \Doctrine\Common\Collections\ArrayCollection
-//     */
-//    public function getUsers()
-//    {
-//        return $this->users;
-//    }
-//
-//    /**
-//     * @param \Doctrine\Common\Collections\ArrayCollection $users
-//     */
-//    public function setUsers($users)
-//    {
-//        $this->users = $users;
-//    }
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * @param User $user
+     * @return $this
+     */
+    public function addUser(User $user)
+    {
+        if (!$this->users->contains($user)) {
+            $user->setApplication($this);
+            $this->promoCodes[] = $user;
+        }
+        return $this;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function removeUser(User $user)
+    {
+        $this->users->remove($user);
+    }
 
     /**
      * @return \Doctrine\Common\Collections\ArrayCollection

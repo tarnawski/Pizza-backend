@@ -7,5 +7,5 @@ OAuthBundle\Entity\User:
     regions:
       expose: true
       groups: [User, Details, Profile]
-      type: ArrayCollection<PGS\DziuraBundle\Entity\Region>
+      type: ArrayCollection<DziuraBundle\Entity\Region>
       max_depth: 2

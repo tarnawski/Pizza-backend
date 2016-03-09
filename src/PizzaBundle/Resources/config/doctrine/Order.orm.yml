@@ -1,6 +1,6 @@
 PizzaBundle\Entity\Order:
     type: entity
-    table: order
+    table: '"order"'
     id:
         id:
             type: integer

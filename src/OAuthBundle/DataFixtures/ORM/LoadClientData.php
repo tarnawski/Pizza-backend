@@ -2,8 +2,7 @@
 
 namespace OAuthBundle\DataFixtures\ORM;
 
-use PGS\OAuthBundle\Entity\Client;
-use PGS\OAuthBundle\Entity\User;
+use OAuthBundle\Entity\Client;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
