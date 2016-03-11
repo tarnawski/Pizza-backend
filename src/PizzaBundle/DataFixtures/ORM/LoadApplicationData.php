@@ -24,6 +24,8 @@ class LoadApplicationData extends AbstractFixture implements FixtureInterface, O
             $application->setName($faker->word);
             $application->setDescription($faker->sentence(12));
             $application->setHomepage($faker->url);
+            $application->setCreateDate($faker->dateTime);
+            $application->setDemo($faker->boolean());
 
             $this->addReference(sprintf('application-%s', $i), $application);
 

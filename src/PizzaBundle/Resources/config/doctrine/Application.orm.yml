@@ -32,6 +32,15 @@ PizzaBundle\Entity\Application:
              length: 150
              options:
                fixed: false
+        demo:
+            column: realized
+            type: boolean
+            options:
+                default: 0
+        createDate:
+            column: create_date
+            type: datetime
+            nullable: false
     oneToMany:
         users:
             targetEntity: OAuthBundle\Entity\User

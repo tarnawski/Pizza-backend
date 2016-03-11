@@ -10,3 +10,9 @@ PizzaBundle\Entity\Application:
     homepage:
       expose: true
       groups: [Application, Details]
+    demo:
+      expose: true
+      groups: [Application, Details]
+    createDate:
+      expose: true
+      groups: [Application, Details]

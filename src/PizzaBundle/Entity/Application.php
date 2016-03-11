@@ -27,6 +27,16 @@ class Application
     private $homepage;
 
     /**
+     * @var boolean
+     */
+    private $demo;
+
+    /**
+     * @var \DateTime
+     */
+    private $createDate;
+
+    /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
     private $users;
@@ -108,6 +118,38 @@ class Application
     public function setHomepage($homepage)
     {
         $this->homepage = $homepage;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreateDate()
+    {
+        return $this->createDate;
+    }
+
+    /**
+     * @param \DateTime $createDate
+     */
+    public function setCreateDate($createDate)
+    {
+        $this->createDate = $createDate;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isDemo()
+    {
+        return $this->demo;
+    }
+
+    /**
+     * @param boolean $demo
+     */
+    public function setDemo($demo)
+    {
+        $this->demo = $demo;
     }
 
     /**
