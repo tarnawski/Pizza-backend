@@ -24,10 +24,8 @@ class LoadApplicationData extends AbstractFixture implements FixtureInterface, O
             $application->setName($faker->word);
             $application->setDescription($faker->sentence(12));
             $application->setHomepage($faker->url);
-            $random = rand(0, LoadUserData::USERS_NUMBER - 1);
-
-            $user = $this->getReference(sprintf('user-%s', $random));
-            $application->addUser($user);
+            $application->setCreateDate($faker->dateTime);
+            $application->setDemo($faker->boolean());
 
             $this->addReference(sprintf('application-%s', $i), $application);
 
@@ -44,6 +42,6 @@ class LoadApplicationData extends AbstractFixture implements FixtureInterface, O
      */
     public function getOrder()
     {
-        return 3;
+        return 2;
     }
 }

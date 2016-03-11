@@ -2,16 +2,15 @@
 
 namespace OAuthBundle\DataFixtures\ORM;
 
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use OAuthBundle\Entity\Client;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class LoadClientData implements FixtureInterface, ContainerAwareInterface
+class LoadClientData implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
 {
-    const NUMBER_OF_CLIENTS = 20;
-
     /**
      * @var ContainerInterface
      */
@@ -65,6 +64,6 @@ class LoadClientData implements FixtureInterface, ContainerAwareInterface
      */
     public function getOrder()
     {
-        return 2;
+        return 1;
     }
 }

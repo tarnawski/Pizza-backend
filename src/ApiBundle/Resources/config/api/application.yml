@@ -1,0 +1,4 @@
+api_application_show:
+  path: /application.{_format}
+  defaults:  { _controller: ApiBundle:Application:show, _format: json }
+  methods: [GET]
