@@ -13,3 +13,6 @@ api_type:
 
 api_price:
   resource: "@ApiBundle/Resources/config/api/price.yml"
+
+api_promocode:
+  resource: "@ApiBundle/Resources/config/api/promocode.yml"
