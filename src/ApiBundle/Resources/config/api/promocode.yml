@@ -1,0 +1,24 @@
+api_promocode_index:
+  path: promocodes.{_format}
+  defaults:  { _controller: ApiBundle:PromoCode:index, _format: json }
+  methods: [GET]
+
+api_promocode_show:
+  path: promocodes/{promocode_id}.{_format}
+  defaults:  { _controller: ApiBundle:PromoCode:show, _format: json }
+  methods: [GET]
+
+api_promocode_create:
+  path: promocodes.{_format}
+  defaults:  { _controller: ApiBundle:PromoCode:create, _format: json }
+  methods: [POST]
+
+api_promocode_update:
+  path: promocodes/{promocode_id}.{_format}
+  defaults:  { _controller: ApiBundle:PromoCode:update, _format: json }
+  methods: [PUT]
+
+api_promocode_delete:
+  path: promocodes/{promocode_id}.{_format}
+  defaults:  { _controller: ApiBundle:PromoCode:delete, _format: json }
+  methods: [DELETE]
