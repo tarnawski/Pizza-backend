@@ -3,11 +3,11 @@ PizzaBundle\Entity\Price:
   properties:
     id:
       expose: true
-      groups: [Price, Details]
+      groups: [Price, Details, ItemPrice]
     type:
       expose: true
-      groups: [Price, Details]
+      groups: [Price, Details, ItemPrice]
     value:
       expose: true
-      groups: [Price, Details]
+      groups: [Price, Details, ItemPrice]
 

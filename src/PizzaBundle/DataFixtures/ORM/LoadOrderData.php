@@ -7,6 +7,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Faker\Factory;
+use PizzaBundle\Entity\Customer;
 use PizzaBundle\Entity\Order;
 
 class LoadOrderData extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface
@@ -25,8 +26,10 @@ class LoadOrderData extends AbstractFixture implements FixtureInterface, Ordered
             $order->setDescription($faker->sentence(50));
             $order->setRealized($faker->boolean());
             $random = rand(0, LoadCustomerData::CUSTOMER_NUMBER - 1);
+            /** @var Customer $customer */
             $customer = $this->getReference(sprintf('customer-%s', $random));
             $order->setCustomer($customer);
+            $order->setApplication($customer->getApplication());
             $this->addReference(sprintf('order-%s', $i), $order);
 
             $manager->persist($order);

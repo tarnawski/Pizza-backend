@@ -50,3 +50,4 @@ PizzaBundle\Entity\PromoCode:
             joinColumn:
                     name: application_id
                     referencedColumnName: id
+    lifecycleCallbacks: {  }

@@ -24,6 +24,15 @@ class Price
      */
     private $product;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $items;
+
+    public function __construct()
+    {
+        $this->items = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * @return int
@@ -82,5 +91,34 @@ class Price
         $this->product = $product;
 
         return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
+     * @param Item $item
+     * @return $this
+     */
+    public function addItem(Item $item)
+    {
+        if (!$this->items->contains($item)) {
+            $item->setOrder($this);
+            $this->items[] = $item;
+        }
+        return $this;
+    }
+
+    /**
+     * @param Item $item
+     */
+    public function removeItem(Item $item)
+    {
+        $this->items->remove($item);
     }
 }

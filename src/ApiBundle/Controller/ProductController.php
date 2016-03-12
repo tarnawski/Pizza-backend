@@ -41,7 +41,7 @@ class ProductController extends BaseApiController
             return JsonResponse::create(array('status' => 'Info', 'message' => 'No product in application'));
         }
 
-        return $this->success($products, 'product', Response::HTTP_OK, array('Default', 'Product'));
+        return $this->success($products, 'product', Response::HTTP_OK, array('Default', 'Product', 'Price'));
     }
 
     /**
@@ -62,7 +62,7 @@ class ProductController extends BaseApiController
             return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
         }
 
-        return $this->success($product, 'product', Response::HTTP_OK, array('Default', 'Product'));
+        return $this->success($product, 'product', Response::HTTP_OK, array('Default', 'Product', 'Price'));
     }
 
 
@@ -139,7 +139,7 @@ class ProductController extends BaseApiController
         $em->persist($product);
         $em->flush();
 
-        return $this->success($product, 'product', Response::HTTP_OK, array('Default', 'Product'));
+        return $this->success($product, 'product', Response::HTTP_OK, array('Default', 'Product', 'Price'));
     }
 
     /**

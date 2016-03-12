@@ -8,6 +8,8 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Faker\Factory;
 use PizzaBundle\Entity\Item;
+use PizzaBundle\Entity\Order;
+use PizzaBundle\Entity\Product;
 
 class LoadItemData extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface
 {
@@ -23,11 +25,14 @@ class LoadItemData extends AbstractFixture implements FixtureInterface, OrderedF
             $item = new Item();
             $item->setCount($faker->numberBetween(1,3));
             $random = rand(0, LoadProductData::PRODUCT_NUMBER - 1);
+            /** @var Product $product */
             $product = $this->getReference(sprintf('product-%s', $random));
             $item->setProduct($product);
             $random = rand(0, LoadOrderData::ORDER_NUMBER - 1);
+            /** @var Order $order */
             $order = $this->getReference(sprintf('order-%s', $random));
             $item->setOrder($order);
+            $item->setPrice($product->getPrices()->first());
             $manager->persist($item);
         }
 

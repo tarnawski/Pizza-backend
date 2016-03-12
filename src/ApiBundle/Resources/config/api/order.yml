@@ -1,0 +1,19 @@
+api_order_index:
+  path: orders.{_format}
+  defaults:  { _controller: ApiBundle:Order:index, _format: json }
+  methods: [GET]
+
+api_order_show:
+  path: orders/{order_id}.{_format}
+  defaults:  { _controller: ApiBundle:Order:show, _format: json }
+  methods: [GET]
+
+api_order_change_status:
+  path: orders/{order_id}.{_format}
+  defaults:  { _controller: ApiBundle:Order:changeStatus, _format: json }
+  methods: [PUT]
+
+api_order_delete:
+  path: orders/{order_id}.{_format}
+  defaults:  { _controller: ApiBundle:Order:delete, _format: json }
+  methods: [DELETE]
