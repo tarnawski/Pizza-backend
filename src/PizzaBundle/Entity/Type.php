@@ -15,6 +15,11 @@ class Type
     private $name;
 
     /**
+     * @var Application
+     */
+    private $application;
+
+    /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
     private $products;
@@ -77,5 +82,22 @@ class Type
         $this->products->remove($product);
     }
 
+    /**
+     * @return Application
+     */
+    public function getApplication()
+    {
+        return $this->application;
+    }
 
+    /**
+     * @param Application $application
+     * @return $this
+     */
+    public function setApplication(Application $application)
+    {
+        $this->application = $application;
+
+        return $this;
+    }
 }

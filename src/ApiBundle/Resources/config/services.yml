@@ -10,3 +10,15 @@ services:
     arguments: ["@doctrine.orm.entity_manager"]
     tags:
       -  { name: validator.constraint_validator, alias: user_validate }
+
+  product_voter:
+    class: ApiBundle\Security\Authorization\Voter\ProductVoter
+    tags:
+      - { name: security.voter }
+    public: false
+
+#  price_voter:
+#    class: ApiBundle\Security\Authorization\Voter\PriceVoter
+#    tags:
+#      - { name: security.voter }
+#    public: false

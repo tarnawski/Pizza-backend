@@ -20,4 +20,3 @@ ApiBundle\Model\Register:
                   mapping: username
                 - name: email
                   mapping: email
-

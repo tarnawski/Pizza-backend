@@ -1,0 +1,24 @@
+api_price_index:
+  path: products/{product_id}/prices.{_format}
+  defaults:  { _controller: ApiBundle:Price:index, _format: json }
+  methods: [GET]
+
+api_price_show:
+  path: products/{product_id}/prices/{price_id}.{_format}
+  defaults:  { _controller: ApiBundle:Price:show, _format: json }
+  methods: [GET]
+
+api_price_create:
+  path: products/{product_id}/prices.{_format}
+  defaults:  { _controller: ApiBundle:Price:create, _format: json }
+  methods: [POST]
+
+api_price_update:
+  path: products/{product_id}/prices/{price_id}.{_format}
+  defaults:  { _controller: ApiBundle:Price:update, _format: json }
+  methods: [PUT]
+
+api_price_delete:
+  path: products/{product_id}/prices/{price_id}.{_format}
+  defaults:  { _controller: ApiBundle:Price:delete, _format: json }
+  methods: [DELETE]

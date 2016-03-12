@@ -1,0 +1,4 @@
+PizzaBundle\Entity\Type:
+    properties:
+        name:
+            - NotBlank: ~

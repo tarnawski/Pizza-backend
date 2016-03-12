@@ -1,2 +1,4 @@
 services:
+  pizza.type.factory:
+    class: PizzaBundle\Model\TypeFactory
 

@@ -7,6 +7,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Faker\Factory;
+use PizzaBundle\Entity\Product;
 use PizzaBundle\Entity\Type;
 
 class LoadTypeData extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface
@@ -22,8 +23,10 @@ class LoadTypeData extends AbstractFixture implements FixtureInterface, OrderedF
             $type = new Type();
             $key = array_rand($types);
             $type->setName($types[$key]);
+            /** @var Product $product */
             $product = $this->getReference(sprintf('product-%s', $i));
             $type->addProduct($product);
+            $type->setApplication($product->getApplication());
             $manager->persist($type);
         }
 

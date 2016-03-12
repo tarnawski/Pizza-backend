@@ -4,3 +4,12 @@ api_users:
 
 api_application:
   resource: "@ApiBundle/Resources/config/api/application.yml"
+
+api_products:
+  resource: "@ApiBundle/Resources/config/api/product.yml"
+
+api_type:
+  resource: "@ApiBundle/Resources/config/api/type.yml"
+
+api_price:
+  resource: "@ApiBundle/Resources/config/api/price.yml"
