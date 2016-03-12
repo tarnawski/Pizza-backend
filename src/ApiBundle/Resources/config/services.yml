@@ -17,8 +17,32 @@ services:
       - { name: security.voter }
     public: false
 
-#  price_voter:
-#    class: ApiBundle\Security\Authorization\Voter\PriceVoter
-#    tags:
-#      - { name: security.voter }
-#    public: false
+  customer_voter:
+    class: ApiBundle\Security\Authorization\Voter\CustomerVoter
+    tags:
+      - { name: security.voter }
+    public: false
+
+  order_voter:
+    class: ApiBundle\Security\Authorization\Voter\OrderVoter
+    tags:
+      - { name: security.voter }
+    public: false
+
+  price_voter:
+    class: ApiBundle\Security\Authorization\Voter\PriceVoter
+    tags:
+      - { name: security.voter }
+    public: false
+
+  promocode_voter:
+    class: ApiBundle\Security\Authorization\Voter\PromoCodeVoter
+    tags:
+      - { name: security.voter }
+    public: false
+
+  type_voter:
+    class: ApiBundle\Security\Authorization\Voter\TypeVoter
+    tags:
+      - { name: security.voter }
+    public: false

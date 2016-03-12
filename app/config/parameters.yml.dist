@@ -2,8 +2,8 @@ parameters:
     database_host:     127.0.0.1
     database_port:     5432
     database_name:     pizza
-    database_user:     postgres
-    database_password: ~
+    database_user:     root
+    database_password: root
 
 
     mailer_transport:  smtp

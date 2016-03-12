@@ -3,12 +3,12 @@
 namespace ApiBundle\Security\Authorization\Voter;
 
 use PizzaBundle\Entity\Application;
-use PizzaBundle\Entity\Product;
+use PizzaBundle\Entity\Customer;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use OAuthBundle\Entity\User;
 
-class ProductVoter extends Voter
+class CustomerVoter extends Voter
 {
     const ACCESS = 'access';
 
@@ -18,7 +18,7 @@ class ProductVoter extends Voter
             return false;
         }
 
-        if (!$subject instanceof Product) {
+        if (!$subject instanceof Customer) {
             return false;
         }
 
@@ -32,21 +32,21 @@ class ProductVoter extends Voter
             return false;
         }
 
-        /** @var Product $product */
-        $product = $subject;
+        /** @var Customer $customer */
+        $customer = $subject;
 
         switch($attribute) {
             case self::ACCESS:
-                return $this->canAccess($product, $user);
+                return $this->canAccess($customer, $user);
         }
 
         throw new \LogicException('This code should not be reached!');
     }
 
-    private function canAccess(Product $product, User $user)
+    private function canAccess(Customer $customer, User $user)
     {
         /** @var Application $application */
-        $application = $product->getApplication();
+        $application = $customer->getApplication();
         $users = $application->getUsers();
 
         return $users->contains($user);
