@@ -1,0 +1,24 @@
+api_type_index:
+  path: types.{_format}
+  defaults:  { _controller: ApiBundle:Type:index, _format: json }
+  methods: [GET]
+
+api_type_show:
+  path: types/{type_id}.{_format}
+  defaults:  { _controller: ApiBundle:Type:show, _format: json }
+  methods: [GET]
+
+api_type_create:
+  path: types.{_format}
+  defaults:  { _controller: ApiBundle:Type:create, _format: json }
+  methods: [POST]
+
+api_type_update:
+  path: types/{type_id}.{_format}
+  defaults:  { _controller: ApiBundle:Type:update, _format: json }
+  methods: [PUT]
+
+api_type_delete:
+  path: types/{type_id}.{_format}
+  defaults:  { _controller: ApiBundle:Type:delete, _format: json }
+  methods: [DELETE]

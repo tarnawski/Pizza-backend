@@ -1,6 +1,8 @@
 PizzaBundle\Entity\Type:
     type: entity
     table: type
+    repositoryClass: PizzaBundle\Entity\TypeRepository
+
     id:
         id:
             type: integer
@@ -12,7 +14,7 @@ PizzaBundle\Entity\Type:
                 strategy: IDENTITY
     fields:
         name:
-            column: type
+            column: name
             type: string
             nullable: false
             length: 20
@@ -23,3 +25,10 @@ PizzaBundle\Entity\Type:
             targetEntity: Product
             mappedBy: type
             cascade: ["all"]
+    manyToOne:
+        application:
+            targetEntity: Application
+            inversedBy: type
+            joinColumn:
+                    name: application_id
+                    referencedColumnName: id

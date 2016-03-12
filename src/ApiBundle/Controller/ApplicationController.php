@@ -20,7 +20,7 @@ class ApplicationController extends BaseApiController
 {
     public function getEntityClassName()
     {
-        return 'OAuthBundle\Entity\Application';
+        return 'PizzaBundle\Entity\Application';
     }
 
     /**
@@ -35,7 +35,7 @@ class ApplicationController extends BaseApiController
         /** @var Application $application */
         $application = $current_user->getApplication();
 
-        return $this->success($application, 'application', Response::HTTP_OK, array('Default', 'Application', 'Customer'));
+        return $this->success($application, 'application', Response::HTTP_OK, array('Default', 'Application'));
 
     }
 

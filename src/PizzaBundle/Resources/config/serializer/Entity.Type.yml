@@ -1,0 +1,11 @@
+PizzaBundle\Entity\Type:
+  exclusion_policy: ALL
+  properties:
+    id:
+      expose: true
+      groups: [Type, Details]
+    name:
+      expose: true
+      groups: [Type, Details]
+
+

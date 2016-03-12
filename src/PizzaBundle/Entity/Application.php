@@ -56,12 +56,18 @@ class Application
      */
     private $products;
 
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    private $types;
+
     public function __construct()
     {
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
         $this->promoCodes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->customers = new \Doctrine\Common\Collections\ArrayCollection();
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->types = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -266,5 +272,34 @@ class Application
     public function removeProduct(Product $product)
     {
         $this->products->remove($product);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getTypes()
+    {
+        return $this->types;
+    }
+
+    /**
+     * @param Type $type
+     * @return $this
+     */
+    public function addType(Type $type)
+    {
+        if (!$this->types->contains($type)) {
+            $type->setApplication($this);
+            $this->types[] = $type;
+        }
+        return $this;
+    }
+
+    /**
+     * @param Type $type
+     */
+    public function removeType(Type $type)
+    {
+        $this->types->remove($type);
     }
 }

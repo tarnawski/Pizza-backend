@@ -1,0 +1,14 @@
+api_product_index:
+  path: products.{_format}
+  defaults:  { _controller: ApiBundle:Product:index, _format: json }
+  methods: [GET]
+
+api_product_show:
+  path: products/{product_id}.{_format}
+  defaults:  { _controller: ApiBundle:Product:show, _format: json }
+  methods: [GET]
+
+api_product_create:
+  path: products.{_format}
+  defaults:  { _controller: ApiBundle:Product:create, _format: json }
+  methods: [POST]

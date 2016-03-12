@@ -1,0 +1,13 @@
+PizzaBundle\Entity\Product:
+  exclusion_policy: ALL
+  properties:
+    name:
+      expose: true
+      groups: [Product, Details]
+    description:
+      expose: true
+      groups: [Product, Details]
+    available:
+      expose: true
+      groups: [Product, Details]
+
