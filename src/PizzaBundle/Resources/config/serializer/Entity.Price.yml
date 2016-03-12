@@ -1,6 +1,9 @@
 PizzaBundle\Entity\Price:
   exclusion_policy: ALL
   properties:
+    id:
+      expose: true
+      groups: [Price, Details]
     type:
       expose: true
       groups: [Price, Details]

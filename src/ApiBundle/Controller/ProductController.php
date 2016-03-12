@@ -101,4 +101,69 @@ class ProductController extends BaseApiController
 
         return $this->success($product, 'product', Response::HTTP_OK, array('Default', 'Product'));
     }
+
+    /**
+     * @ApiDoc(
+     *  description="Update Product",
+     *  parameters={
+     *      {"name"="name", "dataType"="string", "required"=true, "description"="Name of Type Product"},
+     *      {"name"="description", "dataType"="string", "required"=true, "description"="Description of Type Product"},
+     *      {"name"="available", "dataType"="boolean", "required"=true, "description"="If Product is available"},
+     *  })
+     * )
+     * @param Request $request
+     * @param Product $product
+     * @ParamConverter("product", class="PizzaBundle\Entity\Product", options={"id" = "product_id"})
+     * @return mixed
+     */
+    public function updateAction(Request $request, Product $product = null)
+    {
+        if ($product == null){
+            return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
+        }
+        $application = $this->getApplication();
+        if ($product->getApplication() != $application){
+            return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
+        }
+
+        $form = $this->get('form.factory')->create(new ProductType(), $product);
+        $formData = json_decode($request->getContent(), true);
+
+        $form->submit($formData);
+
+        if (!$form->isValid()) {
+            return $this->error($this->getErrorMessages($form));
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($product);
+        $em->flush();
+
+        return $this->success($product, 'product', Response::HTTP_OK, array('Default', 'Product'));
+    }
+
+    /**
+     * @ApiDoc(
+     *  description="Delete Product",
+     *)
+     * @param Product $product
+     * @return mixed|Response
+     * @ParamConverter("product", class="PizzaBundle\Entity\Product", options={"id" = "product_id"})
+     */
+    public function deleteAction(Product $product = null)
+    {
+        if ($product == null){
+            return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
+        }
+        $application = $this->getApplication();
+        if ($product->getApplication() != $application){
+            return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($product);
+        $em->flush();
+
+        return JsonResponse::create(array('status' => 'Removed', 'message' => 'Product properly removed'));
+    }
 }

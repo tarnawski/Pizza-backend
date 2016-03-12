@@ -1,6 +1,9 @@
 PizzaBundle\Entity\Product:
   exclusion_policy: ALL
   properties:
+    id:
+      expose: true
+      groups: [Product, Details]
     name:
       expose: true
       groups: [Product, Details]

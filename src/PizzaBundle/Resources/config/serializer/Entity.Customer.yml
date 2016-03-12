@@ -1,6 +1,9 @@
 PizzaBundle\Entity\Customer:
   exclusion_policy: ALL
   properties:
+    id:
+      expose: true
+      groups: [Customer, Details]
     firstName:
       expose: true
       groups: [Customer, Details]

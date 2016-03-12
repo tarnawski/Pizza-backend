@@ -10,3 +10,6 @@ api_products:
 
 api_type:
   resource: "@ApiBundle/Resources/config/api/type.yml"
+
+api_price:
+  resource: "@ApiBundle/Resources/config/api/price.yml"

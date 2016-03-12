@@ -12,3 +12,13 @@ api_product_create:
   path: products.{_format}
   defaults:  { _controller: ApiBundle:Product:create, _format: json }
   methods: [POST]
+
+api_product_update:
+  path: products/{product_id}.{_format}
+  defaults:  { _controller: ApiBundle:Product:update, _format: json }
+  methods: [PUT]
+
+api_product_delete:
+  path: products/{product_id}.{_format}
+  defaults:  { _controller: ApiBundle:Product:delete, _format: json }
+  methods: [DELETE]
