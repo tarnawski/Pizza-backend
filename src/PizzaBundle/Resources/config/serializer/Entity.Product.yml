@@ -13,4 +13,9 @@ PizzaBundle\Entity\Product:
     available:
       expose: true
       groups: [Product, Details]
+    prices:
+      expose: true
+      groups: [Price, Details]
+      type: ArrayCollection<PizzaBundle\Entity\Price>
+      max_depth: 1
 

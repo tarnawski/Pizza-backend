@@ -19,3 +19,6 @@ api_promocode:
 
 api_customer:
   resource: "@ApiBundle/Resources/config/api/customer.yml"
+
+api_order:
+  resource: "@ApiBundle/Resources/config/api/order.yml"

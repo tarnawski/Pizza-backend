@@ -25,6 +25,11 @@ class Item
     private $order;
 
     /**
+     * @var Price
+     */
+    private $price;
+
+    /**
      * @return int
      */
     public function getId()
@@ -59,7 +64,7 @@ class Item
     /**
      * @param Product $product
      */
-    public function setProduct($product)
+    public function setProduct(Product $product)
     {
         $this->product = $product;
     }
@@ -75,8 +80,24 @@ class Item
     /**
      * @param Order $order
      */
-    public function setOrder($order)
+    public function setOrder(Order $order)
     {
         $this->order = $order;
+    }
+
+    /**
+     * @return Price
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param Price $price
+     */
+    public function setPrice(Price $price)
+    {
+        $this->price = $price;
     }
 }

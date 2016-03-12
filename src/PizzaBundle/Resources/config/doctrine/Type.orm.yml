@@ -32,3 +32,4 @@ PizzaBundle\Entity\Type:
             joinColumn:
                     name: application_id
                     referencedColumnName: id
+    lifecycleCallbacks: {  }

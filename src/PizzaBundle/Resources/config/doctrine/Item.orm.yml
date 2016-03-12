@@ -21,9 +21,16 @@ PizzaBundle\Entity\Item:
             joinColumn:
                     name: product_id
                     referencedColumnName: id
+        price:
+            targetEntity: Price
+            inversedBy: item
+            joinColumn:
+                    name: price_id
+                    referencedColumnName: id
         order:
             targetEntity: Order
             inversedBy: item
             joinColumn:
                     name: order_id
                     referencedColumnName: id
+    lifecycleCallbacks: {  }

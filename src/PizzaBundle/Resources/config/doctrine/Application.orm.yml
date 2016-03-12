@@ -62,4 +62,8 @@ PizzaBundle\Entity\Application:
             targetEntity: Type
             mappedBy: application
             cascade: ["all"]
+        orders:
+            targetEntity: Order
+            mappedBy: application
+            cascade: ["all"]
     lifecycleCallbacks: {  }

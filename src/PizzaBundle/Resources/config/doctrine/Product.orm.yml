@@ -53,3 +53,4 @@ PizzaBundle\Entity\Product:
             targetEntity: Item
             mappedBy: product
             cascade: ["all"]
+    lifecycleCallbacks: {  }

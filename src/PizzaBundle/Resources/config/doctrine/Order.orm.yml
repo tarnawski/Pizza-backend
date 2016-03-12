@@ -39,3 +39,10 @@ PizzaBundle\Entity\Order:
             joinColumn:
                 name: customer_id
                 referencedColumnName: id
+        application:
+            targetEntity: Application
+            inversedBy: order
+            joinColumn:
+                    name: application_id
+                    referencedColumnName: id
+    lifecycleCallbacks: {  }
