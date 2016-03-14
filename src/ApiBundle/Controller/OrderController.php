@@ -2,15 +2,20 @@
 
 namespace ApiBundle\Controller;
 
+use Hateoas\Representation\Factory\PagerfantaFactory;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
 use PizzaBundle\Entity\Order;
+use PizzaBundle\Repository\OrderCriteria;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use ApiBundle\Controller\BaseApiController;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-
+use Hateoas\Configuration\Route;
+use PizzaBundle\Repository\OrderRepository;
 /**
  * Class OrderController
  * @package ApiBundle\Controller
@@ -26,17 +31,44 @@ class OrderController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Return all Orders belongs to Application",
+     *  parameters={
+     *      {"name"="realized", "dataType"="boolean", "required"=false, "description"="Filter by realized status"},
+     *      {"name"="gte", "dataType"="datetime", "required"=false, "description"="Filter by date"},
+     *      {"name"="lte", "dataType"="datetime", "required"=false, "description"="Filter by date"},
+     *  }
      * )
+     * @param Request $request
      * @return mixed
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $application = $this->getApplication();
-        $orders = $application->getOrders();
 
-        if($orders->isEmpty()){
-            return JsonResponse::create(array('status' => 'Info', 'message' => 'No orders in application'));
-        }
+        $page = $request->get('page', 1);
+        $limit = $request->get('limit', 10);
+
+        $orderCriteria = new OrderCriteria($application->getId());
+        $orderCriteria->setGte($request->get('gte'));
+        $orderCriteria->setLte($request->get('lte'));
+        $orderCriteria->setRealized($request->get('realized'));
+
+        /** @var OrderRepository $orderRepository */
+        $orderRepository = $this->get('pizza.order.repository');
+        $qb = $orderRepository->getOrderWithCriteria($orderCriteria);
+
+        $pagerFantaFactory = new PagerfantaFactory();
+        $pagerFanta = new Pagerfanta(new DoctrineORMAdapter($qb));
+        $pagerFanta->setMaxPerPage($limit);
+        $pagerFanta->setCurrentPage($page);
+
+
+        $orders = $pagerFantaFactory->createRepresentation(
+            $pagerFanta,
+            new Route(
+                $request->attributes->get('_route'),
+                $params = array_merge($request->attributes->get('_route_params'), $request->query->all())
+            )
+        );
 
         return $this->success($orders, 'order', Response::HTTP_OK, array('Default', 'Order', 'Item', 'Product', 'ItemPrice'));
     }

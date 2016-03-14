@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Nelmio\CorsBundle\NelmioCorsBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
+            new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
 
             // Bundles required by FSiAdminBundle
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
