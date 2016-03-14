@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use ApiBundle\Controller\BaseApiController;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use OAuthBundle\Entity\User;
 use PizzaBundle\Entity\Application;
 
 /**
@@ -28,7 +27,7 @@ class PromoCodeController extends BaseApiController
 
     /**
      * @ApiDoc(
-     *  description="Return all promo code belongs to application",
+     *  description="Return all PromoCodes belongs to Application",
      * )
      * @return mixed
      */
@@ -38,7 +37,7 @@ class PromoCodeController extends BaseApiController
         $promoCodes = $application->getPromoCodes();
 
         if($promoCodes->isEmpty()){
-            return JsonResponse::create(array('status' => 'Info', 'message' => 'No promo code in application'));
+            return JsonResponse::create(array('status' => 'Info', 'message' => 'No PromoCode in application'));
         }
 
         return $this->success($promoCodes, 'promocode', Response::HTTP_OK, array('Default', 'PromoCode'));
@@ -46,7 +45,7 @@ class PromoCodeController extends BaseApiController
 
     /**
      * @ApiDoc(
-     *  description="Return single promo code belongs to application",
+     *  description="Return single PromoCode",
      * )
      * @param PromoCode $promoCode
      * @return mixed
@@ -55,12 +54,9 @@ class PromoCodeController extends BaseApiController
     public function showAction(PromoCode $promoCode = null)
     {
         if ($promoCode == null){
-            return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
+            return JsonResponse::create(array('status' => 'Error', 'message' => 'PromoCode not found'));
         }
-        $application= $this->getApplication();
-        if ($promoCode->getApplication() != $application){
-            return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
-        }
+        $this->denyAccessUnlessGranted('access', $promoCode);
 
         return $this->success($promoCode, 'promocode', Response::HTTP_OK, array('Default', 'PromoCode'));
     }
@@ -70,11 +66,11 @@ class PromoCodeController extends BaseApiController
      * @ApiDoc(
      *  description="Create new PromoCode",
      *  parameters={
-     *      {"name"="name", "dataType"="string", "required"=true, "description"="Name of PromoCode"},
+     *      {"name"="name", "dataType"="string", "required"=true, "description"="PromoCode name"},
      *      {"name"="percent", "dataType"="boolean", "required"=true, "description"="If PromoCode is percent"},
      *      {"name"="overall", "dataType"="boolean", "required"=true, "description"="If PromoCode is overall"},
-     *      {"name"="value", "dataType"="integer", "required"=true, "description"="Value of promo code"},
-     *      {"name"="code", "dataType"="string", "required"=true, "description"="Is code of promo code"},
+     *      {"name"="value", "dataType"="integer", "required"=true, "description"="PromoCode value"},
+     *      {"name"="code", "dataType"="string", "required"=true, "description"="PromoCode code"},
      *      {"name"="available", "dataType"="boolean", "required"=true, "description"="If Product is available"},
      *  })
      * )
@@ -109,11 +105,11 @@ class PromoCodeController extends BaseApiController
      * @ApiDoc(
      *  description="Update PromoCode",
      *  parameters={
-     *      {"name"="name", "dataType"="string", "required"=true, "description"="Name of PromoCode"},
+     *      {"name"="name", "dataType"="string", "required"=true, "description"="PromoCode name"},
      *      {"name"="percent", "dataType"="boolean", "required"=true, "description"="If PromoCode is percent"},
      *      {"name"="overall", "dataType"="boolean", "required"=true, "description"="If PromoCode is overall"},
-     *      {"name"="value", "dataType"="integer", "required"=true, "description"="Value of promo code"},
-     *      {"name"="code", "dataType"="string", "required"=true, "description"="Is code of promo code"},
+     *      {"name"="value", "dataType"="integer", "required"=true, "description"="PromoCode value"},
+     *      {"name"="code", "dataType"="string", "required"=true, "description"="PromoCode code"},
      *      {"name"="available", "dataType"="boolean", "required"=true, "description"="If Product is available"},
      *  })
      * )
@@ -125,12 +121,9 @@ class PromoCodeController extends BaseApiController
     public function updateAction(Request $request, PromoCode $promoCode = null)
     {
         if ($promoCode == null){
-            return JsonResponse::create(array('status' => 'Error', 'message' => 'Promo code not found'));
+            return JsonResponse::create(array('status' => 'Error', 'message' => 'PromoCode not found'));
         }
-        $application = $this->getApplication();
-        if ($promoCode->getApplication() != $application){
-            return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
-        }
+        $this->denyAccessUnlessGranted('access', $promoCode);
 
         $form = $this->get('form.factory')->create(new PromoCodeType(), $promoCode);
         $formData = json_decode($request->getContent(), true);
@@ -161,15 +154,12 @@ class PromoCodeController extends BaseApiController
         if ($promoCode == null){
             return JsonResponse::create(array('status' => 'Error', 'message' => 'PromoCode not found'));
         }
-        $application = $this->getApplication();
-        if ($promoCode->getApplication() != $application){
-            return JsonResponse::create(array('status' => 'Error', 'message' => 'PromoCode not found'));
-        }
+        $this->denyAccessUnlessGranted('access', $promoCode);
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($promoCode);
         $em->flush();
 
-        return JsonResponse::create(array('status' => 'Removed', 'message' => 'Product properly removed'));
+        return JsonResponse::create(array('status' => 'Removed', 'message' => 'PromoCode properly removed'));
     }
 }

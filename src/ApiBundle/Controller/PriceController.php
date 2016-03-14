@@ -3,18 +3,15 @@
 namespace ApiBundle\Controller;
 
 use ApiBundle\Form\Type\PriceType;
-use ApiBundle\Form\Type\TypeType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use PizzaBundle\Entity\Price;
 use PizzaBundle\Entity\Product;
-use PizzaBundle\Entity\Type;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use ApiBundle\Controller\BaseApiController;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use PizzaBundle\Entity\Application;
 
 /**
  * Class PriceController
@@ -36,25 +33,20 @@ class PriceController extends BaseApiController
      * @return mixed
      * @ParamConverter("product", class="PizzaBundle\Entity\Product", options={"id" = "product_id"})
      */
-    public function indexAction(Product $product)
+    public function indexAction(Product $product = null)
     {
         if($product == null){
             return JsonResponse::create(array('status' => 'Error', 'message' => 'Not found'));
         }
-
-        $application= $this->getApplication();
-        if ($product->getApplication() != $application){
-            return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
-        }
-
         $prices = $product->getPrices();
+        $this->denyAccessUnlessGranted('access', $prices->first());
 
         return $this->success($prices, 'price', Response::HTTP_OK, array('Default', 'Price'));
     }
 
     /**
      * @ApiDoc(
-     *  description="Return single Price belongs to Product",
+     *  description="Return single Price",
      * )
      * @param Price $price
      * @param  Product $product
@@ -67,13 +59,7 @@ class PriceController extends BaseApiController
         if($product == null || $price == null){
             return JsonResponse::create(array('status' => 'Error', 'message' => 'Not found'));
         }
-        $application= $this->getApplication();
-        if ($product->getApplication() != $application){
-            return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
-        }
-        if ($price->getProduct() != $product){
-            return JsonResponse::create(array('status' => 'Error', 'message' => 'Price not found'));
-        }
+        $this->denyAccessUnlessGranted('access', $price);
 
         return $this->success($price, 'price', Response::HTTP_OK, array('Default', 'Price'));
     }
@@ -83,8 +69,8 @@ class PriceController extends BaseApiController
      * @ApiDoc(
      *  description="Create new Price",
      *  parameters={
-     *      {"name"="type", "dataType"="string", "required"=true, "description"="Type of Product"},
-     *      {"name"="value", "dataType"="float", "required"=true, "description"="Price of Product"},
+     *      {"name"="type", "dataType"="string", "required"=true, "description"="Product type"},
+     *      {"name"="value", "dataType"="float", "required"=true, "description"="Product price"},
      *  })
      * )
      * @param Product $product
@@ -125,8 +111,8 @@ class PriceController extends BaseApiController
      * @ApiDoc(
      *  description="Create new Price",
      *  parameters={
-     *      {"name"="type", "dataType"="string", "required"=true, "description"="Type of Product"},
-     *      {"name"="value", "dataType"="float", "required"=true, "description"="Price of Product"},
+     *      {"name"="type", "dataType"="string", "required"=true, "description"="Product type"},
+     *      {"name"="value", "dataType"="float", "required"=true, "description"="Product price"},
      *  })
      * )
      * @param Request $request
@@ -145,10 +131,7 @@ class PriceController extends BaseApiController
         if($product == null || $price == null){
             return JsonResponse::create(array('status' => 'Error', 'message' => 'Not found'));
         }
-        $application= $this->getApplication();
-        if ($product->getApplication() != $application){
-            return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
-        }
+        $this->denyAccessUnlessGranted('access', $price);
 
         $form = $this->get('form.factory')->create(new PriceType(), $price);
         $formData = json_decode($request->getContent(), true);
@@ -181,11 +164,7 @@ class PriceController extends BaseApiController
         if($product == null || $price == null){
             return JsonResponse::create(array('status' => 'Error', 'message' => 'Not found'));
         }
-
-        $application= $this->getApplication();
-        if ($product->getApplication() != $application){
-            return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
-        }
+        $this->denyAccessUnlessGranted('access', $price);
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($price);

@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use ApiBundle\Controller\BaseApiController;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use OAuthBundle\Entity\User;
 use PizzaBundle\Entity\Application;
 
 /**
@@ -28,7 +27,7 @@ class ProductController extends BaseApiController
 
     /**
      * @ApiDoc(
-     *  description="Return all products belongs to application",
+     *  description="Return all Products belongs to Application",
      * )
      * @return mixed
      */
@@ -38,7 +37,7 @@ class ProductController extends BaseApiController
         $products = $application->getProducts();
 
         if($products->isEmpty()){
-            return JsonResponse::create(array('status' => 'Info', 'message' => 'No product in application'));
+            return JsonResponse::create(array('status' => 'Info', 'message' => 'No Product in application'));
         }
 
         return $this->success($products, 'product', Response::HTTP_OK, array('Default', 'Product', 'Price'));
@@ -46,7 +45,7 @@ class ProductController extends BaseApiController
 
     /**
      * @ApiDoc(
-     *  description="Return single product belongs to application",
+     *  description="Return single Product",
      * )
      * @param Product $product
      * @return mixed
@@ -57,10 +56,7 @@ class ProductController extends BaseApiController
         if ($product == null){
             return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
         }
-        $application= $this->getApplication();
-        if ($product->getApplication() != $application){
-            return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
-        }
+        $this->denyAccessUnlessGranted('access', $product);
 
         return $this->success($product, 'product', Response::HTTP_OK, array('Default', 'Product', 'Price'));
     }
@@ -70,9 +66,9 @@ class ProductController extends BaseApiController
      * @ApiDoc(
      *  description="Create new Product",
      *  parameters={
-     *      {"name"="name", "dataType"="string", "required"=true, "description"="Name of Type Product"},
-     *      {"name"="description", "dataType"="string", "required"=true, "description"="Description of Type Product"},
-     *      {"name"="available", "dataType"="boolean", "required"=true, "description"="If Product is available"},
+     *      {"name"="name", "dataType"="string", "required"=true, "description"="Product name"},
+     *      {"name"="description", "dataType"="string", "required"=true, "description"="Product description"},
+     *      {"name"="available", "dataType"="boolean", "required"=true, "description"="Availability Product"},
      *  })
      * )
      * @param Request $request
@@ -106,9 +102,9 @@ class ProductController extends BaseApiController
      * @ApiDoc(
      *  description="Update Product",
      *  parameters={
-     *      {"name"="name", "dataType"="string", "required"=true, "description"="Name of Type Product"},
-     *      {"name"="description", "dataType"="string", "required"=true, "description"="Description of Type Product"},
-     *      {"name"="available", "dataType"="boolean", "required"=true, "description"="If Product is available"},
+     *      {"name"="name", "dataType"="string", "required"=true, "description"="Product name"},
+     *      {"name"="description", "dataType"="string", "required"=true, "description"="Product description"},
+     *      {"name"="available", "dataType"="boolean", "required"=true, "description"="Availability Product"},
      *  })
      * )
      * @param Request $request
@@ -121,20 +117,15 @@ class ProductController extends BaseApiController
         if ($product == null){
             return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
         }
-        $application = $this->getApplication();
-        if ($product->getApplication() != $application){
-            return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
-        }
+        $this->denyAccessUnlessGranted('access', $product);
 
         $form = $this->get('form.factory')->create(new ProductType(), $product);
         $formData = json_decode($request->getContent(), true);
-
         $form->submit($formData);
 
         if (!$form->isValid()) {
             return $this->error($this->getErrorMessages($form));
         }
-
         $em = $this->getDoctrine()->getManager();
         $em->persist($product);
         $em->flush();
@@ -155,10 +146,7 @@ class ProductController extends BaseApiController
         if ($product == null){
             return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
         }
-        $application = $this->getApplication();
-        if ($product->getApplication() != $application){
-            return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
-        }
+        $this->denyAccessUnlessGranted('access', $product);
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($product);

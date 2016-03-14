@@ -2,19 +2,14 @@
 
 namespace ApiBundle\Controller;
 
-use ApiBundle\Form\Type\OrderType;
-use ApiBundle\Form\Type\ProductType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use PizzaBundle\Entity\Order;
-use PizzaBundle\Entity\Product;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use ApiBundle\Controller\BaseApiController;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use OAuthBundle\Entity\User;
-use PizzaBundle\Entity\Application;
 
 /**
  * Class OrderController
@@ -30,7 +25,7 @@ class OrderController extends BaseApiController
 
     /**
      * @ApiDoc(
-     *  description="Return all orders belongs to application",
+     *  description="Return all Orders belongs to Application",
      * )
      * @return mixed
      */
@@ -48,7 +43,7 @@ class OrderController extends BaseApiController
 
     /**
      * @ApiDoc(
-     *  description="Return single order belongs to application",
+     *  description="Return single Order",
      * )
      * @param Order $order
      * @return mixed
@@ -59,10 +54,7 @@ class OrderController extends BaseApiController
         if ($order == null){
             return JsonResponse::create(array('status' => 'Error', 'message' => 'Order not found'));
         }
-        $application= $this->getApplication();
-        if ($order->getApplication() != $application){
-            return JsonResponse::create(array('status' => 'Error', 'message' => 'Order not found'));
-        }
+        $this->denyAccessUnlessGranted('access', $order);
 
         return $this->success($order, 'product', Response::HTTP_OK, array('Default', 'Order', 'Item', 'Product', 'ItemPrice'));
     }
@@ -71,7 +63,7 @@ class OrderController extends BaseApiController
      * @ApiDoc(
      *  description="Change status",
      *  parameters={
-     *      {"name"="realized", "dataType"="boolean", "required"=true, "description"="Is order realized"},
+     *      {"name"="realized", "dataType"="boolean", "required"=true, "description"="True if order realized"},
      *  })
      * )
      * @param Request $request
@@ -84,10 +76,7 @@ class OrderController extends BaseApiController
         if ($order == null){
             return JsonResponse::create(array('status' => 'Error', 'message' => 'Order not found'));
         }
-        $application = $this->getApplication();
-        if ($order->getApplication() != $application){
-            return JsonResponse::create(array('status' => 'Error', 'message' => 'Order not found'));
-        }
+        $this->denyAccessUnlessGranted('access', $order);
 
         $formData = json_decode($request->getContent(), true);
 
@@ -117,10 +106,7 @@ class OrderController extends BaseApiController
         if ($order == null){
             return JsonResponse::create(array('status' => 'Error', 'message' => 'Order not found'));
         }
-        $application = $this->getApplication();
-        if ($order->getApplication() != $application){
-            return JsonResponse::create(array('status' => 'Error', 'message' => 'Order not found'));
-        }
+        $this->denyAccessUnlessGranted('access', $order);
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($order);

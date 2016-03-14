@@ -4,14 +4,12 @@ namespace ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use PizzaBundle\Entity\Customer;
-use PizzaBundle\Entity\Product;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use ApiBundle\Controller\BaseApiController;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use PizzaBundle\Entity\Application;
 
 /**
  * Class CustomerController
@@ -27,7 +25,7 @@ class CustomerController extends BaseApiController
 
     /**
      * @ApiDoc(
-     *  description="Return all customers belongs to application",
+     *  description="Return all Customers belongs to Application",
      * )
      * @return mixed
      */
@@ -45,7 +43,7 @@ class CustomerController extends BaseApiController
 
     /**
      * @ApiDoc(
-     *  description="Return single customer belongs to application",
+     *  description="Return single Customer",
      * )
      * @param Customer $customer
      * @return mixed
@@ -56,10 +54,7 @@ class CustomerController extends BaseApiController
         if ($customer == null){
             return JsonResponse::create(array('status' => 'Error', 'message' => 'Customer not found'));
         }
-        $application= $this->getApplication();
-        if ($customer->getApplication() != $application){
-            return JsonResponse::create(array('status' => 'Error', 'message' => 'Customer not found'));
-        }
+        $this->denyAccessUnlessGranted('access', $customer);
 
         return $this->success($customer, 'customer', Response::HTTP_OK, array('Default', 'Customer'));
     }
@@ -77,10 +72,7 @@ class CustomerController extends BaseApiController
         if ($customer == null){
             return JsonResponse::create(array('status' => 'Error', 'message' => 'Customer not found'));
         }
-        $application = $this->getApplication();
-        if ($customer->getApplication() != $application){
-            return JsonResponse::create(array('status' => 'Error', 'message' => 'Customer not found'));
-        }
+        $this->denyAccessUnlessGranted('access', $customer);
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($customer);

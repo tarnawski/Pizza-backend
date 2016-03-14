@@ -41,7 +41,7 @@ class TypeController extends BaseApiController
 
     /**
      * @ApiDoc(
-     *  description="Return single Type belongs to Application",
+     *  description="Return single Type",
      * )
      * @param Type $type
      * @return mixed
@@ -49,14 +49,10 @@ class TypeController extends BaseApiController
      */
     public function showAction(Type $type = null)
     {
-        $application = $this->getApplication();
-
         if ($type == null){
             return JsonResponse::create(array('status' => 'Error', 'message' => 'Type not found'));
         }
-        if ($type->getApplication() != $application){
-            return JsonResponse::create(array('status' => 'Error', 'message' => 'Type not found'));
-        }
+        $this->denyAccessUnlessGranted('access', $type);
 
         return $this->success($type, 'type', Response::HTTP_OK, array('Default', 'Type'));
     }
@@ -66,7 +62,7 @@ class TypeController extends BaseApiController
      * @ApiDoc(
      *  description="Create new Type",
      *  parameters={
-     *      {"name"="name", "dataType"="string", "required"=true, "description"="Name of Type Product"},
+     *      {"name"="name", "dataType"="string", "required"=true, "description"="Type name"},
      *  })
      * )
      * @param Request $request
@@ -100,7 +96,7 @@ class TypeController extends BaseApiController
      * @ApiDoc(
      *  description="Update Type",
      *  parameters={
-     *      {"name"="name", "dataType"="string", "required"=true, "description"="Name of Type Product"},
+     *      {"name"="name", "dataType"="string", "required"=true, "description"="Type name"},
      *  })
      * )
      * @param Request $request
@@ -113,14 +109,10 @@ class TypeController extends BaseApiController
         if ($type == null){
             return JsonResponse::create(array('status' => 'Error', 'message' => 'Type not found'));
         }
-        $application = $this->getApplication();
-        if ($type->getApplication() != $application){
-            return JsonResponse::create(array('status' => 'Error', 'message' => 'Type not found'));
-        }
+        $this->denyAccessUnlessGranted('access', $type);
 
         $form = $this->get('form.factory')->create(new TypeType(), $type);
         $formData = json_decode($request->getContent(), true);
-
         $form->submit($formData);
 
         if (!$form->isValid()) {
@@ -147,10 +139,7 @@ class TypeController extends BaseApiController
         if ($type == null){
             return JsonResponse::create(array('status' => 'Error', 'message' => 'Type not found'));
         }
-        $application = $this->getApplication();
-        if ($type->getApplication() != $application){
-            return JsonResponse::create(array('status' => 'Error', 'message' => 'Type not found'));
-        }
+        $this->denyAccessUnlessGranted('access', $type);
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($type);

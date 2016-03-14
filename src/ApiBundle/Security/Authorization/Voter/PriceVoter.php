@@ -2,20 +2,19 @@
 
 namespace ApiBundle\Security\Authorization\Voter;
 
+use PizzaBundle\Entity\Application;
+use PizzaBundle\Entity\Price;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use OAuthBundle\Entity\User;
-use PizzaBundle\Entity\Price;
 
 class PriceVoter extends Voter
 {
-    // these strings are just invented: you can use anything
-    const VIEW = 'view';
-    const EDIT = 'edit';
+    const ACCESS = 'access';
 
     protected function supports($attribute, $subject)
     {
-        if (!in_array($attribute, array(self::VIEW, self::EDIT))) {
+        if (!in_array($attribute, array(self::ACCESS))) {
             return false;
         }
 
@@ -29,7 +28,6 @@ class PriceVoter extends Voter
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
         $user = $token->getUser();
-
         if (!$user instanceof User) {
             return false;
         }
@@ -38,26 +36,20 @@ class PriceVoter extends Voter
         $price = $subject;
 
         switch($attribute) {
-            case self::VIEW:
-                return $this->canView($price, $user);
-            case self::EDIT:
-                return $this->canEdit($price, $user);
+            case self::ACCESS:
+                return $this->canAccess($price, $user);
         }
 
         throw new \LogicException('This code should not be reached!');
     }
 
-    private function canView(Price $price, User $user)
+    private function canAccess(Price $price, User $user)
     {
-        if ($this->canEdit($price, $user)) {
-            return true;
-        }
+        /** @var Application $application */
+        $application = $price->getProduct()->getApplication();
+        $users = $application->getUsers();
 
-        return !$price->isPrivate();
-    }
-
-    private function canEdit(Price $price, User $user)
-    {
-        return $user === $price->getOwner();
+        return $users->contains($user);
     }
 }
+
