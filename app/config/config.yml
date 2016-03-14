@@ -54,6 +54,8 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
+bazinga_hateoas: ~
+
 jms_serializer:
     metadata:
         auto_detection: true
