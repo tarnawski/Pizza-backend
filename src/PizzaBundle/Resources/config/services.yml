@@ -2,6 +2,12 @@ services:
   pizza.type.factory:
     class: PizzaBundle\Model\TypeFactory
 
+  pizza.customer.factory:
+    class: PizzaBundle\Model\CustomerFactory
+
+  pizza.order.factory:
+    class: PizzaBundle\Model\OrderFactory
+
   pizza.customer.repository:
       class: Doctrine\ORM\EntityRepository
       factory: [@doctrine.orm.entity_manager, getRepository]

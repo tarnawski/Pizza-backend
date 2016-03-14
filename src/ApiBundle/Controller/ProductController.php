@@ -66,9 +66,8 @@ class ProductController extends BaseApiController
      * @ApiDoc(
      *  description="Create new Product",
      *  parameters={
-     *      {"name"="name", "dataType"="string", "required"=true, "description"="Product name"},
-     *      {"name"="description", "dataType"="string", "required"=true, "description"="Product description"},
-     *      {"name"="available", "dataType"="boolean", "required"=true, "description"="Availability Product"},
+     *      {"name"="realized", "dataType"="boolean", "required"=true, "description"="Realized Order"},
+     *      {"name"="description", "dataType"="string", "required"=true, "description"="Description Order"},
      *  })
      * )
      * @param Request $request

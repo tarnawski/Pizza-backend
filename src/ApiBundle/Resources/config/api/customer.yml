@@ -8,6 +8,11 @@ api_customer_show:
   defaults:  { _controller: ApiBundle:Customer:show, _format: json }
   methods: [GET]
 
+api_customer_update:
+  path: customers/{customer_id}.{_format}
+  defaults:  { _controller: ApiBundle:Customer:update, _format: json }
+  methods: [PUT]
+
 api_customer_delete:
   path: customers/{customer_id}.{_format}
   defaults:  { _controller: ApiBundle:Customer:delete, _format: json }

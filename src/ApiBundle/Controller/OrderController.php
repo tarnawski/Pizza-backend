@@ -16,6 +16,8 @@ use ApiBundle\Controller\BaseApiController;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Hateoas\Configuration\Route;
 use PizzaBundle\Repository\OrderRepository;
+use PizzaBundle\Entity\Application;
+
 /**
  * Class OrderController
  * @package ApiBundle\Controller
