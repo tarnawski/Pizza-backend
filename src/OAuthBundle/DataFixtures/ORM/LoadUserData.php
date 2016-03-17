@@ -17,8 +17,19 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, OrderedF
      */
     public function load(ObjectManager $manager)
     {
+
         $userAdmin = $this->createAdmin();
         $manager->persist($userAdmin);
+
+        $user = new User();
+        $user->setUsername('test');
+        $user->setPlainPassword('test');
+        $user->addRole('ROLE_API');
+        $user->setEmail('contact@test.eu');
+        $user->setSuperAdmin(false);
+        $user->setEnabled(true);
+        $this->addReference('user', $user);
+        $manager->persist($user);
 
         $manager->flush();
     }
@@ -33,7 +44,6 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, OrderedF
         $userAdmin->setEmail('contact@clearcode.eu');
         $userAdmin->setSuperAdmin(true);
         $userAdmin->setEnabled(true);
-        $this->addReference('user', $userAdmin);
 
         return $userAdmin;
     }

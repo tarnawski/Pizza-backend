@@ -25,13 +25,13 @@ class LoadApplicationData extends AbstractFixture implements FixtureInterface, O
         $application->setHomepage($faker->url);
         $application->setCreateDate($faker->dateTime);
         $application->setDemo($faker->boolean());
+
         /** @var User $user */
         $user = $this->getReference('user');
         $application->addUser($user);
 
         $this->setReference('application', $application);
         $manager->persist($application);
-
 
         $manager->flush();
     }

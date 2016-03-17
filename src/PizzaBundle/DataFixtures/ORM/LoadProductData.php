@@ -14,7 +14,7 @@ use PizzaBundle\Entity\Product;
 
 class LoadProductData extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface
 {
-    const PRODUCT_NUMBER = 50;
+    const PRODUCT_NUMBER = 10;
 
     /**
      * {@inheritDoc}
@@ -29,7 +29,6 @@ class LoadProductData extends AbstractFixture implements FixtureInterface, Order
             $product->setDescription($faker->sentence(5,15));
             $product->setAvailable($faker->boolean());
 
-            $random = rand(0, LoadApplicationData::APPLICATIONS_NUMBER - 1);
             /** @var Application $application */
             $application = $this->getReference('application');
             $product->setApplication($application);
@@ -49,6 +48,6 @@ class LoadProductData extends AbstractFixture implements FixtureInterface, Order
      */
     public function getOrder()
     {
-        return 6;
+        return 4;
     }
 }

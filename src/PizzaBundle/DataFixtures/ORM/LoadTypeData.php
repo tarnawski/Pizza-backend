@@ -40,6 +40,6 @@ class LoadTypeData extends AbstractFixture implements FixtureInterface, OrderedF
      */
     public function getOrder()
     {
-        return 8;
+        return 5;
     }
 }
