@@ -7,11 +7,11 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Faker\Factory;
+use OAuthBundle\Entity\User;
 use PizzaBundle\Entity\Application;
 
 class LoadApplicationData extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface
 {
-    const APPLICATIONS_NUMBER = 50;
 
     /**
      * {@inheritDoc}
@@ -19,18 +19,19 @@ class LoadApplicationData extends AbstractFixture implements FixtureInterface, O
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('pl_PL');
-        for ($i = 0; $i < self::APPLICATIONS_NUMBER; $i++) {
-            $application = new Application();
-            $application->setName($faker->word);
-            $application->setDescription($faker->sentence(12));
-            $application->setHomepage($faker->url);
-            $application->setCreateDate($faker->dateTime);
-            $application->setDemo($faker->boolean());
+        $application = new Application();
+        $application->setName($faker->word);
+        $application->setDescription($faker->sentence(12));
+        $application->setHomepage($faker->url);
+        $application->setCreateDate($faker->dateTime);
+        $application->setDemo($faker->boolean());
+        /** @var User $user */
+        $user = $this->getReference('user');
+        $application->addUser($user);
 
-            $this->addReference(sprintf('application-%s', $i), $application);
+        $this->setReference('application', $application);
+        $manager->persist($application);
 
-            $manager->persist($application);
-        }
 
         $manager->flush();
     }
@@ -42,6 +43,6 @@ class LoadApplicationData extends AbstractFixture implements FixtureInterface, O
      */
     public function getOrder()
     {
-        return 2;
+        return 3;
     }
 }
