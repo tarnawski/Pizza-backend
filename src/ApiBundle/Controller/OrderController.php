@@ -70,7 +70,7 @@ class OrderController extends BaseApiController
             )
         );
 
-        return $this->success($orders, 'order', Response::HTTP_OK, array('Default', 'Order', 'Item', 'Product', 'ItemPrice'));
+        return $this->success($orders, 'order', Response::HTTP_OK, array('Default', 'Order', 'Item', 'Product', 'ItemPrice', 'Customer'));
     }
 
     /**
@@ -88,7 +88,7 @@ class OrderController extends BaseApiController
         }
         $this->denyAccessUnlessGranted('access', $order);
 
-        return $this->success($order, 'product', Response::HTTP_OK, array('Default', 'Order', 'Item', 'Product', 'ItemPrice'));
+        return $this->success($order, 'product', Response::HTTP_OK, array('Default', 'Order', 'Item', 'Product', 'ItemPrice', 'Customer'));
     }
 
     /**
@@ -122,7 +122,7 @@ class OrderController extends BaseApiController
         $em->persist($order);
         $em->flush();
 
-        return $this->success($order, 'product', Response::HTTP_OK, array('Default', 'Order', 'Item', 'Product', 'ItemPrice'));
+        return $this->success($order, 'product', Response::HTTP_OK, array('Default', 'Order', 'Item', 'Product', 'ItemPrice', 'Customer'));
     }
 
     /**

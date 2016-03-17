@@ -18,3 +18,8 @@ PizzaBundle\Entity\Order:
       groups: [Item, Details]
       type: ArrayCollection<PizzaBundle\Entity\Item>
       max_depth: 1
+    customer:
+      expose: true
+      groups: [Customer, Details]
+      type: PizzaBundle\Entity\Customer
+      max_depth: 1
