@@ -6,6 +6,10 @@ pizza_api:
     resource: "@ApiBundle/Resources/config/routing.yml"
     prefix:   /api/
 
+external_pizza_api:
+    resource: "@ExternalApiBundle/Resources/config/routing.yml"
+    prefix:   /ext/
+
 NelmioApiDocBundle:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
     prefix:   /doc/api

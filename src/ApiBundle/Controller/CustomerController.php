@@ -2,6 +2,7 @@
 
 namespace ApiBundle\Controller;
 
+use ApiBundle\Form\Type\CustomerType;
 use Hateoas\Representation\Factory\PagerfantaFactory;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
@@ -16,7 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use ApiBundle\Controller\BaseApiController;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Hateoas\Configuration\Route;
-
+use PizzaBundle\Entity\Application;
 /**
  * Class CustomerController
  * @package ApiBundle\Controller
@@ -32,6 +33,7 @@ class CustomerController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Return all Customers belongs to Application",
+     *  views = { "internal" },
      *  parameters={
      *      {"name"="first_name", "dataType"="string", "required"=false, "description"="Filter by first name"},
      *      {"name"="last_name", "dataType"="string", "required"=false, "description"="Filter by last name"},
@@ -82,6 +84,7 @@ class CustomerController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Return single Customer",
+     *  views = { "internal" }
      * )
      * @param Customer $customer
      * @return mixed
@@ -99,7 +102,46 @@ class CustomerController extends BaseApiController
 
     /**
      * @ApiDoc(
+     *  description="Update Customer",
+     *  views = { "internal" },
+     *  parameters={
+     *      {"name"="first_name", "dataType"="string", "required"=true, "description"="First name"},
+     *      {"name"="last_name", "dataType"="string", "required"=true, "description"="Last name"},
+     *      {"name"="email", "dataType"="string", "required"=true, "description"="Email"},
+     *      {"name"="phone", "dataType"="string", "required"=true, "description"="Phone"},
+     *      {"name"="address", "dataType"="string", "required"=true, "description"="Address"},
+     *  })
+     * )
+     * @param Request $request
+     * @param Customer $customer
+     * @ParamConverter("customer", class="PizzaBundle\Entity\Customer", options={"id" = "customer_id"})
+     * @return mixed
+     */
+    public function updateAction(Request $request, Customer $customer = null)
+    {
+        if ($customer == null){
+            return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
+        }
+        $this->denyAccessUnlessGranted('access', $customer);
+
+        $form = $this->get('form.factory')->create(new CustomerType(), $customer);
+        $formData = json_decode($request->getContent(), true);
+        $form->submit($formData);
+
+        if (!$form->isValid()) {
+            return $this->error($this->getErrorMessages($form));
+        }
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($customer);
+        $em->flush();
+
+        return $this->success($customer, 'customer', Response::HTTP_OK, array('Default', 'Customer'));
+    }
+
+    /**
+     * @ApiDoc(
      *  description="Delete Customer",
+     *  views = { "internal" }
      *)
      * @param Customer $customer
      * @return mixed|Response

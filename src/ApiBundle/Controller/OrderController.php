@@ -16,6 +16,8 @@ use ApiBundle\Controller\BaseApiController;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Hateoas\Configuration\Route;
 use PizzaBundle\Repository\OrderRepository;
+use PizzaBundle\Entity\Application;
+
 /**
  * Class OrderController
  * @package ApiBundle\Controller
@@ -31,6 +33,7 @@ class OrderController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Return all Orders belongs to Application",
+     *  views = { "internal" },
      *  parameters={
      *      {"name"="realized", "dataType"="boolean", "required"=false, "description"="Filter by realized status"},
      *      {"name"="gte", "dataType"="datetime", "required"=false, "description"="Filter by date"},
@@ -76,6 +79,7 @@ class OrderController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Return single Order",
+     *  views = { "internal" }
      * )
      * @param Order $order
      * @return mixed
@@ -94,6 +98,7 @@ class OrderController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Change status",
+     *  views = { "internal" },
      *  parameters={
      *      {"name"="realized", "dataType"="boolean", "required"=true, "description"="True if order realized"},
      *  })
@@ -128,6 +133,7 @@ class OrderController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Delete Order",
+     *  views = { "internal" }
      *)
      * @param Order $order
      * @return mixed|Response

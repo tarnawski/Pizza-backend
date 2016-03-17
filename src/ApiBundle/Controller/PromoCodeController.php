@@ -28,6 +28,7 @@ class PromoCodeController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Return all PromoCodes belongs to Application",
+     *  views = { "internal" }
      * )
      * @return mixed
      */
@@ -46,6 +47,7 @@ class PromoCodeController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Return single PromoCode",
+     *  views = { "internal" }
      * )
      * @param PromoCode $promoCode
      * @return mixed
@@ -65,6 +67,7 @@ class PromoCodeController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Create new PromoCode",
+     *  views = { "internal" },
      *  parameters={
      *      {"name"="name", "dataType"="string", "required"=true, "description"="PromoCode name"},
      *      {"name"="percent", "dataType"="boolean", "required"=true, "description"="If PromoCode is percent"},
@@ -104,6 +107,7 @@ class PromoCodeController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Update PromoCode",
+     *  views = { "internal" },
      *  parameters={
      *      {"name"="name", "dataType"="string", "required"=true, "description"="PromoCode name"},
      *      {"name"="percent", "dataType"="boolean", "required"=true, "description"="If PromoCode is percent"},
@@ -144,6 +148,7 @@ class PromoCodeController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Delete PromoCode",
+     *  views = { "internal" }
      *)
      * @param PromoCode $promoCode
      * @return mixed|Response

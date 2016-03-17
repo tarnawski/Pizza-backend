@@ -17,18 +17,23 @@ class LoadTypeData extends AbstractFixture implements FixtureInterface, OrderedF
      */
     public function load(ObjectManager $manager)
     {
-        $types = ['Type 1', 'Type 2', 'Type 3', 'Type 4'];
+        $types = ['Type 1', 'Type 2', 'Type 3', 'Type 4', 'Type 5'];
+        $i = 1;
 
-        for ($i = 0; $i < LoadProductData::PRODUCT_NUMBER; $i++) {
-            $type = new Type();
-            $key = array_rand($types);
-            $type->setName($types[$key]);
-            /** @var Product $product */
-            $product = $this->getReference(sprintf('product-%s', $i));
-            $type->addProduct($product);
-            $type->setApplication($product->getApplication());
-            $manager->persist($type);
-        }
+            foreach($types as $value) {
+                $type = new Type();
+                $type->setName($value);
+                /** @var Product $product */
+                $product = $this->getReference(sprintf('product-%s', LoadProductData::PRODUCT_NUMBER - $i));
+                $type->addProduct($product);
+                $i++;
+                $product = $this->getReference(sprintf('product-%s', LoadProductData::PRODUCT_NUMBER - $i));
+                $type->addProduct($product);
+                $type->setApplication($product->getApplication());
+                $manager->persist($type);
+                $i++;
+            }
+
 
         $manager->flush();
     }

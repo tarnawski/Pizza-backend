@@ -35,6 +35,7 @@ class AppKernel extends Kernel
             new OAuthBundle\OAuthBundle(),
             new PizzaBundle\PizzaBundle(),
             new ApiBundle\ApiBundle(),
+            new ExternalApiBundle\ExternalApiBundle(),
 
         );
 
