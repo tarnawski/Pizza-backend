@@ -3,19 +3,20 @@ PizzaBundle\Entity\Product:
   properties:
     id:
       expose: true
-      groups: [Product, Details]
+      groups: [Product, External, Details]
     name:
       expose: true
-      groups: [Product, Details]
+      groups: [Product, External, Details]
     description:
       expose: true
-      groups: [Product, Details]
+      groups: [Product, External, Details]
     available:
       expose: true
-      groups: [Product, Details]
+      groups: [Product, External, Details]
     prices:
       expose: true
-      groups: [Price, Details]
+      groups: [Price, External, Details]
       type: ArrayCollection<PizzaBundle\Entity\Price>
       max_depth: 1
+
 

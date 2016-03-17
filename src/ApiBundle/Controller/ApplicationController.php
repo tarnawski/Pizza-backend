@@ -24,6 +24,7 @@ class ApplicationController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Return Application",
+     *  views = { "internal" }
      * )
      */
     public function showAction()

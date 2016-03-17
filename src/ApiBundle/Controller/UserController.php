@@ -27,6 +27,7 @@ class UserController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Return information about current user ",
+     *  views = { "internal" }
      * )
      */
     public function profileAction()
@@ -41,6 +42,7 @@ class UserController extends BaseApiController
      * @return Response
      * @ApiDoc(
      *  description="This method register new user",
+     *  views = { "internal" },
      *  requirements={
      *      {
      *          "name"="username",

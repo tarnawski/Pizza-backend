@@ -28,6 +28,7 @@ class ProductController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Return all Products belongs to Application",
+     *  views = { "internal" }
      * )
      * @return mixed
      */
@@ -46,6 +47,7 @@ class ProductController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Return single Product",
+     *  views = { "internal" }
      * )
      * @param Product $product
      * @return mixed
@@ -65,6 +67,7 @@ class ProductController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Create new Product",
+     *  views = { "internal" },
      *  parameters={
      *      {"name"="realized", "dataType"="boolean", "required"=true, "description"="Realized Order"},
      *      {"name"="description", "dataType"="string", "required"=true, "description"="Description Order"},
@@ -100,6 +103,7 @@ class ProductController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Update Product",
+     *  views = { "internal" },
      *  parameters={
      *      {"name"="name", "dataType"="string", "required"=true, "description"="Product name"},
      *      {"name"="description", "dataType"="string", "required"=true, "description"="Product description"},
@@ -135,6 +139,7 @@ class ProductController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Delete Product",
+     *  views = { "internal" }
      *)
      * @param Product $product
      * @return mixed|Response

@@ -33,6 +33,7 @@ class CustomerController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Return all Customers belongs to Application",
+     *  views = { "internal" },
      *  parameters={
      *      {"name"="first_name", "dataType"="string", "required"=false, "description"="Filter by first name"},
      *      {"name"="last_name", "dataType"="string", "required"=false, "description"="Filter by last name"},
@@ -83,6 +84,7 @@ class CustomerController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Return single Customer",
+     *  views = { "internal" }
      * )
      * @param Customer $customer
      * @return mixed
@@ -101,6 +103,7 @@ class CustomerController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Update Customer",
+     *  views = { "internal" },
      *  parameters={
      *      {"name"="first_name", "dataType"="string", "required"=true, "description"="First name"},
      *      {"name"="last_name", "dataType"="string", "required"=true, "description"="Last name"},
@@ -138,6 +141,7 @@ class CustomerController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Delete Customer",
+     *  views = { "internal" }
      *)
      * @param Customer $customer
      * @return mixed|Response

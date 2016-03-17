@@ -28,6 +28,7 @@ class PriceController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Return all Price belongs to Product",
+     *  views = { "internal" }
      * )
      * @param Product $product
      * @return mixed
@@ -47,6 +48,7 @@ class PriceController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Return single Price",
+     *  views = { "internal" }
      * )
      * @param Price $price
      * @param  Product $product
@@ -68,6 +70,7 @@ class PriceController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Create new Price",
+     *  views = { "internal" },
      *  parameters={
      *      {"name"="type", "dataType"="string", "required"=true, "description"="Product type"},
      *      {"name"="value", "dataType"="float", "required"=true, "description"="Product price"},
@@ -110,6 +113,7 @@ class PriceController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Create new Price",
+     *  views = { "internal" },
      *  parameters={
      *      {"name"="type", "dataType"="string", "required"=true, "description"="Product type"},
      *      {"name"="value", "dataType"="float", "required"=true, "description"="Product price"},
@@ -152,6 +156,7 @@ class PriceController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Delete Price",
+     *  views = { "internal" }
      *)
      * @param Product $product
      * @param Price $price

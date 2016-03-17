@@ -32,6 +32,7 @@ class CompleteOrderController extends  BaseApiController
     /**
      * @ApiDoc(
      *  description="Create new Order",
+     *  views = { "external" },
      *  parameters={
      *      {"name"="description", "dataType"="string", "required"=true, "description"="Product description"},
      *      {"name"="customer", "dataType"="integer", "required"=true, "description"="ID Customer"},

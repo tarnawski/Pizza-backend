@@ -28,6 +28,7 @@ class TypeController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Return all Types belongs to Application",
+     *  views = { "internal" }
      * )
      * @return mixed
      */
@@ -42,6 +43,7 @@ class TypeController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Return single Type",
+     *  views = { "internal" }
      * )
      * @param Type $type
      * @return mixed
@@ -61,6 +63,7 @@ class TypeController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Create new Type",
+     *  views = { "internal" },
      *  parameters={
      *      {"name"="name", "dataType"="string", "required"=true, "description"="Type name"},
      *  })
@@ -95,6 +98,7 @@ class TypeController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Update Type",
+     *  views = { "internal" },
      *  parameters={
      *      {"name"="name", "dataType"="string", "required"=true, "description"="Type name"},
      *  })
@@ -129,6 +133,7 @@ class TypeController extends BaseApiController
     /**
      * @ApiDoc(
      *  description="Delete Type",
+     *  views = { "internal" }
      *)
      * @param Type $type
      * @return mixed|Response
