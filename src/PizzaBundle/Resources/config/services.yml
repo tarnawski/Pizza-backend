@@ -8,6 +8,11 @@ services:
   pizza.order.factory:
     class: PizzaBundle\Model\OrderFactory
 
+  pizza.item.factory:
+    class: PizzaBundle\Model\ItemFactory
+    arguments:
+      entityManager: "@doctrine.orm.entity_manager"
+
   pizza.customer.repository:
       class: Doctrine\ORM\EntityRepository
       factory: [@doctrine.orm.entity_manager, getRepository]

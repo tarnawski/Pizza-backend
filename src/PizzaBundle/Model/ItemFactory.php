@@ -11,7 +11,7 @@ use PizzaBundle\Entity\Product;
 class ItemFactory
 {
     /**
-     * @var \Doctrine\ORM\EntityRepository
+     * @var \Doctrine\ORM\EntityManager
      */
     private $entityManager;
 
@@ -21,7 +21,6 @@ class ItemFactory
     }
 
     public function create(
-        Order $order,
         $item
     )
     {
@@ -31,13 +30,12 @@ class ItemFactory
         $priceRepository = $this->entityManager->getRepository(Price::class);
         /** @var Price $price */
         $price = $priceRepository->find($item['price_id']);
-        
-        $item = new Item();
-        $item->setProduct($product);
-        $item->setPrice($price);
-        $item->setOrder($order);
-        $item->setCount($item['count']);
 
-        return $order;
+        $newItem = new Item();
+        $newItem->setProduct($product);
+        $newItem->setPrice($price);
+        $newItem->setCount($item['count']);
+
+        return $newItem;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace ApiBundle\Model;
+namespace ExternalApiBundle\Model;
 
 class CompleteOrder
 {

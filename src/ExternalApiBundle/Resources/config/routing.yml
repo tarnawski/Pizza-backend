@@ -1,0 +1,4 @@
+ext_order:
+  path: order/{application_id}.{_format}
+  defaults:  { _controller: ExternalApiBundle:CompleteOrder:create, _format: json }
+  methods: [POST]

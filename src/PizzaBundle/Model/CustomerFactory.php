@@ -8,7 +8,6 @@ use PizzaBundle\Entity\Customer;
 class CustomerFactory
 {
     public function create(
-        Application $application,
         $firstName,
         $lastName,
         $email,
@@ -16,7 +15,6 @@ class CustomerFactory
         $address
     ) {
         $customer = new Customer();
-        $customer->setApplication($application);
         $customer->setFirstName($firstName);
         $customer->setLastName($lastName);
         $customer->setEmail($email);

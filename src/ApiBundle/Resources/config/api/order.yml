@@ -8,11 +8,6 @@ api_order_show:
   defaults:  { _controller: ApiBundle:Order:show, _format: json }
   methods: [GET]
 
-api_order_create:
-  path: orders.{_format}
-  defaults:  { _controller: ApiBundle:Order:create, _format: json }
-  methods: [POST]
-
 api_order_change_status:
   path: orders/{order_id}.{_format}
   defaults:  { _controller: ApiBundle:Order:changeStatus, _format: json }

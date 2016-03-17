@@ -1,11 +1,10 @@
 <?php
-namespace ApiBundle\Form\Type;
+namespace ExternalApiBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\RouterInterface;
-use PizzaBundle\Entity\Order;
 
 class CompleteOrderType extends AbstractType
 {
@@ -22,7 +21,7 @@ class CompleteOrderType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefault('data_class', 'ApiBundle\Model\CompleteOrder');
+        $resolver->setDefault('data_class', 'ExternalApiBundle\Model\CompleteOrder');
         $resolver->setDefault('csrf_protection', false);
     }
 
