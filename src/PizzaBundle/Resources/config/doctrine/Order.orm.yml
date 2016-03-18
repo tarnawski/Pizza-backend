@@ -1,6 +1,7 @@
 PizzaBundle\Entity\Order:
     type: entity
     table: _order
+    repositoryClass: PizzaBundle\Repository\OrderRepository
     id:
         id:
             type: integer
@@ -39,3 +40,10 @@ PizzaBundle\Entity\Order:
             joinColumn:
                 name: customer_id
                 referencedColumnName: id
+        application:
+            targetEntity: Application
+            inversedBy: order
+            joinColumn:
+                    name: application_id
+                    referencedColumnName: id
+    lifecycleCallbacks: {  }

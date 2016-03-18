@@ -1,6 +1,7 @@
 PizzaBundle\Entity\Customer:
     type: entity
     table: customer
+    repositoryClass: PizzaBundle\Repository\CustomerRepository
     id:
         id:
             type: integer

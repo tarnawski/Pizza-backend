@@ -1,0 +1,19 @@
+PizzaBundle\Entity\Item:
+  exclusion_policy: ALL
+  properties:
+    id:
+      expose: true
+      groups: [Item, Details]
+    count:
+      expose: true
+      groups: [Item, Details]
+    product:
+      expose: true
+      groups: [Product, Details]
+      type: PizzaBundle\Entity\Product
+      max_depth: 1
+    price:
+      expose: true
+      groups: [ItemPrice, Details]
+      type: PizzaBundle\Entity\Price
+      max_depth: 1

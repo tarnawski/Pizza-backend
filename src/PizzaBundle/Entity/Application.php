@@ -56,12 +56,24 @@ class Application
      */
     private $products;
 
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    private $types;
+
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    private $orders;
+
     public function __construct()
     {
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
         $this->promoCodes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->customers = new \Doctrine\Common\Collections\ArrayCollection();
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->types = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -266,5 +278,63 @@ class Application
     public function removeProduct(Product $product)
     {
         $this->products->remove($product);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getTypes()
+    {
+        return $this->types;
+    }
+
+    /**
+     * @param Type $type
+     * @return $this
+     */
+    public function addType(Type $type)
+    {
+        if (!$this->types->contains($type)) {
+            $type->setApplication($this);
+            $this->types[] = $type;
+        }
+        return $this;
+    }
+
+    /**
+     * @param Type $type
+     */
+    public function removeType(Type $type)
+    {
+        $this->types->remove($type);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getOrders()
+    {
+        return $this->orders;
+    }
+
+    /**
+     * @param Order $order)
+     * @return $this
+     */
+    public function addOrder(Order $order)
+    {
+        if (!$this->orders->contains($order)) {
+            $order->setApplication($this);
+            $this->orders[] = $order;
+        }
+        return $this;
+    }
+
+    /**
+     * @param Order $order
+     */
+    public function removeOrder(Order $order)
+    {
+        $this->types->remove($order);
     }
 }

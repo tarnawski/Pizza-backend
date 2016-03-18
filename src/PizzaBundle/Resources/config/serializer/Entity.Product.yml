@@ -1,0 +1,22 @@
+PizzaBundle\Entity\Product:
+  exclusion_policy: ALL
+  properties:
+    id:
+      expose: true
+      groups: [Product, External, Details]
+    name:
+      expose: true
+      groups: [Product, External, Details]
+    description:
+      expose: true
+      groups: [Product, External, Details]
+    available:
+      expose: true
+      groups: [Product, External, Details]
+    prices:
+      expose: true
+      groups: [Price, External, Details]
+      type: ArrayCollection<PizzaBundle\Entity\Price>
+      max_depth: 1
+
+

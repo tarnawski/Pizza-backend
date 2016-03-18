@@ -7,20 +7,20 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Faker\Factory;
+use PizzaBundle\Entity\Application;
 use PizzaBundle\Entity\Customer;
 use PizzaBundle\Entity\Price;
 use PizzaBundle\Entity\Product;
 
 class LoadProductData extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface
 {
-    const PRODUCT_NUMBER = 50;
+    const PRODUCT_NUMBER = 10;
 
     /**
      * {@inheritDoc}
      */
     public function load(ObjectManager $manager)
     {
-        $arrayOfType = ['S', 'M', 'XL', 'XXL'];
 
         $faker = Factory::create('pl_PL');
         for ($i = 0; $i < self::PRODUCT_NUMBER; $i++) {
@@ -29,8 +29,8 @@ class LoadProductData extends AbstractFixture implements FixtureInterface, Order
             $product->setDescription($faker->sentence(5,15));
             $product->setAvailable($faker->boolean());
 
-            $random = rand(0, LoadApplicationData::APPLICATIONS_NUMBER - 1);
-            $application = $this->getReference(sprintf('application-%s', $random));
+            /** @var Application $application */
+            $application = $this->getReference('application');
             $product->setApplication($application);
 
             $this->addReference(sprintf('product-%s', $i), $product);
@@ -48,6 +48,6 @@ class LoadProductData extends AbstractFixture implements FixtureInterface, Order
      */
     public function getOrder()
     {
-        return 6;
+        return 4;
     }
 }

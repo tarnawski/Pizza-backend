@@ -1,12 +1,15 @@
 PizzaBundle\Entity\Application:
   exclusion_policy: ALL
   properties:
+    id:
+      expose: true
+      groups: [Application, External, Details]
     name:
       expose: true
-      groups: [Application, Details]
+      groups: [Application, External, Details]
     description:
       expose: true
-      groups: [Application, Details]
+      groups: [Application, External, Details]
     homepage:
       expose: true
       groups: [Application, Details]
@@ -16,3 +19,8 @@ PizzaBundle\Entity\Application:
     createDate:
       expose: true
       groups: [Application, Details]
+    types:
+      expose: true
+      groups: [External, Details]
+      type: ArrayCollection<PizzaBundle\Entity\Type>
+      max_depth: 1

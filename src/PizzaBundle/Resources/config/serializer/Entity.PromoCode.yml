@@ -1,0 +1,24 @@
+PizzaBundle\Entity\PromoCode:
+  exclusion_policy: ALL
+  properties:
+    id:
+      expose: true
+      groups: [PromoCode, Details]
+    name:
+      expose: true
+      groups: [PromoCode, Details]
+    percent:
+      expose: true
+      groups: [PromoCode, Details]
+    overall:
+      expose: true
+      groups: [PromoCode, Details]
+    value:
+      expose: true
+      groups: [PromoCode, Details]
+    code:
+      expose: true
+      groups: [PromoCode, Details]
+    available:
+      expose: true
+      groups: [PromoCode, Details]

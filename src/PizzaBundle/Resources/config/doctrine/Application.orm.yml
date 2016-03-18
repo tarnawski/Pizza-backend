@@ -33,7 +33,7 @@ PizzaBundle\Entity\Application:
              options:
                fixed: false
         demo:
-            column: realized
+            column: demo
             type: boolean
             options:
                 default: 0
@@ -56,6 +56,14 @@ PizzaBundle\Entity\Application:
             cascade: ["all"]
         products:
             targetEntity: Product
+            mappedBy: application
+            cascade: ["all"]
+        types:
+            targetEntity: Type
+            mappedBy: application
+            cascade: ["all"]
+        orders:
+            targetEntity: Order
             mappedBy: application
             cascade: ["all"]
     lifecycleCallbacks: {  }

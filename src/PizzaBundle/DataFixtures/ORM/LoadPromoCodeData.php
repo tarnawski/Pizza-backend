@@ -8,10 +8,11 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Faker\Factory;
 use PizzaBundle\Entity\PromoCode;
+use PizzaBundle\Entity\Application;
 
 class LoadPromoCodeData extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface
 {
-    const PROMO_CODES_NUMBER = 50;
+    const PROMO_CODES_NUMBER = 5;
 
     /**
      * {@inheritDoc}
@@ -29,8 +30,8 @@ class LoadPromoCodeData extends AbstractFixture implements FixtureInterface, Ord
             $type = $faker->boolean();
             $promoCode->setOverall($type);
             $promoCode->setPercent(!$type);
-            $random = rand(0, LoadApplicationData::APPLICATIONS_NUMBER - 1);
-            $application = $this->getReference(sprintf('application-%s', $random));
+            /** @var Application $application */
+            $application = $this->getReference('application');
             $promoCode->setApplication($application);
             $manager->persist($promoCode);
         }
@@ -45,6 +46,6 @@ class LoadPromoCodeData extends AbstractFixture implements FixtureInterface, Ord
      */
     public function getOrder()
     {
-        return 4;
+        return 8;
     }
 }

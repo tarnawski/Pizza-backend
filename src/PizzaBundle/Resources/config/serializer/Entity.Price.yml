@@ -1,0 +1,13 @@
+PizzaBundle\Entity\Price:
+  exclusion_policy: ALL
+  properties:
+    id:
+      expose: true
+      groups: [Price, External, Details, ItemPrice]
+    type:
+      expose: true
+      groups: [Price, External, Details, ItemPrice]
+    value:
+      expose: true
+      groups: [Price, External, Details, ItemPrice]
+

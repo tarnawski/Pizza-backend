@@ -4,6 +4,8 @@ namespace ApiBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use JMS\Serializer\SerializationContext;
+use OAuthBundle\Entity\User;
+use PizzaBundle\Entity\Application;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -75,5 +77,18 @@ abstract class BaseApiController extends FOSRestController
     public function getRepository($entityClass)
     {
         return $this->getDoctrine()->getManager()->getRepository($entityClass);
+    }
+
+    /**
+     * @return  Application
+     */
+    public function getApplication()
+    {
+        /** @var User $current_user */
+        $current_user = $this->getUser();
+        /** @var Application $application */
+        $application = $current_user->getApplication();
+
+        return $application;
     }
 }

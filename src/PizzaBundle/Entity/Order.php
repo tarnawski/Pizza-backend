@@ -30,6 +30,11 @@ class Order
     private $items;
 
     /**
+     * @var Application
+     */
+    private $application;
+
+    /**
      * @var Customer
      */
     private $customer;
@@ -122,6 +127,25 @@ class Order
     public function removeItem(Item $item)
     {
         $this->items->remove($item);
+    }
+
+    /**
+     * @return Application
+     */
+    public function getApplication()
+    {
+        return $this->application;
+    }
+
+    /**
+     * @param Application $application
+     * @return $this
+     */
+    public function setApplication(Application $application)
+    {
+        $this->application = $application;
+
+        return $this;
     }
 
     /**

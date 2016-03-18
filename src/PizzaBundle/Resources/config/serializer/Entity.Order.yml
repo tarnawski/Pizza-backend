@@ -1,0 +1,25 @@
+PizzaBundle\Entity\Order:
+  exclusion_policy: ALL
+  properties:
+    id:
+      expose: true
+      groups: [Order, Details]
+    createDate:
+      expose: true
+      groups: [Order, Details]
+    realized:
+      expose: true
+      groups: [Order, Details]
+    description:
+      expose: true
+      groups: [Order, Details]
+    items:
+      expose: true
+      groups: [Item, Details]
+      type: ArrayCollection<PizzaBundle\Entity\Item>
+      max_depth: 1
+    customer:
+      expose: true
+      groups: [Customer, Details]
+      type: PizzaBundle\Entity\Customer
+      max_depth: 1
