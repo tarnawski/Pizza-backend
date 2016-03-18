@@ -3,16 +3,16 @@ PizzaBundle\Entity\Product:
   properties:
     id:
       expose: true
-      groups: [Product, External, Details]
+      groups: [Product, External, Type, Details]
     name:
       expose: true
-      groups: [Product, External, Details]
+      groups: [Product, External, Type, Details]
     description:
       expose: true
-      groups: [Product, External, Details]
+      groups: [Product, External, Type, Details]
     available:
       expose: true
-      groups: [Product, External, Details]
+      groups: [Product, External, Type, Details]
     prices:
       expose: true
       groups: [Price, External, Details]
