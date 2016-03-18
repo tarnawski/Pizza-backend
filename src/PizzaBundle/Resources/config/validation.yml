@@ -1,4 +1,66 @@
+PizzaBundle\Entity\Application:
+    properties:
+        name:
+            - NotBlank: ~
+            - Length:
+                max: 50
+        description:
+            - NotBlank: ~
+            - Length:
+                max: 150
+        homepage:
+            - NotBlank: ~
+            - Length:
+                max: 150
+
+PizzaBundle\Entity\Customer:
+    properties:
+        firstName:
+            - NotBlank: ~
+            - Length:
+                max: 50
+        lastName:
+            - NotBlank: ~
+            - Length:
+                max: 150
+        email:
+            - NotBlank: ~
+            - Length:
+                max: 50
+        phone:
+            - NotBlank: ~
+            - Length:
+                max: 50
+        address:
+            - NotBlank: ~
+            - Length:
+                max: 400
+
+PizzaBundle\Entity\Product:
+    properties:
+        name:
+            - NotBlank: ~
+            - Length:
+                max: 50
+        description:
+            - NotBlank: ~
+            - Length:
+                max: 200
+
 PizzaBundle\Entity\Type:
     properties:
         name:
             - NotBlank: ~
+            - Length:
+                max: 20
+
+PizzaBundle\Entity\PromoCode:
+    properties:
+        name:
+            - NotBlank: ~
+            - Length:
+                max: 50
+        code:
+            - NotBlank: ~
+            - Length:
+                max: 20
