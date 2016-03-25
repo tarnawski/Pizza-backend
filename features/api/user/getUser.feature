@@ -1,7 +1,7 @@
-Feature: Delete customer
-  In order to have possibility change customer belongs to application
+Feature: Show information about current login user
+  In order to have possibility to view information about me
   As a login user
-  I need to be able to delete customer
+  I need to be able to get details account
 
   Background:
     Given There are the following clients:
@@ -10,26 +10,20 @@ Feature: Delete customer
     And there are the following users:
       | Username    | Password          | Email            | Superadmin      | Enabled | Role     |
       | admin       | admin             | admin@admin.com  | true            | true    | ROLE_API |
-      | test        | test              | test@test.com    | false           | true    | ROLE_API |
     And There are the following access tokens:
       | ID | Client | User | Token                                                                                  | Expires at |
       | 1  | 1      | 1    | OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw | +2 days    |
-    Given There are the following applications:
-      | ID | Name           | Description                 | Homepage            | Demo  | UserID |
-      | 1  | Application_1  | Short description number 1  | http://www.demo1.pl | true  | 1      |
-    Given There are the following customers:
-      | ID | FirstName  | LastName    | Email               | Phone     | Address                         | ApplicationID |
-      | 1  | Janina     | Malinowska  | ugorski@gazeta.pl   | 887538836 | Gajowa 38, 50-519 Legnica       | 1             |
 
   @cleanDB
-  Scenario: Update customer
+  Scenario: Get information about my profile
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
-    When I send a DELETE request to "/api/customers/1"
+    When I send a GET request to "/api/user/me"
     Then the response code should be 200
     And the JSON response should match:
     """
     {
-      "status": "Removed",
-      "message": "Customer properly removed"
+      "id": @integer@,
+      "username": "admin",
+      "email": "admin@admin.com"
     }
     """

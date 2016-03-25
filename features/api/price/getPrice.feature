@@ -17,83 +17,62 @@ Feature: Show customer
     Given There are the following applications:
       | ID | Name           | Description                 | Homepage            | Demo  | UserID |
       | 1  | Application_1  | Short description number 1  | http://www.demo1.pl | true  | 1      |
-    Given There are the following customers:
-      | ID | FirstName  | LastName    | Email               | Phone     | Address                         | ApplicationID |
-      | 1  | Janina     | Malinowska  | ugorski@gazeta.pl   | 887538836 | Gajowa 38, 50-519 Legnica       | 1             |
-      | 2  | Anna       | Jakubowska  | kacper33@yahoo.com  | 865729206 | Jasna 40/73, 07-916 Sandomierz  | 1             |
+    Given There are the following types:
+      | ID | Name    | ApplicationID |
+      | 1  | Type_1  |  1            |
+    Given There are the following prices:
+      | ID | Type     | Value |
+      | 1  | Prices_1 | 12.50 |
+      | 2  | Prices_2 | 10.50 |
+      | 3  | Prices_3 | 17.50 |
+    Given There are the following products:
+      | ID | Name         | Description                |  Available   | TypeID |  PriceID | ApplicationID |
+      | 1  | Product_1    | Short description number 1 | true         | 1      |  1, 2    | 1             |
 
   @cleanDB
-  Scenario: Get list of customers
+  Scenario: Get list of prices belongs to product
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
-    When I send a GET request to "/api/customers"
+    When I send a GET request to "/api/products/1/prices"
     Then the response code should be 200
     And the JSON response should match:
     """
-    {
-      "page": @integer@,
-      "limit": @integer@,
-      "pages": @integer@,
-      "total": @integer@,
-      "_links": {
-        "self": {
-          "href": "@string@"
-        },
-        "first": {
-          "href": "@string@"
-        },
-        "last": {
-          "href": "@string@"
-        }
+    [
+      {
+        "id": @integer@,
+        "type": "Prices_1",
+        "value": 12.50
       },
-      "_embedded": {
-        "items": [
-          {
-            "id": @integer@,
-            "first_name": "Anna",
-            "last_name": "Jakubowska",
-            "email": "kacper33@yahoo.com",
-            "phone": "865729206",
-            "address": "Jasna 40/73, 07-916 Sandomierz"
-          },
-          {
-            "id": @integer@,
-            "first_name": "Janina",
-            "last_name": "Malinowska",
-            "email": "ugorski@gazeta.pl",
-            "phone": "887538836",
-            "address": "Gajowa 38, 50-519 Legnica"
-          }
-        ]
-        }
+      {
+        "id": @integer@,
+        "type": "Prices_2",
+        "value": 10.50
       }
+    ]
     """
 
   @cleanDB
   Scenario: Get single customer
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
-    When I send a GET request to "/api/customers/1"
+    When I send a GET request to "/api/products/1/prices/1"
     Then the response code should be 200
     And the JSON response should match:
     """
     {
       "id": @integer@,
-      "first_name": "Janina",
-      "last_name": "Malinowska",
-      "email": "ugorski@gazeta.pl",
-      "phone": "887538836",
-      "address": "Gajowa 38, 50-519 Legnica"
+      "type": "Prices_1",
+      "value": 12.50
     }
     """
 
   @cleanDB
   Scenario: Get single customer with invalid id
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
-    When I send a GET request to "/api/customers/3"
+    When I send a GET request to "/api/products/1/prices/8"
     Then the response code should be 200
     And the JSON response should match:
     """
     {
       "status": "Error",
-      "message": "Customer not found"
+      "message": "Price not found"
     }
     """

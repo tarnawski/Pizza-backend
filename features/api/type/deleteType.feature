@@ -1,7 +1,7 @@
-Feature: Delete customer
-  In order to have possibility change customer belongs to application
+Feature: Delete Type
+  In order to have possibility change types belongs to application
   As a login user
-  I need to be able to delete customer
+  I need to be able to delete type
 
   Background:
     Given There are the following clients:
@@ -17,19 +17,22 @@ Feature: Delete customer
     Given There are the following applications:
       | ID | Name           | Description                 | Homepage            | Demo  | UserID |
       | 1  | Application_1  | Short description number 1  | http://www.demo1.pl | true  | 1      |
-    Given There are the following customers:
-      | ID | FirstName  | LastName    | Email               | Phone     | Address                         | ApplicationID |
-      | 1  | Janina     | Malinowska  | ugorski@gazeta.pl   | 887538836 | Gajowa 38, 50-519 Legnica       | 1             |
+    Given There are the following promo codes:
+      | ID | Name         | Percent | Overall  | Value  | Code            | Available | ApplicationID |
+      | 1  | PromoCode_1  | true    | false    | 5      | OWJkOGQzODliYTZ | true      | 1             |
+    Given There are the following types:
+      | ID | Name    | ApplicationID |
+      | 1  | Type_1  |  1            |
 
   @cleanDB
-  Scenario: Update customer
+  Scenario: Update promo code
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
-    When I send a DELETE request to "/api/customers/1"
+    When I send a DELETE request to "/api/types/1"
     Then the response code should be 200
     And the JSON response should match:
     """
     {
       "status": "Removed",
-      "message": "Customer properly removed"
+      "message": "Type properly removed"
     }
     """

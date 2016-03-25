@@ -33,6 +33,6 @@ PizzaBundle\Entity\Price:
     oneToMany:
         items:
             targetEntity: Item
-            mappedBy: item
+            mappedBy: price
             cascade: ["all"]
     lifecycleCallbacks: {  }

@@ -20,6 +20,8 @@ use OAuthBundle\Entity\Client;
 use OAuthBundle\Entity\RefreshToken;
 use OAuthBundle\Entity\User;
 use PizzaBundle\Entity\Customer;
+use PizzaBundle\Entity\Item;
+use PizzaBundle\Entity\Order;
 use PizzaBundle\Entity\Price;
 use PizzaBundle\Entity\Product;
 use PizzaBundle\Entity\PromoCode;
@@ -230,6 +232,9 @@ class ApiContext extends WebApiContext implements Context, SnippetAcceptingConte
         foreach ($table->getColumnsHash() as $row) {
             $type = new Type();
             $type->setName($row['Name']);
+            /** @var \PizzaBundle\Entity\Application $application */
+            $application = $this->getManager()->getRepository(\PizzaBundle\Entity\Application::class)->find($row['ApplicationID']);
+            $type->setApplication($application);
             $this->getManager()->persist($type);
         }
         $this->getManager()->flush();
@@ -275,6 +280,52 @@ class ApiContext extends WebApiContext implements Context, SnippetAcceptingConte
             }
             $this->getManager()->persist($product);
 
+        }
+        $this->getManager()->flush();
+        $this->getManager()->clear();
+    }
+
+    /**
+     * @Given There are the following orders:
+     */
+    public function thereAreTheFollowingOrders(TableNode $table)
+    {
+        foreach ($table->getColumnsHash() as $row) {
+            $order = new Order();
+            $order->setDescription($row['Description']);
+            $order->setCreateDate(new \DateTime());
+            $order->setRealized($row['Realized']);
+            /** @var Customer $customer */
+            $customer = $this->getManager()->getRepository(Customer::class)->find($row['CustomerID']);
+            $order->setCustomer($customer);
+            /** @var \PizzaBundle\Entity\Application $application */
+            $application = $this->getManager()->getRepository(\PizzaBundle\Entity\Application::class)->find($row['ApplicationID']);
+            $order->setApplication($application);
+            $this->getManager()->persist($order);
+        }
+        $this->getManager()->flush();
+        $this->getManager()->clear();
+    }
+
+    /**
+     * @Given There are the following items:
+     */
+    public function thereAreTheFollowingItems(TableNode $table)
+    {
+        foreach ($table->getColumnsHash() as $row) {
+            $item = new Item();
+            $item->setCount($row['Count']);
+            /** @var Product $product */
+            $product = $this->getManager()->getRepository(Product::class)->find($row['ProductID']);
+            $item->setProduct($product);
+            /** @var Price $price */
+            $price = $this->getManager()->getRepository(Price::class)->find($row['PriceID']);
+            $item->setPrice($price);
+            /** @var Order $order */
+            $order = $this->getManager()->getRepository(Order::class)->find($row['OrderID']);
+            $item->setOrder($order);
+
+            $this->getManager()->persist($item);
         }
         $this->getManager()->flush();
         $this->getManager()->clear();

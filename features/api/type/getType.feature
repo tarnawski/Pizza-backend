@@ -1,7 +1,7 @@
-Feature: Show customer
-  In order to have possibility to show list or single customer
+Feature: Show types
+  In order to have possibility to show list or single type
   As a login user
-  I need to be able to get information about my customers
+  I need to be able to get information about my types
 
   Background:
     Given There are the following clients:
@@ -17,83 +17,89 @@ Feature: Show customer
     Given There are the following applications:
       | ID | Name           | Description                 | Homepage            | Demo  | UserID |
       | 1  | Application_1  | Short description number 1  | http://www.demo1.pl | true  | 1      |
-    Given There are the following customers:
-      | ID | FirstName  | LastName    | Email               | Phone     | Address                         | ApplicationID |
-      | 1  | Janina     | Malinowska  | ugorski@gazeta.pl   | 887538836 | Gajowa 38, 50-519 Legnica       | 1             |
-      | 2  | Anna       | Jakubowska  | kacper33@yahoo.com  | 865729206 | Jasna 40/73, 07-916 Sandomierz  | 1             |
+    Given There are the following promo codes:
+      | ID | Name         | Percent | Overall  | Value  | Code            | Available | ApplicationID |
+      | 1  | PromoCode_1  | true    | false    | 5      | OWJkOGQzODliYTZ | true      | 1             |
+      | 2  | PromoCode_2  | false   | true     | 8      | 2YmRmM2Z2YmRmM2 | true      | 1             |
+    Given There are the following types:
+      | ID | Name    | ApplicationID |
+      | 1  | Type_1  |  1            |
+      | 2  | Type_2  |  1            |
+    Given There are the following prices:
+      | ID | Type     | Value |
+      | 1  | Prices_1 | 12.50 |
+      | 2  | Prices_2 | 10.50 |
+      | 3  | Prices_3 | 17.50 |
+    Given There are the following products:
+      | ID | Name         | Description                |  Available   | TypeID |  PriceID | ApplicationID |
+      | 1  | Product_1    | Short description number 1 | true         | 1      |  1, 2    | 1             |
+      | 2  | Product_2    | Short description number 2 | true         | 2      |  3       | 1             |
 
   @cleanDB
-  Scenario: Get list of customers
+  Scenario: Get list of promo codes
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
-    When I send a GET request to "/api/customers"
+    When I send a GET request to "/api/types"
     Then the response code should be 200
     And the JSON response should match:
     """
-    {
-      "page": @integer@,
-      "limit": @integer@,
-      "pages": @integer@,
-      "total": @integer@,
-      "_links": {
-        "self": {
-          "href": "@string@"
-        },
-        "first": {
-          "href": "@string@"
-        },
-        "last": {
-          "href": "@string@"
-        }
-      },
-      "_embedded": {
-        "items": [
+    [
+      {
+        "id": @integer@,
+        "name": "Type_1",
+        "products": [
           {
             "id": @integer@,
-            "first_name": "Anna",
-            "last_name": "Jakubowska",
-            "email": "kacper33@yahoo.com",
-            "phone": "865729206",
-            "address": "Jasna 40/73, 07-916 Sandomierz"
-          },
-          {
-            "id": @integer@,
-            "first_name": "Janina",
-            "last_name": "Malinowska",
-            "email": "ugorski@gazeta.pl",
-            "phone": "887538836",
-            "address": "Gajowa 38, 50-519 Legnica"
+            "name": "Product_1",
+            "description": "Short description number 1",
+            "available": true
           }
         ]
-        }
+      },
+      {
+        "id": @integer@,
+        "name": "Type_2",
+        "products": [
+          {
+            "id": @integer@,
+            "name": "Product_2",
+            "description": "Short description number 2",
+            "available": true
+          }
+        ]
       }
+    ]
     """
 
   @cleanDB
-  Scenario: Get single customer
+  Scenario: Get single promo code
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
-    When I send a GET request to "/api/customers/1"
+    When I send a GET request to "/api/types/1"
     Then the response code should be 200
     And the JSON response should match:
     """
     {
       "id": @integer@,
-      "first_name": "Janina",
-      "last_name": "Malinowska",
-      "email": "ugorski@gazeta.pl",
-      "phone": "887538836",
-      "address": "Gajowa 38, 50-519 Legnica"
+      "name": "Type_1",
+      "products": [
+        {
+          "id": @integer@,
+          "name": "Product_1",
+          "description": "Short description number 1",
+          "available": true
+        }
+      ]
     }
     """
 
   @cleanDB
-  Scenario: Get single customer with invalid id
+  Scenario: Get single promo code with invalid id
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
-    When I send a GET request to "/api/customers/3"
+    When I send a GET request to "/api/types/3"
     Then the response code should be 200
     And the JSON response should match:
     """
     {
       "status": "Error",
-      "message": "Customer not found"
+      "message": "Type not found"
     }
     """

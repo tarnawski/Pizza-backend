@@ -1,7 +1,7 @@
-Feature: Delete customer
-  In order to have possibility change customer belongs to application
+Feature: Create new price
+  In order to have possibility change prices belongs to product
   As a login user
-  I need to be able to delete customer
+  I need to be able to update prices
 
   Background:
     Given There are the following clients:
@@ -17,19 +17,33 @@ Feature: Delete customer
     Given There are the following applications:
       | ID | Name           | Description                 | Homepage            | Demo  | UserID |
       | 1  | Application_1  | Short description number 1  | http://www.demo1.pl | true  | 1      |
-    Given There are the following customers:
-      | ID | FirstName  | LastName    | Email               | Phone     | Address                         | ApplicationID |
-      | 1  | Janina     | Malinowska  | ugorski@gazeta.pl   | 887538836 | Gajowa 38, 50-519 Legnica       | 1             |
+    Given There are the following types:
+      | ID | Name    | ApplicationID |
+      | 1  | Type_1  |  1            |
+    Given There are the following prices:
+      | ID | Type     | Value |
+      | 1  | Prices_1 | 12.50 |
+      | 2  | Prices_2 | 10.50 |
+    Given There are the following products:
+      | ID | Name         | Description                |  Available   | TypeID |  PriceID | ApplicationID |
+      | 1  | Product_1    | Short description number 1 | true         | 1      |  1, 2    | 1             |
 
   @cleanDB
-  Scenario: Update customer
+  Scenario: Create new price to products
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
-    When I send a DELETE request to "/api/customers/1"
+    When I send a POST request to "/api/products/1/prices" with body:
+    """
+      {
+        "type": "Small",
+        "value": 36.29
+      }
+    """
     Then the response code should be 200
     And the JSON response should match:
     """
     {
-      "status": "Removed",
-      "message": "Customer properly removed"
+      "id": @integer@,
+      "type": "Small",
+      "value": 36.29
     }
     """
