@@ -12,6 +12,7 @@ Feature: Create Access Token
       | Username    | Password          | Email                 | Superadmin      | Enabled | Role     |
       | admin       | admin             | admin@pgs-soft.com    | true            | true    | ROLE_API |
 
+  @cleanDB
   Scenario: Get Access Token By User and Password
     Given I set header "content-type" with value "application/json"
     When I send a POST request to "/oauth/v2/token" with body:
@@ -36,6 +37,7 @@ Feature: Create Access Token
     }
     """
 
+  @cleanDB
   Scenario: Get Access Token By User and Password for invalid credentials
     Given I set header "content-type" with value "application/json"
     When I send a POST request to "/oauth/v2/token" with body:

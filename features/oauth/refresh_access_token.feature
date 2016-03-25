@@ -18,6 +18,7 @@ Feature: Refresh Access Token
       | ID | Client | User | Token                                                                                  | Expires at |
       | 1  | 1      | 1    | 1WJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw | +10 days   |
 
+  @cleanDB
   Scenario: Refreshing access token
     Given I set header "content-type" with value "application/json"
     When I send a POST request to "/oauth/v2/token" with body:
