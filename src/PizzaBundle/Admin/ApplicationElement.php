@@ -1,19 +1,20 @@
 <?php
 
-namespace OAuthBundle\Admin;
+namespace PizzaBundle\Admin;
 
 use FSi\Bundle\AdminBundle\Doctrine\Admin\CRUDElement;
 use FSi\Component\DataGrid\DataGridFactoryInterface;
 use FSi\Component\DataSource\DataSourceFactoryInterface;
+use OAuthBundle\Entity\User;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class UserElement
- * @package OAuthBundle\Admin
+ * Class ApplicationElement
+ * @package PizzaBundle\Admin
  */
-class UserElement extends CRUDElement
+class ApplicationElement extends CRUDElement
 {
     /**
      * @inheritdoc
@@ -23,26 +24,34 @@ class UserElement extends CRUDElement
         $datagrid = $factory->createDataGrid($this->getId());
 
         $datagrid->addColumn(
-            'username',
-            'text',
+            'id',
+            'number',
             array(
-                'label' => 'admin.user.username'
+                'label' => 'Id'
             )
         );
 
         $datagrid->addColumn(
-            'email',
+            'name',
             'text',
             array(
-                'label' => 'admin.user.email',
+                'label' => 'Name'
             )
         );
+        $datagrid->addColumn(
+            'homepage',
+            'text',
+            array(
+                'label' => 'Homepage'
+            )
+        );
+
 
         $datagrid->addColumn(
             'actions',
             'action',
             array(
-                'label' => 'admin.user.action',
+                'label' => 'Actions',
                 'field_mapping' => array('id'),
                 'actions' => array(
                     'edit' => array(
@@ -79,8 +88,9 @@ class UserElement extends CRUDElement
             $this->getId()
         );
 
-        $datasource->addField('username', 'text', 'like');
-        $datasource->addField('email', 'text', 'like');
+        $datasource->addField('name', 'text', 'like');
+        $datasource->addField('homepage', 'text', 'like');
+
 
         return $datasource;
     }
@@ -98,10 +108,11 @@ class UserElement extends CRUDElement
             )
         );
 
-        $form->add('email', 'email');
-        $form->add('username', 'text');
+        $form->add('name', 'text');
+        $form->add('description', 'text');
+        $form->add('homepage', 'text');
         $form->add(
-            'enabled',
+            'demo',
             'choice',
             array(
                 'choices' => array(
@@ -110,20 +121,13 @@ class UserElement extends CRUDElement
                 )
             )
         );
-        $form->add('plainPassword', 'text');
-        $form->add(
-            'locked',
-            'choice',
-            array(
-                'choices' => array(
-                    '0' => 'No',
-                    '1' => 'Yes'
-                )
-            )
-        );
-        $form->add('roles', 'choice', array(
+        $form->add('users', 'entity', array(
             'multiple' => true,
-            'choices' => \OAuthBundle\Entity\User::$ROLES
+            'class' => User::class,
+            'choice_label' => 'username',
+        ));
+        $form->add('create_date', 'date', array(
+            'data' => new \DateTime()
         ));
 
         return $form;
@@ -147,7 +151,7 @@ class UserElement extends CRUDElement
      */
     public function getClassName()
     {
-        return 'OAuthBundle\Entity\User';
+        return 'PizzaBundle\Entity\Application';
     }
 
     /**
@@ -155,7 +159,7 @@ class UserElement extends CRUDElement
      */
     public function getId()
     {
-        return 'admin_user';
+        return 'admin_application';
     }
 
     /**
@@ -163,6 +167,6 @@ class UserElement extends CRUDElement
      */
     public function getName()
     {
-        return 'admin.user';
+        return 'admin.application';
     }
 }
