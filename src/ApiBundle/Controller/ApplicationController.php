@@ -3,6 +3,7 @@
 namespace ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -30,7 +31,9 @@ class ApplicationController extends BaseApiController
     public function showAction()
     {
         $application = $this->getApplication();
-
+        if($application == null){
+            return JsonResponse::create(array('status' => 'Error', 'message' => 'No application found'));
+        }
         return $this->success($application, 'application', Response::HTTP_OK, array('Default', 'Application'));
     }
 }

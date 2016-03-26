@@ -22,7 +22,7 @@ Feature: Update type
       | 1  | Type_1  |  1            |
 
   @cleanDB
-  Scenario: Create new type
+  Scenario: Update type
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
     When I send a PUT request to "/api/types/1" with body:
     """
