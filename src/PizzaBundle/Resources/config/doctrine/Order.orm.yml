@@ -24,7 +24,7 @@ PizzaBundle\Entity\Order:
         description:
             column: description
             type: string
-            nullable: false
+            nullable: true
             length: 800
             options:
               fixed: false

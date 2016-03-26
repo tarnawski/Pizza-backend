@@ -66,6 +66,13 @@ PizzaBundle\Entity\PromoCode:
                 max: 20
         value:
             - NotBlank: ~
+    constraints:
+        - PizzaBundle\Validator\Constraints\PromoCodeType:
+            fields:
+                - name: percent
+                  mapping: percent
+                - name: overall
+                  mapping: overall
 
 PizzaBundle\Entity\Prices:
     properties:
