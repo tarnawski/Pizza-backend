@@ -15,7 +15,8 @@ class OrderRepository extends EntityRepository
         $builder = $this->createQueryBuilder('o')
             ->select('o')
             ->where('o.application = :application')
-            ->setParameter('application', $criteria->getApplicationId());
+            ->setParameter('application', $criteria->getApplicationId())
+            ->orderBy('o.createDate', 'DESC');
 
         if($criteria->isRealized()){
             $builder
