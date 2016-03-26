@@ -1,12 +1,12 @@
-Feature: Show promo code
-  In order to have possibility to show list or single promo code
+Feature: Show product
+  In order to have possibility to show list or single product
   As a login user
-  I need to be able to get information about my promo codes
+  I need to be able to get information about my product
 
   Background:
     Given There are the following clients:
       | ID | Random ID                                             | URIs                                      | Secret                                              | Grant Types                                                         |
-      | 1  | 6035k9f52fc4gwskckowc8s0ws8swcco4ck0sk84owg4kg8kcg    | http://example.com,http://pgs-soft.com    | 2vtd632tcku88cgssgwkk0o8o0gcs0o4ook8g0wc8gskgc8k8g  | authorization_code,client_credentials,refresh_token,password,token  |
+      | 1  | 6035k9f52fc4gwskckowc8s0ws8swcco4ck0sk84owg4kg8kcg    | http://example.com,http://pizza.com    | 2vtd632tcku88cgssgwkk0o8o0gcs0o4ook8g0wc8gskgc8k8g  | authorization_code,client_credentials,refresh_token,password,token  |
     And there are the following users:
       | Username    | Password          | Email            | Superadmin      | Enabled | Role     |
       | admin       | admin             | admin@admin.com  | true            | true    | ROLE_API |
@@ -31,7 +31,7 @@ Feature: Show promo code
       | 2  | Product_2    | Short description number 2 | true         | 1      |  3       | 1             |
 
   @cleanDB
-  Scenario: Get list of promo codes
+  Scenario: Get list of products
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
     When I send a GET request to "/api/products"
     Then the response code should be 200
@@ -100,7 +100,7 @@ Feature: Show promo code
     """
 
   @cleanDB
-  Scenario: Get single promo code with invalid id
+  Scenario: Get single product with invalid id
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
     When I send a GET request to "/api/products/3"
     Then the response code should be 200

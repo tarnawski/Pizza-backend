@@ -1,12 +1,12 @@
 Feature: Delete Type
-  In order to have possibility change types belongs to application
+  In order to have actual list of types belongs to application
   As a login user
   I need to be able to delete type
 
   Background:
     Given There are the following clients:
       | ID | Random ID                                             | URIs                                      | Secret                                              | Grant Types                                                         |
-      | 1  | 6035k9f52fc4gwskckowc8s0ws8swcco4ck0sk84owg4kg8kcg    | http://example.com,http://pgs-soft.com    | 2vtd632tcku88cgssgwkk0o8o0gcs0o4ook8g0wc8gskgc8k8g  | authorization_code,client_credentials,refresh_token,password,token  |
+      | 1  | 6035k9f52fc4gwskckowc8s0ws8swcco4ck0sk84owg4kg8kcg    | http://example.com,http://pizza.com    | 2vtd632tcku88cgssgwkk0o8o0gcs0o4ook8g0wc8gskgc8k8g  | authorization_code,client_credentials,refresh_token,password,token  |
     And there are the following users:
       | Username    | Password          | Email            | Superadmin      | Enabled | Role     |
       | admin       | admin             | admin@admin.com  | true            | true    | ROLE_API |
@@ -25,7 +25,7 @@ Feature: Delete Type
       | 1  | Type_1  |  1            |
 
   @cleanDB
-  Scenario: Update promo code
+  Scenario: Delete types
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
     When I send a DELETE request to "/api/types/1"
     Then the response code should be 200

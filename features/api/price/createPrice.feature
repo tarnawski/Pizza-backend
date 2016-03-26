@@ -1,12 +1,12 @@
 Feature: Create new price
-  In order to have possibility change prices belongs to product
+  In order to have possibility add new price belongs to product
   As a login user
-  I need to be able to update prices
+  I need to be able to create new price
 
   Background:
     Given There are the following clients:
       | ID | Random ID                                             | URIs                                      | Secret                                              | Grant Types                                                         |
-      | 1  | 6035k9f52fc4gwskckowc8s0ws8swcco4ck0sk84owg4kg8kcg    | http://example.com,http://pgs-soft.com    | 2vtd632tcku88cgssgwkk0o8o0gcs0o4ook8g0wc8gskgc8k8g  | authorization_code,client_credentials,refresh_token,password,token  |
+      | 1  | 6035k9f52fc4gwskckowc8s0ws8swcco4ck0sk84owg4kg8kcg    | http://example.com,http://pizza.com    | 2vtd632tcku88cgssgwkk0o8o0gcs0o4ook8g0wc8gskgc8k8g  | authorization_code,client_credentials,refresh_token,password,token  |
     And there are the following users:
       | Username    | Password          | Email            | Superadmin      | Enabled | Role     |
       | admin       | admin             | admin@admin.com  | true            | true    | ROLE_API |
@@ -29,7 +29,7 @@ Feature: Create new price
       | 1  | Product_1    | Short description number 1 | true         | 1      |  1, 2    | 1             |
 
   @cleanDB
-  Scenario: Create new price to products
+  Scenario: Create new price
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
     When I send a POST request to "/api/products/1/prices" with body:
     """

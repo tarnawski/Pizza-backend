@@ -6,7 +6,7 @@ Feature: Show types
   Background:
     Given There are the following clients:
       | ID | Random ID                                             | URIs                                      | Secret                                              | Grant Types                                                         |
-      | 1  | 6035k9f52fc4gwskckowc8s0ws8swcco4ck0sk84owg4kg8kcg    | http://example.com,http://pgs-soft.com    | 2vtd632tcku88cgssgwkk0o8o0gcs0o4ook8g0wc8gskgc8k8g  | authorization_code,client_credentials,refresh_token,password,token  |
+      | 1  | 6035k9f52fc4gwskckowc8s0ws8swcco4ck0sk84owg4kg8kcg    | http://example.com,http://pizza.com    | 2vtd632tcku88cgssgwkk0o8o0gcs0o4ook8g0wc8gskgc8k8g  | authorization_code,client_credentials,refresh_token,password,token  |
     And there are the following users:
       | Username    | Password          | Email            | Superadmin      | Enabled | Role     |
       | admin       | admin             | admin@admin.com  | true            | true    | ROLE_API |
@@ -36,7 +36,7 @@ Feature: Show types
       | 2  | Product_2    | Short description number 2 | true         | 2      |  3       | 1             |
 
   @cleanDB
-  Scenario: Get list of promo codes
+  Scenario: Get list of types
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
     When I send a GET request to "/api/types"
     Then the response code should be 200
@@ -71,7 +71,7 @@ Feature: Show types
     """
 
   @cleanDB
-  Scenario: Get single promo code
+  Scenario: Get single type
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
     When I send a GET request to "/api/types/1"
     Then the response code should be 200
@@ -92,7 +92,7 @@ Feature: Show types
     """
 
   @cleanDB
-  Scenario: Get single promo code with invalid id
+  Scenario: Get single type with invalid id
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
     When I send a GET request to "/api/types/3"
     Then the response code should be 200

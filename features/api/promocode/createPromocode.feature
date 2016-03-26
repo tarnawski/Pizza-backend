@@ -1,12 +1,12 @@
 Feature: Create promo code
-  In order to have possibility change promo code list
+  In order to have actual list of promo codes belongs to application
   As a login user
   I need to be able to create new promo code
 
   Background:
     Given There are the following clients:
       | ID | Random ID                                             | URIs                                      | Secret                                              | Grant Types                                                         |
-      | 1  | 6035k9f52fc4gwskckowc8s0ws8swcco4ck0sk84owg4kg8kcg    | http://example.com,http://pgs-soft.com    | 2vtd632tcku88cgssgwkk0o8o0gcs0o4ook8g0wc8gskgc8k8g  | authorization_code,client_credentials,refresh_token,password,token  |
+      | 1  | 6035k9f52fc4gwskckowc8s0ws8swcco4ck0sk84owg4kg8kcg    | http://example.com,http://pizza.com    | 2vtd632tcku88cgssgwkk0o8o0gcs0o4ook8g0wc8gskgc8k8g  | authorization_code,client_credentials,refresh_token,password,token  |
     And there are the following users:
       | Username    | Password          | Email            | Superadmin      | Enabled | Role     |
       | admin       | admin             | admin@admin.com  | true            | true    | ROLE_API |

@@ -1,12 +1,12 @@
-Feature: Show customer
-  In order to have possibility to show list or single customer
+Feature: Show price
+  In order to have possibility to show list or single price
   As a login user
-  I need to be able to get information about my customers
+  I need to be able to get information about prices belongs to product
 
   Background:
     Given There are the following clients:
       | ID | Random ID                                             | URIs                                      | Secret                                              | Grant Types                                                         |
-      | 1  | 6035k9f52fc4gwskckowc8s0ws8swcco4ck0sk84owg4kg8kcg    | http://example.com,http://pgs-soft.com    | 2vtd632tcku88cgssgwkk0o8o0gcs0o4ook8g0wc8gskgc8k8g  | authorization_code,client_credentials,refresh_token,password,token  |
+      | 1  | 6035k9f52fc4gwskckowc8s0ws8swcco4ck0sk84owg4kg8kcg    | http://example.com,http://pizza.com    | 2vtd632tcku88cgssgwkk0o8o0gcs0o4ook8g0wc8gskgc8k8g  | authorization_code,client_credentials,refresh_token,password,token  |
     And there are the following users:
       | Username    | Password          | Email            | Superadmin      | Enabled | Role     |
       | admin       | admin             | admin@admin.com  | true            | true    | ROLE_API |
@@ -51,7 +51,7 @@ Feature: Show customer
     """
 
   @cleanDB
-  Scenario: Get single customer
+  Scenario: Get single price belongs to product with id 1
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
     When I send a GET request to "/api/products/1/prices/1"
     Then the response code should be 200
@@ -65,7 +65,7 @@ Feature: Show customer
     """
 
   @cleanDB
-  Scenario: Get single customer with invalid id
+  Scenario: Get single price with invalid id
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
     When I send a GET request to "/api/products/1/prices/8"
     Then the response code should be 200
