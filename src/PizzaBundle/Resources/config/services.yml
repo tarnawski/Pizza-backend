@@ -24,3 +24,8 @@ services:
       factory: [@doctrine.orm.entity_manager, getRepository]
       arguments:
         - PizzaBundle\Entity\Order
+
+  promo.code.type.validate:
+      class: PizzaBundle\Validator\Constraints\PromoCodeTypeValidator
+      tags:
+        -  { name: validator.constraint_validator, alias: promo_code_type_validate }
