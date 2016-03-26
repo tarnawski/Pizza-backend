@@ -49,6 +49,9 @@ class CustomerController extends BaseApiController
     public function indexAction(Request $request)
     {
         $application = $this->getApplication();
+        if($application == null){
+            return JsonResponse::create(array('status' => 'Error', 'message' => 'No application found'));
+        }
 
         $page = $request->get('page', 1);
         $limit = $request->get('limit', 10);

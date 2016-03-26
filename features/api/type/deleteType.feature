@@ -25,7 +25,7 @@ Feature: Delete Type
       | 1  | Type_1  |  1            |
 
   @cleanDB
-  Scenario: Delete types
+  Scenario: Delete type
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
     When I send a DELETE request to "/api/types/1"
     Then the response code should be 200

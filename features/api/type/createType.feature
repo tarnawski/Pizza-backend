@@ -19,7 +19,7 @@ Feature: Create type
       | 1  | Application_1  | Short description number 1  | http://www.demo1.pl | true  | 1      |
 
   @cleanDB
-  Scenario: Create new types
+  Scenario: Create new type
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
     When I send a POST request to "/api/types" with body:
     """

@@ -35,6 +35,9 @@ class ProductController extends BaseApiController
     public function indexAction()
     {
         $application = $this->getApplication();
+        if($application == null){
+            return JsonResponse::create(array('status' => 'Error', 'message' => 'No application found'));
+        }
         $products = $application->getProducts();
 
         if($products->isEmpty()){
@@ -80,7 +83,10 @@ class ProductController extends BaseApiController
     {
         /** @var Application $application */
         $application = $this->getApplication();
-
+        if($application == null){
+            return JsonResponse::create(array('status' => 'Error', 'message' => 'No application found'));
+        }
+        
         $form = $this->get('form.factory')->create(new ProductType());
         $formData = json_decode($request->getContent(), true);
         $form->submit($formData);
