@@ -59,7 +59,7 @@ class PriceController extends BaseApiController
     public function showAction(Product $product = null, Price $price = null)
     {
         if($product == null || $price == null){
-            return JsonResponse::create(array('status' => 'Error', 'message' => 'Not found'));
+            return JsonResponse::create(array('status' => 'Error', 'message' => 'Price not found'));
         }
         $this->denyAccessUnlessGranted('access', $price);
 
@@ -175,6 +175,6 @@ class PriceController extends BaseApiController
         $em->remove($price);
         $em->flush();
 
-        return JsonResponse::create(array('status' => 'Removed', 'message' => 'Type properly removed'));
+        return JsonResponse::create(array('status' => 'Removed', 'message' => 'Price properly removed'));
     }
 }
