@@ -64,3 +64,14 @@ PizzaBundle\Entity\PromoCode:
             - NotBlank: ~
             - Length:
                 max: 20
+        value:
+            - NotBlank: ~
+
+PizzaBundle\Entity\Prices:
+    properties:
+        type:
+            - NotBlank: ~
+            - Length:
+                max: 20
+        value:
+            - NotBlank: ~
