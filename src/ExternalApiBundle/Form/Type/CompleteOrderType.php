@@ -17,6 +17,8 @@ class CompleteOrderType extends AbstractType
         $builder->add('address', 'text');
         $builder->add('description', 'text');
         $builder->add('item');
+        $builder->add('promoCode', 'text');
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

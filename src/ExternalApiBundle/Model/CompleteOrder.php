@@ -2,6 +2,7 @@
 
 namespace ExternalApiBundle\Model;
 
+
 class CompleteOrder
 {
     public $first_name;
@@ -11,4 +12,5 @@ class CompleteOrder
     public $address;
     public $description;
     public $item;
+    public $promoCode;
 }

@@ -10,6 +10,7 @@ use Faker\Factory;
 use PizzaBundle\Entity\Customer;
 use PizzaBundle\Entity\Order;
 use PizzaBundle\Entity\Application;
+use PizzaBundle\Entity\PromoCode;
 
 class LoadOrderData extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface
 {
@@ -26,6 +27,15 @@ class LoadOrderData extends AbstractFixture implements FixtureInterface, Ordered
             $order->setCreateDate($faker->dateTime);
             $order->setDescription($faker->sentence(50));
             $order->setRealized($faker->boolean());
+            $order->setTotalPrice($faker->randomFloat(2,10,40));
+
+            if($faker->boolean(25)){
+                $random = rand(0, LoadPromoCodeData::PROMO_CODES_NUMBER - 1);
+                /** @var PromoCode $promoCode */
+                $promoCode = $this->getReference(sprintf('promo_code-%s', $random));
+                $order->setPromoCode($promoCode);
+            }
+
             $random = rand(0, LoadCustomerData::CUSTOMER_NUMBER - 1);
             /** @var Customer $customer */
             $customer = $this->getReference(sprintf('customer-%s', $random));

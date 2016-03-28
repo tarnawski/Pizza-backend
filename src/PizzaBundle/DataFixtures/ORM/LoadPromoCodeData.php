@@ -33,6 +33,7 @@ class LoadPromoCodeData extends AbstractFixture implements FixtureInterface, Ord
             /** @var Application $application */
             $application = $this->getReference('application');
             $promoCode->setApplication($application);
+            $this->addReference(sprintf('promo_code-%s', $i), $promoCode);
             $manager->persist($promoCode);
         }
 

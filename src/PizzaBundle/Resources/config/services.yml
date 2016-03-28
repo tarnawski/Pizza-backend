@@ -29,3 +29,8 @@ services:
       class: PizzaBundle\Validator\Constraints\PromoCodeTypeValidator
       tags:
         -  { name: validator.constraint_validator, alias: promo_code_type_validate }
+
+  pizza.promo_code.business:
+    class: PizzaBundle\Model\PromoCodeBusiness
+    arguments:
+      entityManager: "@doctrine.orm.entity_manager"

@@ -28,6 +28,11 @@ PizzaBundle\Entity\Order:
             length: 800
             options:
               fixed: false
+        totalPrice:
+            column: total_price
+            type: decimal
+            precision: 10
+            scale: 2
     oneToMany:
         items:
             targetEntity: Item
@@ -45,5 +50,11 @@ PizzaBundle\Entity\Order:
             inversedBy: order
             joinColumn:
                     name: application_id
+                    referencedColumnName: id
+        promoCode:
+            targetEntity: PromoCode
+            inversedBy: order
+            joinColumn:
+                    name: promocode_id
                     referencedColumnName: id
     lifecycleCallbacks: {  }
