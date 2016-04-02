@@ -94,6 +94,11 @@ nelmio_cors:
             allow_headers: ['*']
             allow_methods: ['POST', 'GET', 'OPTIONS']
             max_age: 3600
+        '^/oauth/':
+            allow_origin: ['*']
+            allow_headers: ['*']
+            allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS']
+            max_age: 3600
 
 fos_user:
     db_driver: orm
