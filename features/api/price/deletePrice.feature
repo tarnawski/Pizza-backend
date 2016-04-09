@@ -31,7 +31,7 @@ Feature: Delete price
   @cleanDB
   Scenario: Delete price with id 1 belongs to product with id 1
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
-    When I send a DELETE request to "/api/products/1/prices/1"
+    When I send a DELETE request to "/api/types/1/products/1/prices/1"
     Then the response code should be 200
     And the JSON response should match:
     """

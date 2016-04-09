@@ -1,24 +1,24 @@
 api_product_index:
-  path: products.{_format}
+  path: types/{type_id}/products.{_format}
   defaults:  { _controller: ApiBundle:Product:index, _format: json }
   methods: [GET]
 
 api_product_show:
-  path: products/{product_id}.{_format}
+  path: types/{type_id}/products/{product_id}.{_format}
   defaults:  { _controller: ApiBundle:Product:show, _format: json }
   methods: [GET]
 
 api_product_create:
-  path: products.{_format}
+  path: types/{type_id}/products.{_format}
   defaults:  { _controller: ApiBundle:Product:create, _format: json }
   methods: [POST]
 
 api_product_update:
-  path: products/{product_id}.{_format}
+  path: types/{type_id}/products/{product_id}.{_format}
   defaults:  { _controller: ApiBundle:Product:update, _format: json }
   methods: [PUT]
 
 api_product_delete:
-  path: products/{product_id}.{_format}
+  path: types/{type_id}/products/{product_id}.{_format}
   defaults:  { _controller: ApiBundle:Product:delete, _format: json }
   methods: [DELETE]

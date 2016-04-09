@@ -45,27 +45,11 @@ Feature: Show types
     [
       {
         "id": @integer@,
-        "name": "Type_1",
-        "products": [
-          {
-            "id": @integer@,
-            "name": "Product_1",
-            "description": "Short description number 1",
-            "available": true
-          }
-        ]
+        "name": "Type_1"
       },
       {
         "id": @integer@,
-        "name": "Type_2",
-        "products": [
-          {
-            "id": @integer@,
-            "name": "Product_2",
-            "description": "Short description number 2",
-            "available": true
-          }
-        ]
+        "name": "Type_2"
       }
     ]
     """
@@ -79,15 +63,7 @@ Feature: Show types
     """
     {
       "id": @integer@,
-      "name": "Type_1",
-      "products": [
-        {
-          "id": @integer@,
-          "name": "Product_1",
-          "description": "Short description number 1",
-          "available": true
-        }
-      ]
+      "name": "Type_1"
     }
     """
 

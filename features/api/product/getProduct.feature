@@ -33,7 +33,7 @@ Feature: Show product
   @cleanDB
   Scenario: Get list of products
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
-    When I send a GET request to "/api/products"
+    When I send a GET request to "api/types/1/products"
     Then the response code should be 200
     And the JSON response should match:
     """
@@ -75,7 +75,7 @@ Feature: Show product
   @cleanDB
   Scenario: Get single product
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
-    When I send a GET request to "/api/products/1"
+    When I send a GET request to "api/types/1/products/1"
     Then the response code should be 200
     And the JSON response should match:
     """
@@ -102,7 +102,7 @@ Feature: Show product
   @cleanDB
   Scenario: Get single product with invalid id
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
-    When I send a GET request to "/api/products/3"
+    When I send a GET request to "api/types/1/products/3"
     Then the response code should be 200
     And the JSON response should match:
     """

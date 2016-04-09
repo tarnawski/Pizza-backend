@@ -32,7 +32,7 @@ Feature: Show price
   @cleanDB
   Scenario: Get list of prices belongs to product
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
-    When I send a GET request to "/api/products/1/prices"
+    When I send a GET request to "/api/types/1/products/1/prices"
     Then the response code should be 200
     And the JSON response should match:
     """
@@ -53,7 +53,7 @@ Feature: Show price
   @cleanDB
   Scenario: Get single price belongs to product with id 1
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
-    When I send a GET request to "/api/products/1/prices/1"
+    When I send a GET request to "/api/types/1/products/1/prices/1"
     Then the response code should be 200
     And the JSON response should match:
     """
@@ -67,7 +67,7 @@ Feature: Show price
   @cleanDB
   Scenario: Get single price with invalid id
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
-    When I send a GET request to "/api/products/1/prices/8"
+    When I send a GET request to "/api/types/1/products/1/prices/8"
     Then the response code should be 200
     And the JSON response should match:
     """
