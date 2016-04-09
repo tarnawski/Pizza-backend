@@ -35,7 +35,6 @@ Feature: Update type
     """
     {
       "id": @integer@,
-      "name": "New Lorem",
-      "products": @array@
+      "name": "New Lorem"
     }
     """

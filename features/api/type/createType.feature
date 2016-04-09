@@ -32,7 +32,6 @@ Feature: Create type
     """
     {
       "id": @integer@,
-      "name": "Lorem",
-      "products": @array@
+      "name": "Lorem"
     }
     """

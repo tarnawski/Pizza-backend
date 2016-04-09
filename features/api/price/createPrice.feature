@@ -31,7 +31,7 @@ Feature: Create new price
   @cleanDB
   Scenario: Create new price
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
-    When I send a POST request to "/api/products/1/prices" with body:
+    When I send a POST request to "api/types/1/products/1/prices" with body:
     """
       {
         "type": "Small",

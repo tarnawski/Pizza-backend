@@ -35,13 +35,12 @@ Feature: Update product
   @cleanDB
   Scenario: Update product
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
-    When I send a PUT request to "/api/products/1" with body:
+    When I send a PUT request to "api/types/1/products/1" with body:
     """
     {
       "name": "Product_1",
       "description": "Short description number 1",
-      "available": false,
-      "type": 1
+      "available": false
     }
     """
     Then the response code should be 200

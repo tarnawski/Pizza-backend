@@ -31,7 +31,7 @@ Feature: Update price
   @cleanDB
   Scenario: Update price
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
-    When I send a PUT request to "/api/products/1/prices/1" with body:
+    When I send a PUT request to "/api/types/1/products/1/prices/1" with body:
     """
     {
       "type": "Small",

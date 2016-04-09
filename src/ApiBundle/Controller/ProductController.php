@@ -5,6 +5,7 @@ namespace ApiBundle\Controller;
 use ApiBundle\Form\Type\ProductType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use PizzaBundle\Entity\Product;
+use PizzaBundle\Entity\Type;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,15 +31,18 @@ class ProductController extends BaseApiController
      *  description="Return all Products belongs to Application",
      *  views = { "internal" }
      * )
+     * @param Type $type
      * @return mixed
+     * @ParamConverter("type", class="PizzaBundle\Entity\Type", options={"id" = "type_id"})
      */
-    public function indexAction()
+    public function indexAction(Type $type = null)
     {
         $application = $this->getApplication();
-        if($application == null){
+        if($application == null || $type == null){
             return JsonResponse::create(array('status' => 'Error', 'message' => 'No application found'));
         }
-        $products = $application->getProducts();
+
+        $products = $type->getProducts();
 
         if($products->isEmpty()){
             return JsonResponse::create(array('status' => 'Info', 'message' => 'No Product in application'));
@@ -52,16 +56,22 @@ class ProductController extends BaseApiController
      *  description="Return single Product",
      *  views = { "internal" }
      * )
+     * @param Type $type
      * @param Product $product
      * @return mixed
      * @ParamConverter("product", class="PizzaBundle\Entity\Product", options={"id" = "product_id"})
+     * @ParamConverter("type", class="PizzaBundle\Entity\Type", options={"id" = "type_id"})
      */
-    public function showAction(Product $product = null)
+    public function showAction(Type $type = null, Product $product = null)
     {
-        if ($product == null){
+        if ($type == null || $product == null){
             return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
         }
         $this->denyAccessUnlessGranted('access', $product);
+
+        if(!$type->getProducts()->contains($product)){
+            return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
+        }
 
         return $this->success($product, 'product', Response::HTTP_OK, array('Default', 'Product', 'Price'));
     }
@@ -77,14 +87,19 @@ class ProductController extends BaseApiController
      *  })
      * )
      * @param Request $request
+     * @param Type $type
      * @return mixed
+     * @ParamConverter("type", class="PizzaBundle\Entity\Type", options={"id" = "type_id"})
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, Type $type = null)
     {
         /** @var Application $application */
         $application = $this->getApplication();
-        if($application == null){
+        if($application == null || $type == null){
             return JsonResponse::create(array('status' => 'Error', 'message' => 'No application found'));
+        }
+        if(!$application->getTypes()->contains($type)){
+            return JsonResponse::create(array('status' => 'Error', 'message' => 'Type not found'));
         }
         
         $form = $this->get('form.factory')->create(new ProductType());
@@ -98,6 +113,7 @@ class ProductController extends BaseApiController
         $product = $form->getData();
 
         $product->setApplication($application);
+        $product->setType($type);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($product);
@@ -118,15 +134,21 @@ class ProductController extends BaseApiController
      * )
      * @param Request $request
      * @param Product $product
+     * @param Type $type
      * @ParamConverter("product", class="PizzaBundle\Entity\Product", options={"id" = "product_id"})
+     * @ParamConverter("type", class="PizzaBundle\Entity\Type", options={"id" = "type_id"})
      * @return mixed
      */
-    public function updateAction(Request $request, Product $product = null)
+    public function updateAction(Request $request, Product $product = null, Type $type = null)
     {
-        if ($product == null){
+        if ($product == null || $type == null){
             return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
         }
         $this->denyAccessUnlessGranted('access', $product);
+
+        if(!$type->getProducts()->contains($product)){
+            return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
+        }
 
         $form = $this->get('form.factory')->create(new ProductType(), $product);
         $formData = json_decode($request->getContent(), true);
@@ -148,15 +170,20 @@ class ProductController extends BaseApiController
      *  views = { "internal" }
      *)
      * @param Product $product
+     * @param Type $type
      * @return mixed|Response
      * @ParamConverter("product", class="PizzaBundle\Entity\Product", options={"id" = "product_id"})
+     * @ParamConverter("type", class="PizzaBundle\Entity\Type", options={"id" = "type_id"})
      */
-    public function deleteAction(Product $product = null)
+    public function deleteAction(Product $product = null, Type $type = null)
     {
-        if ($product == null){
+        if ($product == null || $type == null){
             return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
         }
         $this->denyAccessUnlessGranted('access', $product);
+        if(!$type->getProducts()->contains($product)){
+            return JsonResponse::create(array('status' => 'Error', 'message' => 'Product not found'));
+        }
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($product);

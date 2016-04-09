@@ -9,7 +9,7 @@ PizzaBundle\Entity\Type:
       groups: [Type, External, Details]
     products:
       expose: true
-      groups: [Type, External, Details]
+      groups: [External, Details]
       type: ArrayCollection<PizzaBundle\Entity\Product>
       max_depth: 1
 

@@ -24,13 +24,12 @@ Feature: Create product
   @cleanDB
   Scenario: Create new product
     Given I set header "Authorization" with value "Bearer OWJkOGQzODliYTZjNTk3YTM1MmY0OTY2NjRlYTk2YmRmM2ZhNGE5YmZmMWVlYTg4MTllMmMxMzg3NzA4NGU5Nw"
-    When I send a POST request to "/api/products" with body:
+    When I send a POST request to "/api/types/1/products" with body:
     """
     {
     "name": "Lorem",
     "description": "Ipsym dem lorem",
-    "available": true,
-    "type": 1
+    "available": true
     }
     """
     Then the response code should be 200

@@ -14,9 +14,6 @@ class ProductType extends AbstractType
         $builder->add('name', 'text');
         $builder->add('description', 'text');
         $builder->add('available');
-        $builder->add('type', 'entity', array(
-            'class' => 'PizzaBundle\Entity\Type'
-        ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
