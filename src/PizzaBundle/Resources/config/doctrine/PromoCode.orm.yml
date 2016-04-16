@@ -1,6 +1,7 @@
 PizzaBundle\Entity\PromoCode:
     type: entity
     table: promo_code
+    repositoryClass: PizzaBundle\Repository\PromoCodeRepository
     id:
         id:
             type: integer
@@ -43,6 +44,11 @@ PizzaBundle\Entity\PromoCode:
             type: boolean
             options:
                 default: 0
+    oneToMany:
+        orders:
+            targetEntity: Order
+            mappedBy: promo_code
+            cascade: ["all"]
     manyToOne:
         application:
             targetEntity: Application

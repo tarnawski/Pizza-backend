@@ -45,6 +45,16 @@ class PromoCode
     private $application;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $orders;
+
+    public function __construct()
+    {
+        $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
      * @return int
      */
     public function getId()
@@ -165,5 +175,34 @@ class PromoCode
         $this->application = $application;
 
         return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getOrders()
+    {
+        return $this->orders;
+    }
+
+    /**
+     * @param Order $order
+     * @return $this
+     */
+    public function addItem(Order $order)
+    {
+        if (!$this->orders->contains($order)) {
+            $order->setOrder($this);
+            $this->orders[] = $order;
+        }
+        return $this;
+    }
+
+    /**
+     * @param Order $order
+     */
+    public function removeItem(Order $order)
+    {
+        $this->orders->remove($order);
     }
 }

@@ -23,6 +23,16 @@ class Order
      * @var string
      */
     private $description;
+    
+    /**
+     * @var float
+     */
+    private $totalPrice;
+    
+    /**
+     * @var PromoCode
+     */
+    private $promoCode;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -100,6 +110,38 @@ class Order
         $this->description = $description;
     }
 
+    /**
+     * @return float
+     */
+    public function getTotalPrice()
+    {
+        return $this->totalPrice;
+    }
+
+    /**
+     * @param float $totalPrice
+     */
+    public function setTotalPrice($totalPrice)
+    {
+        $this->totalPrice = $totalPrice;
+    }
+
+    /**
+     * @return PromoCode
+     */
+    public function getPromoCode()
+    {
+        return $this->promoCode;
+    }
+
+    /**
+     * @param PromoCode $promoCode
+     */
+    public function setPromoCode($promoCode)
+    {
+        $this->promoCode = $promoCode;
+    }
+    
     /**
      * @return \Doctrine\Common\Collections\ArrayCollection
      */
