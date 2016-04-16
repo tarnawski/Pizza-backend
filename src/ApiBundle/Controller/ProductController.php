@@ -44,9 +44,6 @@ class ProductController extends BaseApiController
 
         $products = $type->getProducts();
 
-        if($products->isEmpty()){
-            return JsonResponse::create(array('status' => 'Info', 'message' => 'No Product in application'));
-        }
 
         return $this->success($products, 'product', Response::HTTP_OK, array('Default', 'Product', 'Price'));
     }
