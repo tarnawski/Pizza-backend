@@ -25,7 +25,7 @@ class LoadOrderData extends AbstractFixture implements FixtureInterface, Ordered
         for ($i = 0; $i < LoadOrderData::ORDER_NUMBER; $i++) {
             $order = new Order();
             $order->setCreateDate($faker->dateTime);
-            $order->setDescription($faker->sentence(50));
+            $order->setDescription($faker->sentence(10));
             $order->setRealized($faker->boolean());
             $order->setTotalPrice($faker->randomFloat(2,10,40));
 

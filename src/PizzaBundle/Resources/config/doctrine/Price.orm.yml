@@ -30,9 +30,4 @@ PizzaBundle\Entity\Price:
             joinColumn:
                     name: product_id
                     referencedColumnName: id
-    oneToMany:
-        items:
-            targetEntity: Item
-            mappedBy: price
-            cascade: ["all"]
     lifecycleCallbacks: {  }

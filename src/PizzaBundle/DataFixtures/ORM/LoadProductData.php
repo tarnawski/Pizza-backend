@@ -26,7 +26,7 @@ class LoadProductData extends AbstractFixture implements FixtureInterface, Order
         for ($i = 0; $i < self::PRODUCT_NUMBER; $i++) {
             $product = new Product();
             $product->setName($faker->word);
-            $product->setDescription($faker->sentence(5,15));
+            $product->setDescription($faker->sentence(5,8));
             $product->setAvailable($faker->boolean());
 
             /** @var Application $application */

@@ -12,22 +12,32 @@ class Item
     /**
      * @var integer
      */
-    private $count;
+    private $productId;
 
     /**
-     * @var Product
+     * @var string
      */
-    private $product;
+    private $productName;
+
+    /**
+     * @var string
+     */
+    private $productDescription;
+
+    /**
+     * @var string
+     */
+    private $productType;
+
+    /**
+     * @var float
+     */
+    private $productPrice;
 
     /**
      * @var Order
      */
     private $order;
-
-    /**
-     * @var Price
-     */
-    private $price;
 
     /**
      * @return int
@@ -40,36 +50,84 @@ class Item
     /**
      * @return int
      */
-    public function getCount()
+    public function getProductId()
     {
-        return $this->count;
+        return $this->productId;
     }
 
     /**
-     * @param int $count
+     * @param int $productId
      */
-    public function setCount($count)
+    public function setProductId($productId)
     {
-        $this->count = $count;
+        $this->productId = $productId;
     }
 
     /**
-     * @return Product
+     * @return string
      */
-    public function getProduct()
+    public function getProductName()
     {
-        return $this->product;
+        return $this->productName;
     }
 
     /**
-     * @param Product $product
+     * @param string $productName
      */
-    public function setProduct(Product $product)
+    public function setProductName($productName)
     {
-        $this->product = $product;
+        $this->productName = $productName;
     }
 
     /**
+     * @return string
+     */
+    public function getProductDescription()
+    {
+        return $this->productDescription;
+    }
+
+    /**
+     * @param string $productDescription
+     */
+    public function setProductDescription($productDescription)
+    {
+        $this->productDescription = $productDescription;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductType()
+    {
+        return $this->productType;
+    }
+
+    /**
+     * @param string $productType
+     */
+    public function setProductType($productType)
+    {
+        $this->productType = $productType;
+    }
+
+    /**
+     * @return float
+     */
+    public function getProductPrice()
+    {
+        return $this->productPrice;
+    }
+
+    /**
+     * @param float $productPrice
+     */
+    public function setProductPrice($productPrice)
+    {
+        $this->productPrice = $productPrice;
+    }
+
+     /**
      * @return Order
      */
     public function getOrder()
@@ -83,21 +141,5 @@ class Item
     public function setOrder(Order $order)
     {
         $this->order = $order;
-    }
-
-    /**
-     * @return Price
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * @param Price $price
-     */
-    public function setPrice(Price $price)
-    {
-        $this->price = $price;
     }
 }
