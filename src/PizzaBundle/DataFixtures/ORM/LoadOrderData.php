@@ -33,13 +33,21 @@ class LoadOrderData extends AbstractFixture implements FixtureInterface, Ordered
                 $random = rand(0, LoadPromoCodeData::PROMO_CODES_NUMBER - 1);
                 /** @var PromoCode $promoCode */
                 $promoCode = $this->getReference(sprintf('promo_code-%s', $random));
-                $order->setPromoCode($promoCode);
+                $order->setPromoCode($promoCode->getCode());
+                $promoCode->isPercent() ? $type = 'percent' : $type = 'overall';
+                $order->setPromoCodeType($type);
+                $order->setPromoCodeValue($promoCode->getValue());
             }
 
             $random = rand(0, LoadCustomerData::CUSTOMER_NUMBER - 1);
             /** @var Customer $customer */
             $customer = $this->getReference(sprintf('customer-%s', $random));
-            $order->setCustomer($customer);
+            $order->setCustomerFirstName($customer->getFirstName());
+            $order->setCustomerLastName($customer->getLastName());
+            $order->setCustomerEmail($customer->getEmail());
+            $order->setCustomerPhone($customer->getPhone());
+            $order->setCustomerAddress($customer->getAddress());
+
             /** @var Application $application */
             $application = $this->getReference('application');
             $order->setApplication($application);

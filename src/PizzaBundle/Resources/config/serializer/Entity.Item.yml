@@ -4,9 +4,6 @@ PizzaBundle\Entity\Item:
     id:
       expose: true
       groups: [Item, Details]
-    productId:
-      expose: true
-      groups: [Item, Details]
     productName:
       expose: true
       groups: [Item, Details]

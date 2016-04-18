@@ -11,9 +11,6 @@ PizzaBundle\Entity\Item:
             generator:
                 strategy: IDENTITY
     fields:
-        productId:
-            column: product_id
-            type: integer
         productName:
             column: product_name
             type: string
@@ -21,8 +18,8 @@ PizzaBundle\Entity\Item:
             column: product_description
             type: string
         productType:
-                    column: product_type
-                    type: string
+            column: product_type
+            type: string
         productPrice:
             column: product_price
             type: decimal

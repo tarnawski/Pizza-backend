@@ -10,11 +10,6 @@ class Item
     private $id;
 
     /**
-     * @var integer
-     */
-    private $productId;
-
-    /**
      * @var string
      */
     private $productName;

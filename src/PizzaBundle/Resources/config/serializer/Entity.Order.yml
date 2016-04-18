@@ -16,6 +16,30 @@ PizzaBundle\Entity\Order:
     totalPrice:
       expose: true
       groups: [Order, Details]
+    promoCode:
+      expose: true
+      groups: [Order, Details]
+    promoCodeType:
+      expose: true
+      groups: [Order, Details]
+    promoCodeValue:
+      expose: true
+      groups: [Order, Details]
+    customerFirstName:
+      expose: true
+      groups: [Order, Details]
+    customerLastName:
+      expose: true
+      groups: [Order, Details]
+    customerEmail:
+      expose: true
+      groups: [Order, Details]
+    customerPhone:
+      expose: true
+      groups: [Order, Details]
+    customerAddress:
+      expose: true
+      groups: [Order, Details]
     items:
       expose: true
       groups: [Item, Details]
