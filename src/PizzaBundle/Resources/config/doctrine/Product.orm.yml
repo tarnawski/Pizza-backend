@@ -1,6 +1,7 @@
 PizzaBundle\Entity\Product:
     type: entity
     table: product
+    repositoryClass: PizzaBundle\Repository\ProductRepository
     id:
         id:
             type: integer

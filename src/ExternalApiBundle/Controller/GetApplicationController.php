@@ -16,6 +16,8 @@ use PizzaBundle\Entity\Application;
 use PizzaBundle\Entity\Customer;
 use PizzaBundle\Entity\Order;
 use PizzaBundle\Entity\Item;
+use PizzaBundle\Entity\Type;
+use PizzaBundle\Entity\Product;
 
 /**
  * Class GetApplicationController
@@ -40,6 +42,12 @@ class GetApplicationController extends  BaseApiController
      */
     public function showAction(Application $application)
     {
-         return $this->success($application, 'application', Response::HTTP_OK, array('Default', 'External'));
+        $dateNow = new \DateTime();
+        $endDate = $application->getCreateDate()->add(date_interval_create_from_date_string('30 days'));
+        if($application->isDemo() && $dateNow > $endDate){
+            return JsonResponse::create(array('status' => 'Demo', 'message' => 'The application has been blocked.'));
+        }
+
+        return $this->success($application, 'application', Response::HTTP_OK, array('Default', 'External'));
     }
 }

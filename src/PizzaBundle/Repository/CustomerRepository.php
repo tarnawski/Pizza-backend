@@ -3,6 +3,7 @@
 namespace PizzaBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use PizzaBundle\Entity\Application;
 
 class CustomerRepository extends EntityRepository
 {
@@ -28,6 +29,27 @@ class CustomerRepository extends EntityRepository
                 'phone' => '%'.$criteria->getPhone().'%',
                 'address' => '%'.$criteria->getAddress().'%'
             ));
+
+        return $builder;
+    }
+
+    /**
+     * @param Application $application
+     * @param string $email
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getCustomerByEmail(Application $application, $email)
+    {
+        $builder = $this->createQueryBuilder('c')
+            ->select('c')
+            ->where('c.application = :application')
+            ->andWhere('c.email LIKE :email')
+            ->setParameters(array(
+                'application' => $application->getId(),
+                'email' => $email,
+            ))
+            ->getQuery()
+            ->getOneOrNullResult();
 
         return $builder;
     }
