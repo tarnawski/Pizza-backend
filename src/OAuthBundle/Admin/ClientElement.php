@@ -22,7 +22,7 @@ class ClientElement extends CRUDElement
         $datagrid = $factory->createDataGrid($this->getId());
 
         $datagrid->addColumn('credentials', 'text', array(
-            'label' => 'admin.client.credentials',
+            'label' => 'Credentials',
             'field_mapping' => array('publicId', 'secret'),
             'value_format' => function ($value) {
                 return sprintf(
@@ -38,7 +38,7 @@ class ClientElement extends CRUDElement
         ));
 
         $datagrid->addColumn('action', 'action', array(
-            'label' => 'admin.user.action',
+            'label' => 'Action',
             'field_mapping' => array('id'),
             'actions' => array(
                 'edit' => array(
@@ -118,7 +118,7 @@ class ClientElement extends CRUDElement
     public function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            "allow_delete" => true,
+            "allow_delete" => false,
             "allow_add" => true,
             "template_list" => "@FSiAdmin/CRUD/list.html.twig",
             "template_form" => "@FSiAdmin/Form/form.html.twig",

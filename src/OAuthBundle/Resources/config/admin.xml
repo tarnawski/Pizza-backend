@@ -14,5 +14,10 @@
             <tag name="admin.element" alias="admin.oauth"/>
         </service>
 
+        <service id="clear_code_o_auth.admin.application" class="PizzaBundle\Admin\ApplicationElement">
+            <argument type="collection"></argument>
+            <tag name="admin.element" alias="admin.oauth"/>
+        </service>
+
     </services>
 </container>

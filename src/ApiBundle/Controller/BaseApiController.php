@@ -7,6 +7,7 @@ use JMS\Serializer\SerializationContext;
 use OAuthBundle\Entity\User;
 use PizzaBundle\Entity\Application;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -88,7 +89,7 @@ abstract class BaseApiController extends FOSRestController
         $current_user = $this->getUser();
         /** @var Application $application */
         $application = $current_user->getApplication();
-
+        
         return $application;
     }
 }

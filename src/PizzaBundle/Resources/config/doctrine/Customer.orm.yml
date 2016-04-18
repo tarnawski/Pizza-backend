@@ -54,10 +54,4 @@ PizzaBundle\Entity\Customer:
             joinColumn:
                     name: application_id
                     referencedColumnName: id
-    oneToMany:
-        orders:
-            targetEntity: Order
-            mappedBy: customer
-            cascade: ["all"]
-
     lifecycleCallbacks: {  }

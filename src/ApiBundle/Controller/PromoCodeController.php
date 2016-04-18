@@ -84,7 +84,10 @@ class PromoCodeController extends BaseApiController
     {
         /** @var Application $application */
         $application = $this->getApplication();
-
+        if($application == null){
+            return JsonResponse::create(array('status' => 'Error', 'message' => 'No application found'));
+        }
+        
         $form = $this->get('form.factory')->create(new PromoCodeType());
         $formData = json_decode($request->getContent(), true);
         $form->submit($formData);

@@ -2,3 +2,4 @@ menu:
   - OAuth:
     - admin_client
     - admin_user
+  - admin_application

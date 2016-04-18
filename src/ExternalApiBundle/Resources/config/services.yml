@@ -1,1 +1,4 @@
 services:
+  pizza.order.model:
+    class: ExternalApiBundle\Model\CompleteOrder
+    arguments: ["@doctrine.orm.entity_manager"]
