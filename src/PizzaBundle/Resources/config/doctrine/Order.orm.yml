@@ -33,28 +33,72 @@ PizzaBundle\Entity\Order:
             type: decimal
             precision: 10
             scale: 2
+        promoCode:
+            column: promo_code
+            type: string
+            nullable: true
+            length: 20
+            options:
+              fixed: false
+        promoCodeType:
+            column: promo_code_type
+            type: string
+            nullable: true
+            length: 20
+            options:
+              fixed: false
+        promoCodeValue:
+            column: promo_code_value
+            type: string
+            nullable: true
+            length: 20
+            options:
+              fixed: false
+        customerFirstName:
+            column: customer_first_name
+            type: string
+            nullable: false
+            length: 50
+            options:
+              fixed: false
+        customerLastName:
+            column: customer_last_name
+            type: string
+            nullable: false
+            length: 50
+            options:
+              fixed: false
+        customerEmail:
+            column: customer_email
+            type: string
+            nullable: false
+            length: 50
+            options:
+              fixed: false
+        customerPhone:
+            column: customer_phone
+            type: string
+            nullable: false
+            length: 50
+            options:
+              fixed: false
+        customerAddress:
+            column: customer_address
+            type: string
+            nullable: false
+            length: 200
+            options:
+              fixed: false
     oneToMany:
         items:
             targetEntity: Item
             mappedBy: order
             cascade: ["all"]
     manyToOne:
-        customer:
-            targetEntity: Customer
-            inversedBy: order
-            joinColumn:
-                name: customer_id
-                referencedColumnName: id
         application:
             targetEntity: Application
             inversedBy: order
             joinColumn:
                     name: application_id
-                    referencedColumnName: id
-        promoCode:
-            targetEntity: PromoCode
-            inversedBy: order
-            joinColumn:
-                    name: promocode_id
                     referencedColumnName: id
     lifecycleCallbacks: {  }

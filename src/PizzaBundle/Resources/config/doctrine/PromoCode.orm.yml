@@ -44,11 +44,6 @@ PizzaBundle\Entity\PromoCode:
             type: boolean
             options:
                 default: 0
-    oneToMany:
-        orders:
-            targetEntity: Order
-            mappedBy: promo_code
-            cascade: ["all"]
     manyToOne:
         application:
             targetEntity: Application

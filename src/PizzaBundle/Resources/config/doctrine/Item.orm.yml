@@ -11,22 +11,21 @@ PizzaBundle\Entity\Item:
             generator:
                 strategy: IDENTITY
     fields:
-        count:
-            column: count
-            type: integer
+        productName:
+            column: product_name
+            type: string
+        productDescription:
+            column: product_description
+            type: string
+        productType:
+            column: product_type
+            type: string
+        productPrice:
+            column: product_price
+            type: decimal
+            precision: 10
+            scale: 2
     manyToOne:
-        product:
-            targetEntity: Product
-            inversedBy: item
-            joinColumn:
-                    name: product_id
-                    referencedColumnName: id
-        price:
-            targetEntity: Price
-            inversedBy: item
-            joinColumn:
-                    name: price_id
-                    referencedColumnName: id
         order:
             targetEntity: Order
             inversedBy: item
