@@ -4,16 +4,16 @@ PizzaBundle\Entity\Item:
     id:
       expose: true
       groups: [Item, Details]
-    count:
+    productName:
       expose: true
       groups: [Item, Details]
-    product:
+    productDescription:
       expose: true
-      groups: [Product, Details]
-      type: PizzaBundle\Entity\Product
-      max_depth: 1
-    price:
+      groups: [Item, Details]
+    productType:
       expose: true
-      groups: [ItemPrice, Details]
-      type: PizzaBundle\Entity\Price
-      max_depth: 1
+      groups: [Item, Details]
+    productPrice:
+      expose: true
+      groups: [Item, Details]
+

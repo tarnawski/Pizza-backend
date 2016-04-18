@@ -45,7 +45,6 @@ PizzaBundle\Entity\Application:
         users:
             targetEntity: OAuthBundle\Entity\User
             mappedBy: application
-            cascade: ["all"]
         promoCodes:
             targetEntity: PromoCode
             mappedBy: application

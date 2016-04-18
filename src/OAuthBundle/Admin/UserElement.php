@@ -79,6 +79,7 @@ class UserElement extends CRUDElement
             $this->getId()
         );
 
+        $datasource->addField('username', 'text', 'like');
         $datasource->addField('email', 'text', 'like');
 
         return $datasource;
@@ -104,8 +105,8 @@ class UserElement extends CRUDElement
             'choice',
             array(
                 'choices' => array(
-                    '0' => 'form.choices.no',
-                    '1' => 'form.choices.yes'
+                    '0' => 'No',
+                    '1' => 'Yes'
                 )
             )
         );
@@ -115,8 +116,8 @@ class UserElement extends CRUDElement
             'choice',
             array(
                 'choices' => array(
-                    '0' => 'form.choices.no',
-                    '1' => 'form.choices.yes'
+                    '0' => 'No',
+                    '1' => 'Yes'
                 )
             )
         );
@@ -131,7 +132,7 @@ class UserElement extends CRUDElement
     public function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            "allow_delete" => true,
+            "allow_delete" => false,
             "allow_add" => true,
             "template_list" => "@FSiAdmin/CRUD/list.html.twig",
             "template_form" => "@FSiAdmin/Form/form.html.twig",

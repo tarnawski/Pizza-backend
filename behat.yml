@@ -16,16 +16,9 @@ default: &default
     api:
       paths:
         - %paths.base%/features/api
+        - %paths.base%/features/oauth
       contexts:
-        - RestApiBundle\Behat\ApiContext:
-          container: "@service_container"
-      filters:
-        tags: "~@wip"
-    app:
-      paths:
-        - %paths.base%/features/app
-      contexts:
-        - RestApiBundle\Behat\ApiContext:
+        - ApiBundle\Behat\ApiContext:
           container: "@service_container"
       filters:
         tags: "~@wip"

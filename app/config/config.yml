@@ -59,6 +59,10 @@ bazinga_hateoas: ~
 jms_serializer:
     metadata:
         auto_detection: true
+        directories:
+            FOSUserBundle:
+                namespace_prefix: "FOS\\UserBundle"
+                path: "%kernel.root_dir%/serializer/FOSUserBundle/"
 
 fos_rest:
     param_fetcher_listener: true
@@ -85,7 +89,12 @@ nelmio_cors:
             allow_headers: ['*']
             allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS']
             max_age: 3600
-        '^/app/':
+        '^/ext/':
+            allow_origin: ['*']
+            allow_headers: ['*']
+            allow_methods: ['POST', 'GET', 'OPTIONS']
+            max_age: 3600
+        '^/oauth/':
             allow_origin: ['*']
             allow_headers: ['*']
             allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS']

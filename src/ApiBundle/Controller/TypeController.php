@@ -35,6 +35,9 @@ class TypeController extends BaseApiController
     public function indexAction()
     {
         $application = $this->getApplication();
+        if($application == null){
+            return JsonResponse::create(array('status' => 'Error', 'message' => 'No application found'));
+        }
         $types = $application->getTypes();
 
         return $this->success($types, 'type', Response::HTTP_OK, array('Default', 'Type'));
@@ -75,7 +78,10 @@ class TypeController extends BaseApiController
     {
         /** @var Application $application */
         $application = $this->getApplication();
-
+        if($application == null){
+            return JsonResponse::create(array('status' => 'Error', 'message' => 'No application found'));
+        }
+        
         $form = $this->get('form.factory')->create(new TypeType());
         $formData = json_decode($request->getContent(), true);
         $form->submit($formData);

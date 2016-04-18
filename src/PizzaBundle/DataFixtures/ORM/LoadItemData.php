@@ -10,6 +10,7 @@ use Faker\Factory;
 use PizzaBundle\Entity\Item;
 use PizzaBundle\Entity\Order;
 use PizzaBundle\Entity\Product;
+use PizzaBundle\Entity\Price;
 
 class LoadItemData extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface
 {
@@ -20,19 +21,22 @@ class LoadItemData extends AbstractFixture implements FixtureInterface, OrderedF
      */
     public function load(ObjectManager $manager)
     {
-        $faker = Factory::create('pl_PL');
         for ($i = 0; $i < LoadOrderData::ORDER_NUMBER; $i++) {
             for ($j = 0; $j < self::ITEMS_IN_ORDER; $j++) {
                 $item = new Item();
-                $item->setCount($faker->numberBetween(1, 3));
                 $random = rand(0, LoadProductData::PRODUCT_NUMBER - 1);
                 /** @var Product $product */
                 $product = $this->getReference(sprintf('product-%s', $random));
-                $item->setProduct($product);
+                $item->setProductId($product->getId());
+                $item->setProductName($product->getName());
+                $item->setProductDescription($product->getDescription());
+                /** @var Price $price */
+                $price = $product->getPrices()->first();
+                $item->setProductType($price->getType());
+                $item->setProductPrice($price->getValue());
                 /** @var Order $order */
                 $order = $this->getReference(sprintf('order-%s', $i));
                 $item->setOrder($order);
-                $item->setPrice($product->getPrices()->first());
                 $manager->persist($item);
             }
         }

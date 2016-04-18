@@ -4,9 +4,13 @@ namespace ExternalApiBundle\Controller;
 
 use ApiBundle\Controller\BaseApiController;
 use ExternalApiBundle\Form\Type\CompleteOrderType;
+use ExternalApiBundle\Model\CompleteOrder;
 use Hateoas\Representation\Factory\PagerfantaFactory;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
+use PizzaBundle\Entity\Price;
+use PizzaBundle\Entity\PromoCode;
+use PizzaBundle\Model\PromoCodeBusiness;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -62,10 +66,8 @@ class CompleteOrderController extends  BaseApiController
 
         $items = array();
         foreach ($data->item as $item) {
-            /** @var Item $newItem */
-            $items[] = $itemFactory->create($item);
+              $items[] = $itemFactory->create($item);
         }
-
 
         $customerFactory = $this->get('pizza.customer.factory');
 
@@ -90,14 +92,33 @@ class CompleteOrderController extends  BaseApiController
         foreach($items as $item){
             $order->addItem($item);
             $em->persist($item);
-
         }
+
+        $totalPrice = 0;
+        foreach ($order->getItems() as $item){
+           /** @var Price $price */
+            $price = $item->getPrice();
+            $totalPrice += $price->getValue();
+        }
+
+        if($data->promoCode){
+            $promoCodeRepository = $this->getRepository(PromoCode::class);
+            $promoCode = $promoCodeRepository->getPromoCodeByCode($application, $data->promoCode);
+            if($promoCode){
+                $order->setPromoCode($promoCode);
+                /** @var PromoCodeBusiness $promoCodeBusiness */
+                $promoCodeBusiness = $this->get('pizza.promo_code.business');
+                $totalPrice = $promoCodeBusiness->calculatePriceWithPromoCode($totalPrice, $promoCode);
+            }
+        }
+
+        $order->setTotalPrice($totalPrice);
 
         $em->persist($customer);
         $em->persist($order);
 
         $em->flush();
 
-      return $this->success($order, 'order', Response::HTTP_OK, array('Default', 'Order', 'Item', 'Product', 'ItemPrice'));
+      return $this->success($order, 'order', Response::HTTP_OK, array('Default', 'Order', 'Item', 'Product', 'ItemPrice', 'PromoCode'));
     }
 }

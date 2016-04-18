@@ -78,6 +78,7 @@
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
     ],
     "compile": [
+      "php app/console doctrine:schema:drop --force --env=prod",
       "php app/console doctrine:schema:update --force --env=prod",
       "php app/console doctrine:fixture:load --env=prod --no-debug",
       "rm -rf app/cache/prod/*"

@@ -49,6 +49,9 @@ class CustomerController extends BaseApiController
     public function indexAction(Request $request)
     {
         $application = $this->getApplication();
+        if($application == null){
+            return JsonResponse::create(array('status' => 'Error', 'message' => 'No application found'));
+        }
 
         $page = $request->get('page', 1);
         $limit = $request->get('limit', 10);
@@ -56,9 +59,9 @@ class CustomerController extends BaseApiController
         $customerCriteria = new CustomerCriteria($application->getId());
         $customerCriteria->setFirstName($request->get('first_name'));
         $customerCriteria->setLastName($request->get('last_name'));
-        $customerCriteria->setPhone($request->get('email'));
-        $customerCriteria->setAddress($request->get('phone'));
-        $customerCriteria->setEmail($request->get('address'));
+        $customerCriteria->setPhone($request->get('phone'));
+        $customerCriteria->setAddress($request->get('address'));
+        $customerCriteria->setEmail($request->get('email'));
 
         /** @var CustomerRepository $customerRepository */
         $customerRepository = $this->get('pizza.customer.repository');
