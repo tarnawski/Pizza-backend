@@ -30,6 +30,14 @@ services:
       tags:
         -  { name: validator.constraint_validator, alias: promo_code_type_validate }
 
+  promo.code.unique.validate:
+      class: PizzaBundle\Validator\Constraints\PromoCodeUniqueValidator
+      arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+            security: @security.token_storage
+      tags:
+        -  { name: validator.constraint_validator, alias: promo_code_unique_validate }
+
   pizza.promo_code.business:
     class: PizzaBundle\Model\PromoCodeBusiness
     arguments:
