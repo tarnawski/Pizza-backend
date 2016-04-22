@@ -27,7 +27,6 @@ class LoadItemData extends AbstractFixture implements FixtureInterface, OrderedF
                 $random = rand(0, LoadProductData::PRODUCT_NUMBER - 1);
                 /** @var Product $product */
                 $product = $this->getReference(sprintf('product-%s', $random));
-                $item->setProductId($product->getId());
                 $item->setProductName($product->getName());
                 $item->setProductDescription($product->getDescription());
                 /** @var Price $price */
