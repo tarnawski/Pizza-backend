@@ -1,6 +1,7 @@
 PizzaBundle\Entity\EmailNotification:
     type: entity
     table: email_notification
+    repositoryClass: PizzaBundle\Repository\EmailNotificationRepository
     id:
         id:
             type: integer

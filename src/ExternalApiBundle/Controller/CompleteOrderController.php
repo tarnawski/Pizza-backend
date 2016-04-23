@@ -130,6 +130,10 @@ class CompleteOrderController extends  BaseApiController
         $em->persist($order);
         $em->flush();
 
+        $strategy = $this->get('pizza.notification.strategy.factory')->get('email');
+        $strategy->send($application, $order);
+
+
         return JsonResponse::create(array('status' => 'Success', 'message' => 'Order saved'));
     }
 }
