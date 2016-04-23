@@ -51,11 +51,6 @@ class EmailStrategy implements SendingStrategy
                     'text/html'
                 );
 
-            var_dump($this->twig->render(
-                'Emails/notification.html.twig',
-                array('date' => $order->getCreateDate())
-            ));exit;
-
            $this->mailer->send($message);
         }
     }
