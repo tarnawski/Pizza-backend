@@ -65,4 +65,8 @@ PizzaBundle\Entity\Application:
             targetEntity: Order
             mappedBy: application
             cascade: ["all"]
+        emailNotifications:
+            targetEntity: EmailNotification
+            mappedBy: application
+            cascade: ["all"]
     lifecycleCallbacks: {  }

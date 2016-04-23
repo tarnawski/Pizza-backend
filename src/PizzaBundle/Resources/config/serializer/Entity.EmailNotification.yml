@@ -1,0 +1,15 @@
+PizzaBundle\Entity\EmailNotification:
+  exclusion_policy: ALL
+  properties:
+    id:
+      expose: true
+      groups: [EmailNotification, Details]
+    name:
+      expose: true
+      groups: [EmailNotification, Details]
+    email:
+      expose: true
+      groups: [EmailNotification, Details]
+    active:
+      expose: true
+      groups: [EmailNotification, Details]

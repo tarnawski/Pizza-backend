@@ -22,3 +22,6 @@ api_customer:
 
 api_order:
   resource: "@ApiBundle/Resources/config/api/order.yml"
+
+api_email:
+  resource: "@ApiBundle/Resources/config/api/email.yml"
