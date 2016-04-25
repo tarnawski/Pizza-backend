@@ -1,1 +1,16 @@
-
+ExternalApiBundle\Model\CompleteOrder:
+    properties:
+        first_name:
+            - NotBlank: ~
+        last_name:
+            - NotBlank: ~
+        email:
+            - Email:
+                message: The email "{{ value }}" is not a valid email.
+                checkMX: true
+        phone:
+            - NotBlank: ~
+        address:
+            - NotBlank: ~
+        item:
+            - NotBlank: ~

@@ -62,17 +62,10 @@ class CompleteOrderController extends  BaseApiController
 
         $data = $form->getData();
 
-        $itemFactory = $this->get('pizza.item.factory');
-
-        $items = array();
-        foreach ($data->item as $item) {
-              $items[] = $itemFactory->create($item);
-        }
-
-        $customerFactory = $this->get('pizza.customer.factory');
-
-        /** @var Customer $customer */
-        $customer = $customerFactory->create(
+        $orderFactory = $this->get('pizza.order.factory');
+        /** @var Order $order */
+        $order = $orderFactory->create(
+            $data->description,
             $data->first_name,
             $data->last_name,
             $data->email,
@@ -80,15 +73,15 @@ class CompleteOrderController extends  BaseApiController
             $data->address
         );
 
-        $orderFactory = $this->get('pizza.order.factory');
-        /** @var Order $order */
-        $order = $orderFactory->create(
-            $data->description
-        );
+        $itemFactory = $this->get('pizza.item.factory');
 
-        $customer->setApplication($application);
+        $items = array();
+        foreach ($data->item as $item) {
+            $items[] = $itemFactory->create($item);
+        }
+
+
         $order->setApplication($application);
-        $order->setCustomer($customer);
         foreach($items as $item){
             $order->addItem($item);
             $em->persist($item);
@@ -96,16 +89,18 @@ class CompleteOrderController extends  BaseApiController
 
         $totalPrice = 0;
         foreach ($order->getItems() as $item){
-           /** @var Price $price */
-            $price = $item->getPrice();
-            $totalPrice += $price->getValue();
+            $totalPrice += $item->getProductPrice();;
         }
 
         if($data->promoCode){
             $promoCodeRepository = $this->getRepository(PromoCode::class);
+            /** @var PromoCode $promoCode */
             $promoCode = $promoCodeRepository->getPromoCodeByCode($application, $data->promoCode);
             if($promoCode){
-                $order->setPromoCode($promoCode);
+                $order->setPromoCode($promoCode->getCode());
+                $order->setPromoCodeValue($promoCode->getValue());
+                $promoCode->isPercent() ? $type = 'percent' : $type = 'overall';
+                $order->setPromoCodeType($type);
                 /** @var PromoCodeBusiness $promoCodeBusiness */
                 $promoCodeBusiness = $this->get('pizza.promo_code.business');
                 $totalPrice = $promoCodeBusiness->calculatePriceWithPromoCode($totalPrice, $promoCode);
@@ -114,11 +109,27 @@ class CompleteOrderController extends  BaseApiController
 
         $order->setTotalPrice($totalPrice);
 
-        $em->persist($customer);
-        $em->persist($order);
+        // Create customer if not exist
+        $customerRepository = $this->getRepository(Customer::class);
+        $customer = $customerRepository->getCustomerByEmail($application, $data->email);
 
+        if($customer == null) {
+            $customerFactory = $this->get('pizza.customer.factory');
+            /** @var Customer $customer */
+            $customer = $customerFactory->create(
+                $data->first_name,
+                $data->last_name,
+                $data->email,
+                $data->phone,
+                $data->address
+            );
+            $customer->setApplication($application);
+            $em->persist($customer);
+        }
+
+        $em->persist($order);
         $em->flush();
 
-      return $this->success($order, 'order', Response::HTTP_OK, array('Default', 'Order', 'Item', 'Product', 'ItemPrice', 'PromoCode'));
+        return JsonResponse::create(array('status' => 'Success', 'message' => 'Order saved'));
     }
 }

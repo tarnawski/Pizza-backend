@@ -18,13 +18,14 @@ use PizzaBundle\Entity\Order;
 use PizzaBundle\Entity\Item;
 use PizzaBundle\Entity\Type;
 use PizzaBundle\Entity\Product;
+use PizzaBundle\Entity\PromoCode;
 
 /**
  * Class GetApplicationController
  * @package ExternalApiBundle\Controller
  * @ApiDoc()
  */
-class GetApplicationController extends  BaseApiController
+class CheckPromoCodeController extends  BaseApiController
 {
     public function getEntityClassName()
     {
@@ -33,21 +34,25 @@ class GetApplicationController extends  BaseApiController
 
     /**
      * @ApiDoc(
-     *  description="Return application",
+     *  description="Return promo code details if exist",
      *  views = { "external" }
      * )
      * @param Application $application
+     * @param Request $request
      * @return mixed
      * @ParamConverter("application", class="PizzaBundle\Entity\Application", options={"id" = "application_id"})
      */
-    public function showAction(Application $application)
+    public function checkAction(Application $application, Request $request)
     {
-        $dateNow = new \DateTime();
-        $endDate = $application->getCreateDate()->add(date_interval_create_from_date_string('30 days'));
-        if($application->isDemo() && $dateNow > $endDate){
-            return JsonResponse::create(array('status' => 'Demo', 'message' => 'The application has been blocked.'));
+        $formData = json_decode($request->getContent(), true);
+
+        $promoCodeRepository = $this->getRepository(PromoCode::class);
+        /** @var PromoCode $promoCode */
+        $promoCode = $promoCodeRepository->getPromoCodeByCode($application, $formData['code']);
+        if($promoCode != null && $promoCode->isAvailable()){
+            return $this->success($promoCode, 'promocode', Response::HTTP_OK, array('Default', 'PromoCode'));
         }
 
-        return $this->success($application, 'application', Response::HTTP_OK, array('Default', 'External'));
+        return JsonResponse::create(array('status' => 'Not found'));
     }
 }

@@ -43,22 +43,6 @@ class Item
     }
 
     /**
-     * @return int
-     */
-    public function getProductId()
-    {
-        return $this->productId;
-    }
-
-    /**
-     * @param int $productId
-     */
-    public function setProductId($productId)
-    {
-        $this->productId = $productId;
-    }
-
-    /**
      * @return string
      */
     public function getProductName()

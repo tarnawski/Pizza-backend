@@ -20,9 +20,7 @@ class ItemFactory
         $this->entityManager = $entityManager;
     }
 
-    public function create(
-        $item
-    )
+    public function create($item)
     {
         $productRepository = $this->entityManager->getRepository(Product::class);
         /** @var Product $product */
@@ -32,9 +30,10 @@ class ItemFactory
         $price = $priceRepository->find($item['price_id']);
 
         $newItem = new Item();
-        $newItem->setProduct($product);
-        $newItem->setPrice($price);
-        $newItem->setCount($item['count']);
+        $newItem->setProductName($product->getName());
+        $newItem->setProductDescription($product->getDescription());
+        $newItem->setProductType($price->getType());
+        $newItem->setProductPrice($price->getValue());
 
         return $newItem;
     }

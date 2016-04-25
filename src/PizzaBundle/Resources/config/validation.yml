@@ -67,6 +67,7 @@ PizzaBundle\Entity\PromoCode:
         value:
             - NotBlank: ~
     constraints:
+        - PizzaBundle\Validator\Constraints\PromoCodeUnique: ~
         - PizzaBundle\Validator\Constraints\PromoCodeType:
             fields:
                 - name: percent

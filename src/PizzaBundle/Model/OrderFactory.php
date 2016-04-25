@@ -10,13 +10,23 @@ use PizzaBundle\Entity\Order;
 class OrderFactory
 {
     public function create(
-        $description
+        $description,
+        $first_name,
+        $last_name,
+        $email,
+        $phone,
+        $address
     ) {
         $order = new Order();
         $order->setDescription($description);
         $order->setRealized(false);
         $now = new \DateTime();
         $order->setCreateDate($now);
+        $order->setCustomerFirstName($first_name);
+        $order->setCustomerLastName($last_name);
+        $order->setCustomerEmail($email);
+        $order->setCustomerPhone($phone);
+        $order->setCustomerAddress($address);
 
         return $order;
     }
