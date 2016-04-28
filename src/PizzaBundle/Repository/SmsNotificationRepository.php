@@ -8,8 +8,11 @@ use PizzaBundle\Entity\Application;
 class SmsNotificationRepository extends EntityRepository
 {
 
-    public function getActiveNumberByApplication(Application $application, $active = true)
-    {
+    public function getActiveNumberByApplication(
+        Application $application,
+        $active = true,
+        $limit = 1
+    ) {
         $builder = $this->createQueryBuilder('n')
             ->select('n')
             ->where('n.application = :application')
@@ -18,9 +21,9 @@ class SmsNotificationRepository extends EntityRepository
                 'application' => $application,
                 'active' => $active
             ))
+            ->setMaxResults($limit)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
 
         return $builder;
     }

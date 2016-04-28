@@ -132,8 +132,8 @@ class CompleteOrderController extends  BaseApiController
 
         $arrayOrder = $this->orderToArray($order);
 
-        //Send Email notification
-        $strategy = $this->get('pizza.notification.strategy.factory')->get('email');
+        //Send notification: email | sms
+        $strategy = $this->get('pizza.notification.strategy.factory')->get('sms');
         $strategy->send($application, $arrayOrder);
 
         return JsonResponse::create(array('status' => 'Success', 'message' => 'Order saved'));
