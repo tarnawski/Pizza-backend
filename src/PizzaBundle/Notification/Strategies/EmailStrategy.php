@@ -31,7 +31,7 @@ class EmailStrategy implements SendingStrategy
         $this->mailer = $mailer;
     }
 
-    public function send(Application $application, Order $order)
+    public function send(Application $application, $order)
     {
         $emailNotifications = $this->emailNotificationRepository->getActiveEmailsByApplication($application);
 
@@ -39,14 +39,12 @@ class EmailStrategy implements SendingStrategy
         foreach ($emailNotifications as $emailNotification){
             $message = new \Swift_Message();
             $message->setSubject('Nowe zamówienie');
-            $message->setFrom('notification@appmenu.pl');
+            $message->setFrom('tarnawski@go2.pl');
             $message->setTo($emailNotification->getEmail());
             $message->setBody(
                     $this->twig->render(
                         'Emails/notification.html.twig',
-                        array(
-                            'date' => $order->getCreateDate(),
-                            )
+                        $order
                     ),
                     'text/html'
                 );

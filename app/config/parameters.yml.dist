@@ -7,7 +7,8 @@ parameters:
 
 
     mailer_transport:  smtp
-    mailer_host:       127.0.0.1
+    mailer_host:       poczta.o2.pl
+    mailer_port:       465
     mailer_user:       ~
     mailer_password:   ~
 

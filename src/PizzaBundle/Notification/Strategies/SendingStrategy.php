@@ -9,8 +9,8 @@ interface SendingStrategy
 {
     /**
      * @param Application $application
-     * @param Order $order
+     * @param array $order
      * @return mixed
      */
-    public function send(Application $application, Order $order);
+    public function send(Application $application, $order);
 }
