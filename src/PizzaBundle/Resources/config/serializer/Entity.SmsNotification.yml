@@ -1,0 +1,15 @@
+PizzaBundle\Entity\SmsNotification:
+  exclusion_policy: ALL
+  properties:
+    id:
+      expose: true
+      groups: [SmsNotification, Details]
+    name:
+      expose: true
+      groups: [SmsNotification, Details]
+    number:
+      expose: true
+      groups: [SmsNotification, Details]
+    active:
+      expose: true
+      groups: [SmsNotification, Details]

@@ -1,0 +1,41 @@
+PizzaBundle\Entity\SmsNotification:
+    type: entity
+    table: sms_notification
+    repositoryClass: PizzaBundle\Repository\SmsNotificationRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            column: name
+            type: string
+            nullable: false
+            length: 50
+            options:
+              fixed: false
+        number:
+            column: number
+            type: string
+            nullable: false
+            length: 50
+            options:
+              fixed: false
+        active:
+            column: active
+            type: boolean
+            options:
+                default: 0
+    manyToOne:
+        application:
+            targetEntity: Application
+            inversedBy: sms_notification
+            joinColumn:
+                    name: application_id
+                    referencedColumnName: id
+    lifecycleCallbacks: {  }

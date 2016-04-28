@@ -132,7 +132,7 @@ class CompleteOrderController extends  BaseApiController
 
         $arrayOrder = $this->orderToArray($order);
 
-        //Send Email notification
+        //Send notification: email | sms
         $strategy = $this->get('pizza.notification.strategy.factory')->get('email');
         $strategy->send($application, $arrayOrder);
 

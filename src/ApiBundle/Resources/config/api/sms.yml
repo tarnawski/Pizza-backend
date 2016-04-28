@@ -1,0 +1,24 @@
+api_sms_index:
+  path: sms.{_format}
+  defaults:  { _controller: ApiBundle:SmsNotification:index, _format: json }
+  methods: [GET]
+
+api_sms_show:
+  path: sms/{sms_id}.{_format}
+  defaults:  { _controller: ApiBundle:SmsNotification:show, _format: json }
+  methods: [GET]
+
+api_sms_create:
+  path: sms.{_format}
+  defaults:  { _controller: ApiBundle:SmsNotification:create, _format: json }
+  methods: [POST]
+
+api_sms_update:
+  path: sms/{sms_id}.{_format}
+  defaults:  { _controller: ApiBundle:SmsNotification:update, _format: json }
+  methods: [PUT]
+
+api_sms_delete:
+  path: sms/{sms_id}.{_format}
+  defaults:  { _controller: ApiBundle:SmsNotification:delete, _format: json }
+  methods: [DELETE]

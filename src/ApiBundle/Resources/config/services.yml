@@ -52,3 +52,9 @@ services:
     tags:
       - { name: security.voter }
     public: false
+
+  sms_notification_voter:
+    class: ApiBundle\Security\Authorization\Voter\SmsNotificationVoter
+    tags:
+      - { name: security.voter }
+    public: false

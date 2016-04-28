@@ -25,3 +25,6 @@ api_order:
 
 api_email:
   resource: "@ApiBundle/Resources/config/api/email.yml"
+
+api_sms:
+  resource: "@ApiBundle/Resources/config/api/sms.yml"
