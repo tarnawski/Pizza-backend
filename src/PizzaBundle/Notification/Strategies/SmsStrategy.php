@@ -67,4 +67,14 @@ class SmsStrategy implements SendingStrategy
 
         return $content;
     }
+
+    private function replaceSpecialChars($string)
+    {
+        return strtr($string, 'ĘÓĄŚŁŻŹĆŃęóąśłżźćń', 'EOASLZZCNeoaslzzcn');
+    }
+
+    private function maxString($string, $max)
+    {
+        return substr($string, 0, $max);
+    }
 }
