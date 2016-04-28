@@ -46,3 +46,9 @@ services:
     tags:
       - { name: security.voter }
     public: false
+
+  email_notification_voter:
+    class: ApiBundle\Security\Authorization\Voter\EmailNotificationVoter
+    tags:
+      - { name: security.voter }
+    public: false

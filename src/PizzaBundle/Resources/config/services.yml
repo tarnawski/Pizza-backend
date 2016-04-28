@@ -42,3 +42,21 @@ services:
     class: PizzaBundle\Model\PromoCodeBusiness
     arguments:
       entityManager: "@doctrine.orm.entity_manager"
+
+  pizza.email_notification.repository:
+     class: Doctrine\ORM\EntityRepository
+     factory: [@doctrine.orm.entity_manager, getRepository]
+     arguments:
+       - PizzaBundle\Entity\EmailNotification
+
+  pizza.email_notification.strategy:
+    class: PizzaBundle\Notification\Strategies\EmailStrategy
+    arguments:
+      emailNotificationRepository: "@pizza.email_notification.repository"
+      twig: "@twig"
+      mailer: "@mailer"
+
+  pizza.notification.strategy.factory:
+    class: PizzaBundle\Notification\StrategiesFactory
+    arguments:
+      emailStrategy: "@pizza.email_notification.strategy"

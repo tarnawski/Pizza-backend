@@ -66,6 +66,11 @@ class Application
      */
     private $orders;
 
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    private $emailNotifications;
+
     public function __construct()
     {
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
@@ -74,6 +79,7 @@ class Application
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
         $this->types = new \Doctrine\Common\Collections\ArrayCollection();
         $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->emailNotifications = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -335,6 +341,35 @@ class Application
      */
     public function removeOrder(Order $order)
     {
-        $this->types->remove($order);
+        $this->orders->remove($order);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getEmailNotifications()
+    {
+        return $this->emailNotifications;
+    }
+
+    /**
+     * @param EmailNotification $emailNotification
+     * @return $this
+     */
+    public function addEmailNotifications(EmailNotification $emailNotification)
+    {
+        if (!$this->emailNotifications->contains($emailNotification)) {
+            $emailNotification->setApplication($this);
+            $this->emailNotifications[] = $emailNotification;
+        }
+        return $this;
+    }
+
+    /**
+     * @param EmailNotification $emailNotification
+     */
+    public function removeEmailNotification(EmailNotification $emailNotification)
+    {
+        $this->emailNotifications->remove($emailNotification);
     }
 }

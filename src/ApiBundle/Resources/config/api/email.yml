@@ -1,0 +1,24 @@
+api_email_index:
+  path: emails.{_format}
+  defaults:  { _controller: ApiBundle:EmailNotification:index, _format: json }
+  methods: [GET]
+
+api_email_show:
+  path: emails/{email_id}.{_format}
+  defaults:  { _controller: ApiBundle:EmailNotification:show, _format: json }
+  methods: [GET]
+
+api_email_create:
+  path: emails.{_format}
+  defaults:  { _controller: ApiBundle:EmailNotification:create, _format: json }
+  methods: [POST]
+
+api_email_update:
+  path: emails/{email_id}.{_format}
+  defaults:  { _controller: ApiBundle:EmailNotification:update, _format: json }
+  methods: [PUT]
+
+api_email_delete:
+  path: emails/{email_id}.{_format}
+  defaults:  { _controller: ApiBundle:EmailNotification:delete, _format: json }
+  methods: [DELETE]
