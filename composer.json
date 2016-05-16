@@ -25,6 +25,7 @@
     "sensio/framework-extra-bundle": "^3.0.2",
     "incenteev/composer-parameter-handler": "~2.0",
     "doctrine/doctrine-fixtures-bundle": "^2.3",
+    "doctrine/doctrine-migrations-bundle": "1.1.*",
     "willdurand/hateoas-bundle": "@stable",
     "fzaninotto/faker": "^1.5",
     "friendsofsymfony/rest-bundle": "1.7.*",

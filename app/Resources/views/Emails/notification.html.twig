@@ -1,0 +1,37 @@
+<h1>Nowe zamówienie ({{ date|date("Y-m-d H:i:s") }})</h1>
+
+<fieldset>
+    <legend><h2>Dane klienta:</h2></legend>
+    {{ customerFirstName }} <br>
+    {{ customerLastName }} <br>
+    {{ customerEmail }} <br>
+    {{ customerPhone }} <br>
+    {{ customerAddress }} <br>
+    {{ description }} <br>
+</fieldset>
+<fieldset>
+    <legend><h2>Zamówienie:</h2></legend>
+    {% for item in items %}
+        <b>{{ item.productName }} </b><br>
+        {{ item.productDescription }}<br>
+        {{ item.productType }}<br>
+        {{ item.productPrice }}<br><br>
+    {% endfor %}
+</fieldset>
+
+{% if promoCode is defined %}
+    <fieldset>
+        <legend><h2>Kod promocyjny:</h2></legend>
+        {{ promoCode }} <br>
+        {% if promoCodeType == 'overall' %}
+            Całościowy <br>
+            {{ promoCodeValue }}zł <br>
+        {% else %}
+            Procentowy <br>
+            {{ promoCodeValue }}% <br>
+        {% endif %}
+    </fieldset>
+{% endif %}
+<fieldset>
+<h1>Wartość zamówienia: {{ totalPrice }}zł</h1>
+</fieldset>

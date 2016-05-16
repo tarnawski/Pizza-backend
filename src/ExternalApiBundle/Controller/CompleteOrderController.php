@@ -130,6 +130,52 @@ class CompleteOrderController extends  BaseApiController
         $em->persist($order);
         $em->flush();
 
+        $arrayOrder = $this->orderToArray($order);
+
+        //Send notification: email | sms
+        $strategy = $this->get('pizza.notification.strategy.factory')->get('email');
+        $strategy->send($application, $arrayOrder);
+
         return JsonResponse::create(array('status' => 'Success', 'message' => 'Order saved'));
+    }
+
+    /**
+     * @param Order $order
+     * @return array
+     */
+    private function orderToArray(Order $order)
+    {
+        $arrayOrder = [
+            "totalPrice" => $order->getTotalPrice(),
+            'date' => $order->getCreateDate(),
+            'customerFirstName' => $order->getCustomerFirstName(),
+            'customerLastName' => $order->getCustomerLastName(),
+            'customerEmail' => $order->getCustomerEmail(),
+            'customerPhone' => $order->getCustomerPhone(),
+            'customerAddress' => $order->getCustomerAddress(),
+            'description' => $order->getDescription(),
+        ];
+        if($order->getPromoCode() != null){
+            $promoCode =[
+                'promoCode' => $order->getPromoCode(),
+                'promoCodeType' => $order->getPromoCodeType(),
+                'promoCodeValue' => $order->getpromoCodeValue()
+            ];
+            $arrayOrder = array_merge($arrayOrder, $promoCode);
+        }
+
+        $arrayItem = [];
+        /** @var Item $item */
+        foreach($order->getItems() as $item){
+          $arrayItem[] = [
+              'productName' => $item->getProductName(),
+              'productDescription' => $item->getProductDescription(),
+              'productType' => $item->getProductType(),
+              'productPrice' => $item->getProductPrice()
+          ];
+        }
+        $arrayOrder = array_merge($arrayOrder, ['items' => $arrayItem]);
+
+        return $arrayOrder;
     }
 }

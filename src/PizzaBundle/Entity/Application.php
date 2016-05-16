@@ -66,6 +66,16 @@ class Application
      */
     private $orders;
 
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    private $emailNotifications;
+
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    private $smsNotifications;
+
     public function __construct()
     {
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
@@ -74,6 +84,9 @@ class Application
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
         $this->types = new \Doctrine\Common\Collections\ArrayCollection();
         $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->emailNotifications = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->smsNotifications = new \Doctrine\Common\Collections\ArrayCollection();
+
     }
 
     /**
@@ -335,6 +348,64 @@ class Application
      */
     public function removeOrder(Order $order)
     {
-        $this->types->remove($order);
+        $this->orders->remove($order);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getEmailNotifications()
+    {
+        return $this->emailNotifications;
+    }
+
+    /**
+     * @param EmailNotification $emailNotification
+     * @return $this
+     */
+    public function addEmailNotifications(EmailNotification $emailNotification)
+    {
+        if (!$this->emailNotifications->contains($emailNotification)) {
+            $emailNotification->setApplication($this);
+            $this->emailNotifications[] = $emailNotification;
+        }
+        return $this;
+    }
+
+    /**
+     * @param EmailNotification $emailNotification
+     */
+    public function removeEmailNotification(EmailNotification $emailNotification)
+    {
+        $this->emailNotifications->remove($emailNotification);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getSmsNotifications()
+    {
+        return $this->smsNotifications;
+    }
+
+    /**
+     * @param SmsNotification $smsNotification
+     * @return $this
+     */
+    public function addSmsNotifications(SmsNotification $smsNotification)
+    {
+        if (!$this->smsNotifications->contains($smsNotification)) {
+            $smsNotification->setApplication($this);
+            $this->smsNotifications[] = $smsNotification;
+        }
+        return $this;
+    }
+
+    /**
+     * @param SmsNotification $smsNotification
+     */
+    public function removeSmsNotification(SmsNotification $smsNotification)
+    {
+        $this->smsNotifications->remove($smsNotification);
     }
 }
