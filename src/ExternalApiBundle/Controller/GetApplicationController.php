@@ -7,6 +7,7 @@ use ExternalApiBundle\Form\Type\CompleteOrderType;
 use Hateoas\Representation\Factory\PagerfantaFactory;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
+use PizzaBundle\Repository\ApplicationRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,6 +49,11 @@ class GetApplicationController extends  BaseApiController
             return JsonResponse::create(array('status' => 'Demo', 'message' => 'The application has been blocked.'));
         }
 
-        return $this->success($application, 'application', Response::HTTP_OK, array('Default', 'External'));
+        /** @var ApplicationRepository $applicationRepository */
+        $applicationRepository = $this->getRepository(Application::class);
+        /** @var Application $result */
+        $result = $applicationRepository->getApplicationWithActiveProducts($application);
+
+        return $this->success($result, 'application', Response::HTTP_OK, array('Default', 'External'));
     }
 }
